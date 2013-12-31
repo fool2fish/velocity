@@ -1,4 +1,3 @@
-vm
-==
+# vmx
 
 Some vm tools.
