@@ -36,7 +36,7 @@ $ vmx variable
 $ vmx dir variable
 ```
 
-#### 模板转换
+#### 翻译模板
 
 ```
 # 转换指定文件到 targetdir
