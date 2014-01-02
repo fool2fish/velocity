@@ -1,0 +1,3 @@
+this is index.vm
+#parse("/a.vm")
+#parse("/b.vm")
