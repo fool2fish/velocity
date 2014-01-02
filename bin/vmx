@@ -6,9 +6,9 @@ var commander = require('commander');
 var colorful = require('colorful');
 
 var pkg = require('../package');
-
-var logger = require('../lib/logger');
 var vmx = require('../index')
+
+var cwd = process.cwd();
 
 
 commander
@@ -17,9 +17,9 @@ commander
   .option('-r, --recursive', 'do recursively')
   .option('-R, --reverse', 'view all files include specified file')
   .option('-d, --debug', 'show debug message')
-  .option('-D, --directives [s]', 'directives relate to file including', parseDerectives)
+  .option('-D, --directives <s>', 'directives relate to file including', handleDerectives)
   .option('-t, --to [s]', 'path to save the translated files')
-  .option('-T, --template [s]', 'be used with "-t", specifies target template language')
+  .option('-T, --template <s>', 'be used with "-t", specifies target template language')
   .on('version', function() {
     console.log('\n  ' + colorful.cyan(pkg.version) + '\n');
     process.exit(0);
@@ -28,21 +28,30 @@ commander
 commander.parse(process.argv);
 
 
-var options = {};
+var conf = {
+  dir: cwd
+};
 
 ['recursive', 'reverse', 'directives', 'to', 'template'].forEach(function(item, idx, list) {
-  if (commander[item]) options[item] = commander[item];
+  if (commander[item]) {
+    conf[item] = commander[item];
+    if (item === 'to' && typeof commander[item] === 'boolean') {
+      conf[item] = cwd;
+    }
+  }
 });
 
 commander.args.forEach(function(item, idx, list) {
   if (path.extname(item) === '.vm') {
-    options.file = item;
+    conf.file = item;
+  } else if (item.indexOf('/') > -1) {
+    conf.dir = item;
   } else {
-    options.variable = item;
+    conf.variable = item;
   }
 });
 
-logger.debug(options);
+vmx(conf);
 
 
 function helpInfo() {
@@ -51,7 +60,7 @@ function helpInfo() {
     colorful.cyan('  ' + this.description()),
     '',
     colorful.green('  Usage:'),
-    '    ' + this._name + ' [file.vm] [variable] ' + this.usage(),
+    '    ' + this._name + ' [file.vm] [dir] [variable] ' + this.usage(),
     '',
     colorful.green('  Options:'),
     '' + this.optionHelp().replace(/^/gm, '    '),
@@ -64,17 +73,13 @@ function helpInfo() {
 }
 
 
-function parseDerectives(raw) {
-  if (raw) {
-    var rt = {}
-    raw.split(',').forEach(function(item, idx, list) {
-      var temp = item.split(':');
-      rt[temp[0]] = temp[1];
-    });
-    return rt;
-  } else {
-    return;
-  }
+function handleDerectives(raw) {
+  var rt = {}
+  raw.split(',').forEach(function(item, idx, list) {
+    var temp = item.split(':');
+    rt[temp[0]] = temp[1];
+  });
+  return rt;
 }
 
 
