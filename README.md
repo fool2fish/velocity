@@ -48,11 +48,9 @@ $ vmx variable
 $ vmx file.vm -t targetdir
 
 # 递归转换指定文件
-
 $ vmx file.vm -t targetdir -r
 
 # 转换指定目录
-
 $ vmx dir -t targetdir
 
 # 转换当前目录
