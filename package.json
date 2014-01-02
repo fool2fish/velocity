@@ -1,22 +1,23 @@
 {
-    "name": "vmx",
-    "version": "0.0.1",
-    "description": "Some vm tools.",
-    "homepage": "https://github.com/fool2fish/vmx",
-    "keywords": [
-        "vmx"
-    ],
-    "author": "fool2fish <fool2fish@gmail.com>",
-    "dependencies": {
-        "commander": "1.2.0",
-        "colorful": "2.1.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:fool2fish/vmx.git"
-    },
-    "bin": {
-        "vmx": "./bin/vmx"
-    },
-    "preferGlobal": true
+  "name": "vmx",
+  "version": "0.0.1",
+  "description": "Some vm tools.",
+  "homepage": "https://github.com/fool2fish/vmx",
+  "keywords": [
+    "vmx"
+  ],
+  "author": "fool2fish <fool2fish@gmail.com>",
+  "dependencies": {
+    "commander": "1.2.0",
+    "colorful": "2.1.0",
+    "tracer": "0.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:fool2fish/vmx.git"
+  },
+  "bin": {
+    "vmx": "./bin/vmx"
+  },
+  "preferGlobal": true
 }
