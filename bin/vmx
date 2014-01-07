@@ -20,6 +20,7 @@ commander
   .option('-D, --directives <s>', 'directives relate to file including', handleDerectives)
   .option('-t, --to [s]', 'path to save the translated files [cwd]')
   .option('-T, --template <s>', 'be used with "-t", specifies target template language')
+  .option('-e, --encoding <s>', 'encoding')
   .on('version', function() {
     console.log('\n  ' + colorful.cyan(pkg.version) + '\n');
     process.exit(0);
