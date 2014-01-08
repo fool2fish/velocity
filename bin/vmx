@@ -49,7 +49,7 @@ commander.args.forEach(function(item) {
   } else if (/^[a-zA-z][0-9z-zA-Z-_]*$/.test(item)) {
     conf.variable = item;
   } else {
-    logger.warn('Illegal option:', item);
+    logger.warn('Not recognized option<', item, '>.');
   }
 });
 
