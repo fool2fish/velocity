@@ -29,7 +29,7 @@ $ vmx file.vm variable
 # 递归查看指定文件
 $ vmx file.vm variable -r
 
-# 查看当前目录
+# 查看 --roots 下的文件
 $ vmx variable
 
 # 查看指定目录
