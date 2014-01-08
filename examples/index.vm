@@ -1,5 +1,10 @@
 this is index.vm
 
+$name
+$!name
+${name}
+
+#parse("/a.vm")
 #parse("/a.vm")
 #parse("/b.vm")
 #parse("/not-existed.vm")
