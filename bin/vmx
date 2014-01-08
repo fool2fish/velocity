@@ -17,7 +17,8 @@ commander
   .option('-r, --recursive', 'do recursively')
   .option('-R, --reverse', 'view all files include specified file')
   .option('-d, --debug', 'show debug message')
-  .option('-D, --directives <s>', 'directives relate to file including', handleDerectives)
+  .option('-D, --directives <s>', 'directives relate to file including', split)
+  .option('-o, --roots <s>', 'template roots', split)
   .option('-t, --to [s]', 'path to save the translated files [cwd]')
   .option('-T, --template <s>', 'be used with "-t", specifies target template language')
   .option('-e, --encoding <s>', 'encoding')
@@ -74,13 +75,8 @@ function helpInfo() {
 }
 
 
-function handleDerectives(raw) {
-  var rt = {}
-  raw.split(',').forEach(function(item, idx, list) {
-    var temp = item.split(':');
-    rt[temp[0]] = temp[1];
-  });
-  return rt;
+function split(raw) {
+  return raw.split(',');
 }
 
 
