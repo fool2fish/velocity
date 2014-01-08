@@ -7,6 +7,7 @@ var colorful = require('colorful');
 
 var pkg = require('../package');
 var vmx = require('../index')
+var logger = require('../lib/logger');
 
 var cwd = process.cwd();
 
@@ -19,7 +20,7 @@ commander
   .option('-d, --debug', 'show debug message')
   .option('-D, --directives <s>', 'directives relate to file including', split)
   .option('-o, --roots <s>', 'template roots', split)
-  .option('-t, --to [s]', 'path to save the translated files [cwd]')
+  .option('-t, --to <s>', 'path to save the translated files')
   .option('-T, --template <s>', 'be used with "-t", specifies target template language')
   .option('-e, --encoding <s>', 'encoding')
   .on('version', function() {
@@ -30,26 +31,25 @@ commander
 commander.parse(process.argv);
 
 
-var conf = {
-  dir: cwd
-};
+var conf = {};
 
-['recursive', 'reverse', 'directives', 'to', 'template'].forEach(function(item, idx, list) {
+['recursive', 'reverse', 'directives', 'to', 'template'].forEach(function(item) {
   if (commander[item]) {
     conf[item] = commander[item];
-    if (item === 'to' && typeof commander[item] === 'boolean') {
-      conf[item] = cwd;
-    }
   }
 });
 
-commander.args.forEach(function(item, idx, list) {
-  if (path.extname(item) === '.vm') {
-    conf.file = item;
-  } else if (item.indexOf('/') > -1) {
-    conf.dir = item;
-  } else {
+commander.args.forEach(function(item) {
+  if (fs.existsSync(item)) {
+    if (fs.statSync(item).isFile()) {
+      conf.file = item;
+    } else if (fs.statSync(item).isDirectory()) {
+      conf.dir = item;
+    } 
+  } else if (/^[a-zA-z][0-9z-zA-Z-_]*$/.test(item)) {
     conf.variable = item;
+  } else {
+    logger.warn('Illegal option:', item);
   }
 });
 
