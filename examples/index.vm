@@ -1,9 +1,5 @@
 this is index.vm
 
-$name
-$!name
-${name}
-
 $name2
 
 #parse("/a.vm")
