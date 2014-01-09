@@ -15,6 +15,7 @@ var cwd = process.cwd();
 commander
   .description(pkg.description)
   .option('-v, --version', 'output version number')
+  .option('-V, --verbose', 'output more detail')
   .option('-r, --recursive', 'do recursively')
   .option('-R, --reverse', 'view all files include specified file')
   .option('-d, --debug', 'show debug message')
@@ -33,7 +34,16 @@ commander.parse(process.argv);
 
 var conf = {};
 
-['recursive', 'reverse', 'directives', 'to', 'template'].forEach(function(item) {
+[
+ 'verbose',
+ 'recursive',
+ 'reverse',
+ 'directives',
+ 'roots',
+ 'to',
+ 'template',
+ 'encoding'
+].forEach(function(item) {
   if (commander[item]) {
     conf[item] = commander[item];
   }
