@@ -4,7 +4,11 @@ $name
 $!name
 ${name}
 
+$name2
+
 #parse("/a.vm")
 #parse("/a.vm")
 #parse("/b.vm")
 #parse("/not-existed.vm")
+
+$name2
