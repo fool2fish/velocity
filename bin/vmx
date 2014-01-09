@@ -46,7 +46,7 @@ commander.args.forEach(function(item) {
     } else if (fs.statSync(item).isDirectory()) {
       conf.dir = item;
     } 
-  } else if (/^[a-zA-z][0-9z-zA-Z-_]*$/.test(item)) {
+  } else if (/^[a-zA-Z][0-9a-zA-Z-_]*$/.test(item)) {
     conf.variable = item;
   } else {
     logger.warn('Not recognized option<', item, '>.');
