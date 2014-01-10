@@ -50,12 +50,8 @@ var conf = {};
 });
 
 commander.args.forEach(function(item) {
-  if (fs.existsSync(item)) {
-    if (fs.statSync(item).isFile()) {
-      conf.file = item;
-    } else if (fs.statSync(item).isDirectory()) {
-      conf.dir = item;
-    } 
+  if (fs.existsSync(item) && fs.statSync(item).isFile()) {
+    conf.file = item;
   } else if (/^[a-zA-Z][0-9a-zA-Z-_]*$/.test(item)) {
     conf.variable = item;
   } else {

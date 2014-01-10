@@ -31,9 +31,6 @@ $ vmx file.vm variable -r
 
 # 查看 --roots 中的目录
 $ vmx variable
-
-# 查看指定目录
-$ vmx dir variable
 ```
 
 #### 翻译模板
@@ -44,9 +41,6 @@ $ vmx file.vm -t targetdir
 
 # 递归转换指定文件
 $ vmx file.vm -t targetdir -r
-
-# 转换指定目录
-$ vmx dir -t targetdir
 
 # 转换指定模板语言
 $ vmx file.vm -t targetdir -T handbars
