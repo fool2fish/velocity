@@ -21,6 +21,7 @@ commander
   .option('-d, --debug', 'show debug message')
   .option('-D, --directives <s>', 'directives relate to file including', split)
   .option('-o, --roots <s>', 'template roots', split)
+  .option('-a, --all', 'view all variables')
   .option('-t, --to <s>', 'path to save the translated files')
   .option('-T, --template <s>', 'be used with "-t", specifies target template language')
   .option('-e, --encoding <s>', 'encoding')
