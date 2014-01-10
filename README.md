@@ -21,7 +21,7 @@ $ vmx file.vm -t targetdir -T handbars
 
 ```
 # 递归查看指定文件所有变量
-$ vmx file.vm -ra
+$ vmx file.vm _ -r
 
 # 查看指定文件
 $ vmx file.vm variable
