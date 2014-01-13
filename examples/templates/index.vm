@@ -1,0 +1,36 @@
+# References
+
+$name ${name}
+$!name $!{name}
+$nameOfYourPet
+
+$user.github
+${user.twitter}
+
+$user.getAddr()
+$user.setNickname("fool2fish")
+
+# Directives
+
+#set($monkey=$bill)
+
+#set($var = "$anotherVar")
+#set($var = '$notVar')
+
+# customer is not a variable
+# $foreach is also not a variable
+#foreach( $customer in $customerList )
+  <tr><td>$foreach.count</td><td>$customer.Name</td></tr>
+#end
+
+#define( $hello ) Hello $who #end
+
+#include("plain.txt")
+#include($path1 $path2)
+
+#parse("/a.vm")
+#parse("/b.vm")
+#parse($parsePath)
+#parse("/not-exists.vm")
+
+#cmsparse("/c.vm")

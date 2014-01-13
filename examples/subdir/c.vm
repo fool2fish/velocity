@@ -1,4 +1,0 @@
-this is c.vm
-
-
-#parse("/subdir/d.vm")

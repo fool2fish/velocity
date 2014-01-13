@@ -1,6 +1,0 @@
-this is a.vm
-
-#parse("/subdir/c.vm")
-#parse("/subdir/d.vm")
-
-$!{name}
