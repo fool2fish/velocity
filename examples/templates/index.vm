@@ -25,12 +25,11 @@ $user.setNickname("fool2fish")
 
 #define( $hello ) Hello $who #end
 
-#include("plain.txt")
-#include($path1 $path2)
+#include("not-exists.txt")
+#include($includePath1 $includePath2)
 
 #parse("/a.vm")
 #parse("/b.vm")
 #parse($parsePath)
-#parse("/not-exists.vm")
 
 #cmsparse("/c.vm")
