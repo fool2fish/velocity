@@ -29,6 +29,7 @@ $user.getAddr()
 ]]#
 
 #parse("/a.vm")
+#parse("/a.vm")
 #parse("/b.vm")
 #parse('$pathInSingleQuotes')
 #parse("$pathInDoubleQuotes")
