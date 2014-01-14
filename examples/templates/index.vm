@@ -1,35 +1,33 @@
-# References
+## References
 
-$name ${name}
-$!name $!{name}
-$nameOfYourPet
+$user  ${user}
+$userNotActive
 
 $user.github
 ${user.twitter}
 
 $user.getAddr()
-$user.setNickname("fool2fish")
 
-# Directives
+## Directives
 
-#set($monkey=$bill)
+#set($monkey = "$anotherMonkey")
+#set($monkey.name = '$notVariable')
+#set($monkey.numbers = [1..3])
 
-#set($var = "$anotherVar")
-#set($var = '$notVar')
-
-# customer is not a variable
-# $foreach is also not a variable
-#foreach( $customer in $customerList )
-  <tr><td>$foreach.count</td><td>$customer.Name</td></tr>
+#foreach($customer in $customerList)
+  $foreach.count : $customer.Name
 #end
 
-#define( $hello ) Hello $who #end
+#include("not-exists.txt" $includePath)
 
-#include("not-exists.txt")
-#include($includePath1 $includePath2)
+## #parse("singleLineComment.vm")
+#*
+  #parse("multipleLineComment.vm")
+*#
 
 #parse("/a.vm")
 #parse("/b.vm")
-#parse($parsePath)
+#parse('$parsePath')
+#parse("$parsePath")
 
 #cmsparse("/c.vm")
