@@ -18,16 +18,20 @@ $user.getAddr()
   $foreach.count : $customer.Name
 #end
 
-#include("not-exists.txt" $includePath)
+#include("not-exists.txt"  $includePath)
 
-## #parse("singleLineComment.vm")
+## #parse("pathInSingleLineComment.vm")
 #*
-  #parse("multipleLineComment.vm")
+  #parse("pathInMultipleLineComment.vm")
 *#
+#[[
+  #parse("pathInUnparsedBlock.vm")
+]]#
 
 #parse("/a.vm")
 #parse("/b.vm")
-#parse('$parsePath')
-#parse("$parsePath")
+#parse('$pathInSingleQuotes')
+#parse("$pathInDoubleQuotes")
+
 
 #cmsparse("/c.vm")
