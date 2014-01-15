@@ -7,6 +7,7 @@ var colorful = require('colorful');
 
 var pkg = require('../package');
 var vmx = require('../index')
+var util = require('../lib/util');
 var logger = require('../lib/logger');
 
 var cwd = process.cwd();
@@ -32,34 +33,50 @@ commander
 commander.parse(process.argv);
 
 
+var isConf;
 var conf = {};
 
-[
- 'verbose',
- 'recursive',
- 'reverse',
- 'directives',
- 'roots',
- 'to',
- 'template',
- 'encoding'
-].forEach(function(item) {
-  if (commander[item]) {
-    conf[item] = commander[item];
-  }
-});
-
 commander.args.forEach(function(item) {
-  if (fs.existsSync(item) && fs.statSync(item).isFile()) {
+  if (item === 'config') {
+    isConf = true;
+  } else if (util.isExistedFile(item) && path.extname(item) === '.vm') {
     conf.file = item;
   } else if (item === '_' || /^[a-zA-Z][0-9a-zA-Z-_]*$/.test(item)) {
     conf.variable = item;
   } else {
-    logger.warn('Not recognized option<', item, '>.');
+    logger.warn('Not recognized option <%s>.', item);
   }
 });
 
-vmx(conf);
+
+if (isConf) {
+  var editor = process.platform === 'win32' ? 'notepad' : 'vi';
+  var globalConfPath = path.join(util.getHome(), '.vmx');
+  var child = require('child_process').spawn(
+    editor,
+    [globalConfPath],
+    {stdio: 'inherit'}
+  );
+  child.on('exit', process.exit);
+  
+} else {
+  [
+   'verbose',
+   'recursive',
+   'reverse',
+   'directives',
+   'roots',
+   'to',
+   'template',
+   'encoding'
+  ].forEach(function(item) {
+    if (commander[item]) {
+      conf[item] = commander[item];
+    }
+  });
+  
+  vmx(conf);
+}
 
 
 function helpInfo() {
@@ -68,7 +85,8 @@ function helpInfo() {
     colorful.cyan('  ' + this.description()),
     '',
     colorful.green('  Usage:'),
-    '    ' + this._name + ' [file.vm] [dir] [variable] ' + this.usage(),
+    '    vmx config',
+    '    ' + this._name + ' [file.vm] [variable] ' + this.usage(),
     '',
     colorful.green('  Options:'),
     '' + this.optionHelp().replace(/^/gm, '    '),
