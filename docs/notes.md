@@ -1,8 +1,31 @@
 # 开发笔记
 
-### vmx 的假设前提
+## 依赖关系解析
+
+#### 不处理的情况
+
+- `#[[ unparsed content ]]#`
+- `#macro`
+  - 内联：仅可查找到定义中的依赖，也就是说如果依赖路径为变量，则无法获知被调用时到底传入的是哪个变量
+  - 全局：无法判定
+
+### 翻译难点
+
+- [velocity 功能扩展](http://velocity.apache.org/engine/devel/overview.html)
+  - 注入 context 的工具方法 （在新平台如何处理？）
+- $obj.Name 可匹配 obj.Name 和 obj.getName （obj.name 是否也自动匹配？）
+- 全局 #macro
+- 指向 uisvr 和 cms 的引用
+
+##### 注意事项
+
+- 使用版本
+- 配置项
+
+### 基本前提
 
 - 不检查任何语法错误，解析程序来保证。
+- 不支持设值：`$user.setAddr("new address")`
 
 ### vm
 
@@ -13,12 +36,8 @@
 - 定义新变量：#set, #define, #macro
 - 内置变量 #foreach 中的 $foreach
 - Unparsed Content: #\[\[...\]\]#
+- 不太用的指令(以收银台为例)
+  - 只有全局 #macro
+  - 没有使用的：#include, #stop, #evaluate, #define
+  - 只用了一次：#break
 
-### 开发注意事项
-
-- 使用版本
-- 配置项
-- [Extending Velocity's Capability](http://velocity.apache.org/engine/devel/overview.html)
- - 注入 context 的工具方法（这类方法是否会返回给前端平台的请求？可以在新模板中运行？模板自动转换可能需要先修改这部分的数据输出）
-- purchase.getTotal() 可能等同 purchase.Total（purchase.total 是否也会自动匹配 get 或 set 方法？）
-- uisvr 和 cmsparse 需要同时迁移
