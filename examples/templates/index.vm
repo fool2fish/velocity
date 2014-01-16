@@ -35,4 +35,4 @@ $user.getAddr()
 #parse("$pathInDoubleQuotes")
 
 
-#cmsparse("/c.vm")
+#cmsparse("/file-in-cms.vm")
