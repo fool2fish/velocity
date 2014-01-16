@@ -4,7 +4,11 @@
   "description": "A velocity template tool that can view dependencies, variables and translate it.",
   "homepage": "https://github.com/fool2fish/vmx",
   "keywords": [
-    "vmx"
+    "velocity template",
+    "velocity tool",
+    "view dependency",
+    "view variable",
+    "translate template"
   ],
   "author": "fool2fish <fool2fish@gmail.com>",
   "dependencies": {
