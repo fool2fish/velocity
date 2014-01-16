@@ -1,7 +1,7 @@
 {
   "name": "vmx",
   "version": "0.0.1",
-  "description": "A simple velocity template tool.",
+  "description": "A velocity template tool that can view dependencies, variables and translate it.",
   "homepage": "https://github.com/fool2fish/vmx",
   "keywords": [
     "vmx"
