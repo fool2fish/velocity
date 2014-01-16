@@ -44,7 +44,7 @@ commander.args.forEach(function(item) {
   } else if (item === '_' || /^[a-zA-Z][0-9a-zA-Z-_]*$/.test(item)) {
     conf.variable = item;
   } else {
-    logger.warn('Not recognized option <%s>.', item);
+    logger.error('Not recognized option <%s>.', item);
   }
 });
 
