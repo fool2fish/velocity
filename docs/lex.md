@@ -1,21 +1,28 @@
 # VM Tokens
 
 ```
-"plain" 'text' line
+"a" 'b' c
 
 
-$!{mud-Slinger_9}
+"a$!{mud-Slinger_9}b"
+<'CHAR', '"'>
+<'CHAR', 'a'>
 <'VARIABLE', 'mud-Slinger_9'>
-
+<'CHAR', 'b'>
+<'CHAR', '"'>
 
 ${purchase.Total}
 <'PROPERTY', 'purchase.Total'>
 
 
-$page.setTitle( "title: $mainTitle", $subTitle )
+$page.setTitle( "[$title}]", $subTitle )
 <'METHOD', 'page.setTitle'>
 <'('>
-<"DSTRING", 'title: $mainTitle'>
+<'"'>
+<'CHAR', '['>
+<'VARIABLE', 'title'>
+<'CHAR', ']'>
+<'"'>
 <','>
 <'VARIABLE', 'subTitle'>
 <')'>
