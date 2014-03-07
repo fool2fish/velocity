@@ -1,31 +1,47 @@
 # VM Tokens
 
 ```
-"a" 'b' c
+1. illegal directives?
+dose any string begin with # be treated as a directive?
+#a
+#1a
+#{}
+
+2. escape?
+\#{end}  string or directive?
+\${abc}  string or ref?
+```
+
+```
+"a"
+'b'
+c
+  ('CHAR', '"')
+  ('CHAR', 'a')
+  ('CHAR', '"')
+  ('CHAR', '\n')
+  ('CHAR', '\'')
+  ('CHAR', 'b')
+  ('CHAR', '\'')
+  ('CHAR', '\n')
+  ('CHAR', 'c')
 
 
-"a$!{mud-Slinger_9}b"
-<'CHAR', '"'>
-<'CHAR', 'a'>
-<'VARIABLE', 'mud-Slinger_9'>
-<'CHAR', 'b'>
-<'CHAR', '"'>
+$mud-Slinger_9
+$!mud-Slinger_9
+${mud-Slinger_9}
+$!{mud-Slinger_9}
 
+
+$purchase.Total
 ${purchase.Total}
-<'PROPERTY', 'purchase.Total'>
+
+$foo.bar[1].junk
+$foo.callMethod()[1]
+$foo["apple"][4]
 
 
 $page.setTitle( "[$title}]", $subTitle )
-<'METHOD', 'page.setTitle'>
-<'('>
-<'"'>
-<'CHAR', '['>
-<'VARIABLE', 'title'>
-<'CHAR', ']'>
-<'"'>
-<','>
-<'VARIABLE', 'subTitle'>
-<')'>
 
 
 #set( $monkey = $bill )
