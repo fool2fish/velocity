@@ -1,47 +1,60 @@
 # VM Tokens
 
-```
-1. illegal directives?
-dose any string begin with # be treated as a directive?
-#a
-#1a
-#{}
-
-2. escape?
-\#{end}  string or directive?
-\${abc}  string or ref?
-```
+#### Not identical with specification
 
 ```
-"a"
-'b'
-c
-  ('CHAR', '"')
-  ('CHAR', 'a')
-  ('CHAR', '"')
-  ('CHAR', '\n')
-  ('CHAR', '\'')
-  ('CHAR', 'b')
-  ('CHAR', '\'')
-  ('CHAR', '\n')
-  ('CHAR', 'c')
+source          expect ouput      actual output
+$\!name         $!name            $\!name
+```
+
+#### Some examples
+
+```
+\$name \#{set} "string" $ $1 $!1 $\!name ${1} $!{1} $\!{name} ## comment
+  ('CONTENT', '\$name \#{set} "string" $ $1 $!1 $\!name ${1} $!{1} $\!{name} ')
+  ('SCOMMENT', '## comment')
 
 
 $mud-Slinger_9
+  ('$') ('ID', 'mud-Slinger_9')
+
 $!mud-Slinger_9
+  ('$') ('!') ('ID', 'mud-Slinger_9')
+
 ${mud-Slinger_9}
+  ('$') ('{') ('ID', 'mud-Slinger_9') ('}')
+
 $!{mud-Slinger_9}
+  ('$') ('!') ('{') ('ID', 'mud-Slinger_9') ('}')
 
 
 $purchase.Total
+  ('$') ('ID', 'purchase') ('ATTR', '.Total')
+
 ${purchase.Total}
+  ('$') ('{') ('ID', 'purchase') ('ATTR', '.Total') ('}')
+
+
+$obj.method( $a + $b, $c, "dd${e}ff", 'g', [1..3])
+  ('$') ('ID', 'obj') ('ATTR', '.method')
+  ('(')
+    ('$') ('ID', 'a') ('+') ('$') ('ID', 'b')
+    (',') ('$') ('ID', 'c')
+    (',') ('"') ('CONTENT', 'aa') ('$') ('{') ('ID', 'e') ('}') ('CONTENT', 'ff')
+    (',') ('SSTR', "'g'")
+    (',') ('[') ('NUMBER', 1) ('..') ('NUMBER', 3) (']')
+  (')')
+
 
 $foo.bar[1].junk
-$foo.callMethod()[1]
+  ('$') ('ID', 'foo') ('ATTR', '.bar') ('[') ('NUMBER', 1) (']') ('ATTR', '.junk')
+
+$foo.bar()[1]
+  ('$') ('ID', 'foo') ('ATTR', '.bar') ('(') (')') ('[') ('NUMBER', 1) (']')
+
 $foo["apple"][4]
+  ('$') ('ID', 'foo') ('[') ('"') ('CONTENT', 'apple') ('"') (']') ('[') ('NUMBER', 4) (']')
 
-
-$page.setTitle( "[$title}]", $subTitle )
 
 
 #set( $monkey = $bill )
@@ -72,7 +85,7 @@ $page.setTitle( "[$title}]", $subTitle )
 #end
 </table>
 
-#include( "disclaimer.txt" "opinion.txt" )
+#include( "disclaimer.txt", "opinion.txt" )
 #include( $foo $bar )
 
 #parse( "lecorbusier.vm" )
