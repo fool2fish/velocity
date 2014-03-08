@@ -1,10 +1,16 @@
 # VM Tokens
 
-#### Not identical with specification
+#### Attention
 
 ```
-source          expect ouput      actual output
-$\!name         $!name            $\!name
+source: $\!name
+expect: $!name
+actual: $\!name
+
+key of map must be literal
+value of map must be literal or variable or property
+
+$obj.method($a + $b) ?
 ```
 
 #### Some examples
@@ -15,8 +21,8 @@ $\!name         $!name            $\!name
   ('SCOMMENT', '## comment')
 
 
-$mud-Slinger_9
-  ('$') ('ID', 'mud-Slinger_9')
+$mud-Slinger_9}
+  ('$') ('ID', 'mud-Slinger_9') ('CONTENT', '}')
 
 $!mud-Slinger_9
   ('$') ('!') ('ID', 'mud-Slinger_9')
@@ -35,14 +41,15 @@ ${purchase.Total}
   ('$') ('{') ('ID', 'purchase') ('ATTR', '.Total') ('}')
 
 
-$obj.method( $a + $b, $c, "dd${e}ff", 'g', [1..3])
+$obj.method( $a + $b, $c, "dd${e}ff", 'g', [1..3], {"key":"value"})
   ('$') ('ID', 'obj') ('ATTR', '.method')
   ('(')
     ('$') ('ID', 'a') ('+') ('$') ('ID', 'b')
     (',') ('$') ('ID', 'c')
     (',') ('"') ('CONTENT', 'aa') ('$') ('{') ('ID', 'e') ('}') ('CONTENT', 'ff')
-    (',') ('SSTR', "'g'")
+    (',') ('\'') ('CONTENT', 'g') ('\'')
     (',') ('[') ('NUMBER', 1) ('..') ('NUMBER', 3) (']')
+    (',') ('{')
   (')')
 
 
