@@ -19,6 +19,7 @@ key of map must be literal
 value of map must be literal or variable or property
 
 $obj.method($a + $b) ?
+no parentheses in arithmatic calculation?
 ```
 
 #### Some examples
@@ -49,26 +50,26 @@ ${purchase.Total}
   ('WID', '${purchase') ('ATTR', '.Total') ('}')
 
 
-$obj.method( $a + $b, $c, "dd${e}ff", 'g', [1..3], {"key":"value"})
+$obj.method( $a + $b, $c.method($d), "dd${e}ff", 'g', [1..3], {"key":"value"})
   ('ID', '$obj') ('ATTR', '.method')
   ('(')
     ('ID', '$a') ('+') ('ID', '$b')
-    (',') ('ID', '$c')
-    (',') ('"') ('CONTENT', 'aa') ('WID', '${e') ('}') ('CONTENT', 'ff')
-    (',') ('\'') ('CONTENT', 'g') ('\'')
+    (',') ('ID', '$c') ('ATTR', '.method') ('(') ('ID', '$d') (')')
+    (',') ('DSTRING', '"dd${e}ff"')
+    (',') ('SSTRING',"'g'")
     (',') ('[') ('NUMBER', 1) ('..') ('NUMBER', 3) (']')
     (',') ('{')
   (')')
 
 
 $foo.bar[1].junk
-  ('ID', '$foo') ('ATTR', '.bar') ('[') ('NUMBER', 1) (']') ('ATTR', '.junk')
+  ('ID', '$foo') ('ATTR', '.bar') ('[') ('INTEGER', 1) (']') ('ATTR', '.junk')
 
 $foo.bar()[1]
-  ('ID', '$foo') ('ATTR', '.bar') ('(') (')') ('[') ('NUMBER', 1) (']')
+  ('ID', '$foo') ('ATTR', '.bar') ('(') (')') ('[') ('INTEGER', 1) (']')
 
 $foo["apple"][4]
-  ('ID', '$foo') ('[') ('"') ('CONTENT', 'apple') ('"') (']') ('[') ('NUMBER', 4) (']')
+  ('ID', '$foo') ('[') ('DSTRING', '"apple"') (']') ('[') ('INTEGER', 4) (']')
 
 
 
