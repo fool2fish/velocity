@@ -7,6 +7,14 @@ source: $\!name
 expect: $!name
 actual: $\!name
 
+source: $method()
+expect: illegal
+actual: legal
+
+source: $!obj.method()
+expect: illegal
+actual: legal
+
 key of map must be literal
 value of map must be literal or variable or property
 
@@ -22,31 +30,31 @@ $obj.method($a + $b) ?
 
 
 $mud-Slinger_9}
-  ('$') ('ID', 'mud-Slinger_9') ('CONTENT', '}')
+  ('ID', '$mud-Slinger_9') ('CONTENT', '}')
 
 $!mud-Slinger_9
-  ('$') ('!') ('ID', 'mud-Slinger_9')
+  ('ID', '$!mud-Slinger_9')
 
 ${mud-Slinger_9}
-  ('$') ('{') ('ID', 'mud-Slinger_9') ('}')
+  ('WID', '${mud-Slinger_9') ('}')
 
 $!{mud-Slinger_9}
-  ('$') ('!') ('{') ('ID', 'mud-Slinger_9') ('}')
+  ('WID', '$!{mud-Slinger_9') ('}')
 
 
 $purchase.Total
-  ('$') ('ID', 'purchase') ('ATTR', '.Total')
+  ('ID', '$purchase') ('ATTR', '.Total')
 
 ${purchase.Total}
-  ('$') ('{') ('ID', 'purchase') ('ATTR', '.Total') ('}')
+  ('WID', '${purchase') ('ATTR', '.Total') ('}')
 
 
 $obj.method( $a + $b, $c, "dd${e}ff", 'g', [1..3], {"key":"value"})
-  ('$') ('ID', 'obj') ('ATTR', '.method')
+  ('ID', '$obj') ('ATTR', '.method')
   ('(')
-    ('$') ('ID', 'a') ('+') ('$') ('ID', 'b')
-    (',') ('$') ('ID', 'c')
-    (',') ('"') ('CONTENT', 'aa') ('$') ('{') ('ID', 'e') ('}') ('CONTENT', 'ff')
+    ('ID', '$a') ('+') ('ID', '$b')
+    (',') ('ID', '$c')
+    (',') ('"') ('CONTENT', 'aa') ('WID', '${e') ('}') ('CONTENT', 'ff')
     (',') ('\'') ('CONTENT', 'g') ('\'')
     (',') ('[') ('NUMBER', 1) ('..') ('NUMBER', 3) (']')
     (',') ('{')
@@ -54,13 +62,13 @@ $obj.method( $a + $b, $c, "dd${e}ff", 'g', [1..3], {"key":"value"})
 
 
 $foo.bar[1].junk
-  ('$') ('ID', 'foo') ('ATTR', '.bar') ('[') ('NUMBER', 1) (']') ('ATTR', '.junk')
+  ('ID', '$foo') ('ATTR', '.bar') ('[') ('NUMBER', 1) (']') ('ATTR', '.junk')
 
 $foo.bar()[1]
-  ('$') ('ID', 'foo') ('ATTR', '.bar') ('(') (')') ('[') ('NUMBER', 1) (']')
+  ('ID', '$foo') ('ATTR', '.bar') ('(') (')') ('[') ('NUMBER', 1) (']')
 
 $foo["apple"][4]
-  ('$') ('ID', 'foo') ('[') ('"') ('CONTENT', 'apple') ('"') (']') ('[') ('NUMBER', 4) (']')
+  ('ID', '$foo') ('[') ('"') ('CONTENT', 'apple') ('"') (']') ('[') ('NUMBER', 4) (']')
 
 
 
