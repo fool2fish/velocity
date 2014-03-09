@@ -2,65 +2,59 @@
  * Start conditions
  * r  - reference
  * wr - reference wrapped by braces
- * d  - dierctive
- * wd - directive wrapped by braces
  * b  - brackets
  * p  - parentheses
- * ds - literal wrapped by double quotes
- * ss - literal warpped by single quotes
+ * m  - map
  */
  
 %x 
 
-/*
- * Definitions
- */
 A   [a-zA-Z]
 ID  [a-zA-Z][a-zA-Z0-9-_]*
 
 %%
 
-(\\\$|\\#|[^\$#]|\$(?!{A}|\!{A}|\{{A}|\!\{{A})|#(?!{A}|\{{A}|@{A}|\{@{A}|#|\*|\[\[))+  { 
-                      yytext = yytext.replace(/\\(\$|#)/g, '$1');
-                      return 'CONTENT'; }
+(\\\$|\\#|[^\$#])+              {                         return 'CONTENT'; }
+
+##.*                            {                         return 'SCOMMENT'; }
+#\*[\s\S]*?\*#                  {                         return 'MCOMMENT'; }
+#\[\[[\s\S]*?\]\]#              {                         return 'UNPARSED_CONTENT'; }
 
 
-"##".*              { return 'SCOMMENT'; }
-"#*"[\s\S]*?"*#"    { return 'MCOMMENT'; }
-"#[["[\s\S]*?"]]#"  { return 'UNPARSED_CONTENT'; }
+\$!?{ID}                        { this.pushState('r');    return 'ID'; }
+\$!?{{ID}                       { this.pushState('wr');   return 'WID'; }
+
+<r,wr>\.{ID}                    {                         return 'ATTR'; }
+<r,wr>\[                        { this.pushState('b');    return yytext; }
+<b>\]                           { this.popSatate();       return yytext; }
+<r,wr>\(                        { this.pushState('p');    return yytext; }
+<p>\)                           { this.popSatate();       return yytext; }
+<r>[\s\S]                       { this.popState();        return 'CONTENT'; }
+<wr>}                           { this.popState();        return yytext; }
 
 
-"$"/{A}             { this.pushState('r');
-                      return yytext; }
-"$"/[!{]            { this.pushState('dollar');
-                      return yytext; }
-<dollar>"!"/{A}     { this.popState();
-                      this.pushState('r');
-                      return yytext; }
-<dollar>"!"/"{"     { this.popState();
-                      this.pushState('silent');
-                      return yytext; }
-<dollar,silent>"{"  { this.popState(); 
-                      this.pushState('wr');
-                      return yytext; }
+#({set}|set)\s*\(               { this.pushState('p');    return 'SET'; }
+#({if}|if)\s*\(                 { this.pushState('p');    return 'IF'; }
+#({elseif}|elseif)\s*\(         { this.pushState('p');    return 'ELSEIF'; }
+#({else}|else(?!{A}))           {                         return 'ELSE'; }
+#({end}|end(?!{A}))             {                         return 'END'; }
+#({foreach}|foreach)\s*\(       { this.pushState('p');    return 'FOREACH';}
+#({include}|include)\s*\(       { this.pushState('p');    return 'INCLUDE'; }
+#({parse}|parse)\s*\(           { this.pushState('p');    return 'PARSE'; }
+#({stop}|stop(?!{A}))           {                         return 'STOP'; }
+#({break}|break(?!{A}))         {                         return 'BREAK'; }
+#({evaluate}|evaluate)\s*\(     { this.pushState('p');    return 'EVALUATE'; }
+#({define}|define)\s*\(         { this.pushState('p');    return 'DEFINE'; }
+#({macro}|macro)\s*\(           { this.pushState('p');    return 'MACRO'; }
+#({{A}+}|{A}+)\s*\(             { this.pushState('p');    return 'MACROCALL'; }
+#@({{A}+}|{A}+)\s*\(            { this.pushState('p');    return 'WMACROCALL'; }
 
-<r,wr>{ID}          { return 'ID'; }
-<r,wr>\.{ID}        { return 'ATTR'; }
-<r,wr>"["           { this.pushState('b');
-                      return yytext; }
-<r,wr>"("           { this.pushState('p');
-                      return yytext; }
-<r>[\s\S]           { this.popState();
-                      return 'CONTENT'; }
-<wr>"}"             { this.popState();
-                      return '}'; }
+<b,p>{                          { this.pushState('m');    return yytext; }
+<m>}                            { this.popState();        return yytext; }
 
 
-
-
-"#"                 { this.pushState('d);
-                      return yytext; }
-
+[\$#]                           {                         return 'CONTENT'; }
+<<EOF>>                         {                         return 'EOF'; }
 %%
 
 
