@@ -17,7 +17,7 @@ DP  [ \t]*\(
 
 ("\$"|"\#"|[^\$\#])+                {                        return 'CONTENT'; }
 "##".*                              {                        return 'SCOMMENT'; }
-"#*"[\s\S]*?"*#"                    {                        return 'MCOMMENT'; }
+"#*"[\s\S]*?"*#"                    {                        return 'BCOMMENT'; }
 "#[["[\s\S]*?"]]#"                  {                        return 'UNPARSED_CONTENT'; }
 
 <INITIAL,m,b,p>\$\!?{ID}            { this.pushState('r');   return 'ID'; }
