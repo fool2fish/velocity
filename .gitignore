@@ -5,4 +5,5 @@ node_modules/
 *.swp
 logs/
 lib-cov/
+lib/parse/test.vm
 
