@@ -81,6 +81,7 @@ LP  (?=[ \t]*\()
 <bp>"("                             { this.popState();
                                       this.pushState('p');   return yytext; }
 
+
 [\$\#]                              {                        return 'CONTENT'; }
 
 
