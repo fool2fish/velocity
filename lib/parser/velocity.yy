@@ -1,3 +1,7 @@
+{
+
+}
+
 %right '='
 %left  '||'
 %left  '&&'
@@ -31,38 +35,39 @@ statement
   ;
 
 reference
-  : ref                    { $$ = $1; }
-  | wref '}'               { $$ = $1; }
+  : '$' '!' ID
+  | '$' '!' '{' ID '}'
+  | '$' ref
+  | '$' '{' ref '}'
   ;
 
 ref
-  : ID                     { $$ = {type: 'Identifier', name: $1.replace(/^\$!?/, '')}; }
-  | ref refConsequent
-  ;
-
-wref
-  : WID                    { $$ = {type: 'Identifier', name: $1.replace(/^\$!?{/, '')}; }
-  | wref refConsequent
-  ;
-
-refConsequent
-  : ATTR                   { $$ = {type: 'Identifier', name: $1.replace(/^\./, '')}; }
-  | index                  { $$ = $1; }
-  | call                   { $$ = $1; }
+  : ID
+  | ref '.' ID
+  | ref index
+  | call
   ;
 
 
+range
+  : '[' rangeItem '..' rangeItem ']'
+  
+
+map
+  : '{' mapItems '}'
+  | '{' '}'
+  ;
+
+mapItems
+  : mapItem
+  | mapItems ',' mapItem
+  ;
 
 
-
-
-
-
-
-
-
-
-
+string
+  : DSTRING
+  | SSTRING
+  ;
 
 
 
