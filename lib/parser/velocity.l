@@ -17,10 +17,10 @@ LP  (?=[ \t]*\()
 
 %%
 
-("\$"|"\#"|[^\$\#])+                {                        return 'CONTENT'; }
-"##".*                              {                        return 'SCOMMENT'; }
+("\$"|"\#"|[^\$\#])+                {                        return 'TEXT'; }
+"#[["[\s\S]*?"]]#"                  {                        return 'BTEXT'; }
+"##".*                              {                        return 'COMMENT'; }
 "#*"[\s\S]*?"*#"                    {                        return 'BCOMMENT'; }
-"#[["[\s\S]*?"]]#"                  {                        return 'UNPARSED_CONTENT'; }
 
 
 <INITIAL,m,b,p>\$(?=\!?\{?{ID})     { this.pushState('rp');  return yytext; }
@@ -58,7 +58,7 @@ LP  (?=[ \t]*\()
 <m,b,p>\d+                          {                        return 'INTEGER'; }
 
 <m,b,p>\"(\\\"|[^\"])*\"            {                        return 'DSTRING'; }
-<m,b,p>\'(\\\'|[^\'])*\'            {                        return 'SSTRING'; }
+<m,b,p>\'(\\\'|[^\'])*\'            {                        return 'STRING'; }
 
 
 "#"("{set}"|"set"){LP}              { this.pushState('bp');  return 'SET'; }
@@ -82,7 +82,7 @@ LP  (?=[ \t]*\()
                                       this.pushState('p');   return yytext; }
 
 
-[\$\#]                              {                        return 'CONTENT'; }
+[\$\#]                              {                        return 'TEXT'; }
 
 
 

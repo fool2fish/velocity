@@ -21,10 +21,10 @@ statements
   ;
 
 statement
-  : CONTENT  {$$ = ['CONTENT', $1]}
-  | SCOMMENT  {$$ = ['SCOMMENT', $1]}
-  | MCOMMENT  {$$ = ['MCOMMENT', $1]}
-  | UNPARSED_CONTENT  {$$ = ['UNPARSED_CONTENT', $1]}
+  : TEXT  {$$ = ['TEXT', $1]}
+  | BTEXT  {$$ = ['BTEXT', $1]}
+  | COMMENT  {$$ = ['COMMENT', $1]}
+  | BCOMMENT  {$$ = ['BCOMMENT', $1]}
   | ID  {$$ = ['ID', $1]}
   | '$'  {$$ = $1}
   | '.'  {$$ = $1}
@@ -60,7 +60,7 @@ statement
   | FLOAT  {$$ = ['FLOAT', $1]}
   | INTEGER  {$$ = ['INTEGER', $1]}
   | DSTRING  {$$ = ['DSTRING', $1]}
-  | SSTRING  {$$ = ['SSTRING', $1]}
+  | STRING  {$$ = ['STRING', $1]}
   | SET  {$$ = ['SET', $1]}
   | IF  {$$ = ['IF', $1]}
   | ELSEIF  {$$ = ['ELSEIF', $1]}
