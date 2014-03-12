@@ -1,17 +1,19 @@
 /*
  * Start conditions
+ * rp - reference prefix
+ * rw - reference wrapper
  * r  - reference
- * wr - reference wrapped by braces
  * b  - brackets
+ * bp - before left parenthesis
  * p  - parentheses
  * m  - map
  */
  
-%x  r wr b p m
+%x  rp rw r b bp p m
 
 A   [a-zA-Z]
 ID  [a-zA-Z][a-zA-Z0-9-_]*
-DP  [ \t]*\(
+LP  (?=[ \t]*\()
 
 %%
 
@@ -20,40 +22,30 @@ DP  [ \t]*\(
 "#*"[\s\S]*?"*#"                    {                        return 'BCOMMENT'; }
 "#[["[\s\S]*?"]]#"                  {                        return 'UNPARSED_CONTENT'; }
 
-<INITIAL,m,b,p>\$\!?{ID}            { this.pushState('r');   return 'ID'; }
-<INITIAL,m,b,p>\$\!?\{{ID}          { this.pushState('wr');  return 'WID'; }
 
-<r>\.{ID}(?!\.{A}|\[|\()            { this.popState();       return 'ATTR'; }
-<r,wr>\.{ID}                        {                        return 'ATTR'; }
-<r,wr>"["                           { this.pushState('b');   return yytext; }
+<INITIAL,m,b,p>\$(?=\!?\{?{ID})     { this.pushState('rp');  return yytext; }
+<rp>"!"                             {                        return yytext; }
+<rp>"{"                             { this.popState();
+                                      this.pushState('rw');  return yytext; }
+<rp>{ID}                            { this.popState();
+                                      this.pushState('r');   return 'ID'; }
+<rw>{ID}                            { this.pushState('r');   return 'ID'; }
+
+<r>"."                              {                        return yytext; }
+<r>{ID}                             {                        return 'ID'; }
+<r,m,b,p>"["                        { this.pushState('b');   return yytext; }
 <b>"]"                              { this.popState();       return yytext; }
-<r,wr>"("                           { this.pushState('p');   return yytext; }
+<r,m,b,p>"("                        { this.pushState('p');   return yytext; }
 <p>")"                              { this.popState();       return yytext; }
-<b,p>"{"                            { this.pushState('m');   return yytext; }
-<wr,m>"}"                           { this.popState();       return yytext; }
+<m,b,p>"{"                          { this.pushState('m');   return yytext; }
+<rw,m>"}"                           { this.popState();       return yytext; }
 <r>""                               { this.popState(); }
-
-"#"("{set}"|"set"){DP}              { this.pushState('p');   return 'SET'; }
-"#"("{if}"|"if"){DP}                { this.pushState('p');   return 'IF'; }
-"#"("{elseif}"|"elseif"){DP}        { this.pushState('p');   return 'ELSEIF'; }
-"#"("{else}"|"else"(?!{A}))         {                        return 'ELSE'; }
-"#"("{end}"|"end"(?!{A}))           {                        return 'END'; }
-"#"("{foreach}"|"foreach"){DP}      { this.pushState('p');   return 'FOREACH';}
-"#"("{include}"|"include"){DP}      { this.pushState('p');   return 'INCLUDE'; }
-"#"("{parse}"|"parse"){DP}          { this.pushState('p');   return 'PARSE'; }
-"#"("{stop}"|"stop"(?!{A}))         {                        return 'STOP'; }
-"#"("{break}"|"break"(?!{A}))       {                        return 'BREAK'; }
-"#"("{evaluate}"|"evaluate"){DP}    { this.pushState('p');   return 'EVALUATE'; }
-"#"("{define}"|"define"){DP}        { this.pushState('p');   return 'DEFINE'; }
-"#"("{macro}"|"macro"){DP}          { this.pushState('p');   return 'MACRO'; }
-"#"(\{{A}+\}|{A}+){DP}              { this.pushState('p');   return 'MACROCALL'; }
-"#@"(\{{A}+\}|{A}+){DP}             { this.pushState('p');   return 'BMACROCALL'; }
 
 
 <m,b,p>\s+                          { /*ignore whitespace*/ }
 <m>":"                              {                        return yytext; }
 <m,b,p>","                          {                        return yytext; }
-<b>".."                             {                        return 'RANGE'; }
+<b>".."                             {                        return yytext; }
 <p>"in"                             {                        return 'IN'; }
 
 <m,b,p>"true"|"false"|"null"        {                        return yytext.toUpperCase(); }
@@ -68,6 +60,26 @@ DP  [ \t]*\(
 <m,b,p>\"(\\\"|[^\"])*\"            {                        return 'DSTRING'; }
 <m,b,p>\'(\\\'|[^\'])*\'            {                        return 'SSTRING'; }
 
+
+"#"("{set}"|"set"){LP}              { this.pushState('bp');  return 'SET'; }
+"#"("{if}"|"if"){LP}                { this.pushState('bp');  return 'IF'; }
+"#"("{elseif}"|"elseif"){LP}        { this.pushState('bp');  return 'ELSEIF'; }
+"#"("{else}"|"else"(?!{A}))         {                        return 'ELSE'; }
+"#"("{end}"|"end"(?!{A}))           {                        return 'END'; }
+"#"("{foreach}"|"foreach"){LP}      { this.pushState('bp');  return 'FOREACH';}
+"#"("{include}"|"include"){LP}      { this.pushState('bp');  return 'INCLUDE'; }
+"#"("{parse}"|"parse"){LP}          { this.pushState('bp');  return 'PARSE'; }
+"#"("{stop}"|"stop"(?!{A}))         {                        return 'STOP'; }
+"#"("{break}"|"break"(?!{A}))       {                        return 'BREAK'; }
+"#"("{evaluate}"|"evaluate"){LP}    { this.pushState('bp');  return 'EVALUATE'; }
+"#"("{define}"|"define"){LP}        { this.pushState('bp');  return 'DEFINE'; }
+"#"("{macro}"|"macro"){LP}          { this.pushState('bp');  return 'MACRO'; }
+"#"(\{{A}+\}|{A}+){LP}              { this.pushState('bp');  return 'MACROCALL'; }
+"#@"(\{{A}+\}|{A}+){LP}             { this.pushState('bp');  return 'BMACROCALL'; }
+
+<bp>[ \t]+                          { /*ignore whitespace*/ }
+<bp>"("                             { this.popState();
+                                      this.pushState('p');   return yytext; }
 
 [\$\#]                              {                        return 'CONTENT'; }
 
