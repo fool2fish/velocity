@@ -1,6 +1,3 @@
-{
-
-}
 
 %right '='
 %left  '||'
@@ -26,50 +23,125 @@ statements
   ;
 
 statement
-  : CONTENT                { $$ = {type: 'Content', body: $1.replace(/\\([\$#])/g, '$1')}; }
-  | UNPARSED_CONTENT       { $$ = {type: 'UnparsedContent', body: $1.replace(/^#\[\[|\]\]#/g, '')}; }
-  | SCOMMENT               { $$ = {type: 'Scomment', body: $1.replace(/^##/, '')}; }
-  | BCOMMENT               { $$ = {type: 'Bcomment', body: $1.replace(/^#\*|\*#$/g, '')}; }
+  : TEXT                   { $$ = {type: 'Text', value: $1.replace(/\\([\$#])/g, '$1')}; }
+  | BTEXT                  { $$ = {type: 'BText', value: $1.replace(/^#\[\[|\]\]#/g, '')}; }
+  | COMMENT                { $$ = {type: 'Comment', value: $1.replace(/^##/, '')}; }
+  | BCOMMENT               { $$ = {type: 'BComment', value: $1.replace(/^#\*|\*#$/g, '')}; }
   | reference              { $$ = $1; }
   | directive              { $$ = $1; }
   ;
 
 reference
-  : '$' '!' ID
-  | '$' '!' '{' ID '}'
-  | '$' ref
-  | '$' '{' ref '}'
+  : '$' ref                { $$ = {type: 'Reference', object: $2}; }
+  | '$' '!' ref            { $$ = {type: 'Reference', object: $3, silent: true}; }
+  | '$' '{' ref '}'        { $$ = {type: 'Reference', object: $3}; }
+  | '$' '!' '{' ref '}'    { $$ = {type: 'Reference', object: $4, silent: true}; }
   ;
 
 ref
-  : ID
-  | ref '.' ID
-  | ref index
-  | call
+  : id                     { $$ = $1; }
+  | property               { $$ = $1; }
+  | method                 { $$ = $1; }
+  | index                  { $$ = $1; }
   ;
 
+id
+  : ID                     { $$ = {type: 'Identifier', name: $1}; }
+  ;
+
+prop
+  : PROP                   { $$ = {type: 'Identifier', name: $1.replace(/^\./, '')}; }
+  ;
+
+property
+  : id prop                { $$ = {type: 'Property', object: $1, prop: $2}; }
+  | methodCall prop        { $$ = {type: 'Property', object: $1, prop: $2}; }
+  | index prop             { $$ = {type: 'Property', object: $1, prop: $2}; }
+  | property prop          { $$ = {type: 'Property', object: $1, prop: $2}; }
+  ;
+
+methodCall
+  : property call          { $$ = {type: 'MethodCall', callee: $1, args: $2}; }
+  ;
+
+call
+  : '(' singleExps ')'     { $$ = $1; }
+  ;
+
+singleExps
+  : singleExp
+  | args ',' singleExp
+  | /* epsilon */          { $$ = []; }
+  ;
+
+index
+  : id idx
+  | property idx
+  | index idx
+  ;
+
+idx
+  : '[' idxExp ']'
+  ;
+
+idxExp
+  : reference
+  | integer
+  | dstring
+  | string
+  ;
 
 range
-  : '[' rangeItem '..' rangeItem ']'
-  
+  : '[' integer '..' integer ']'
+  ;
+
+list
+  : '[' singleExps ']'
+  ;
 
 map
   : '{' mapItems '}'
-  | '{' '}'
   ;
 
 mapItems
   : mapItem
   | mapItems ',' mapItem
+  | /* epsilon */
   ;
 
+mapItem
+  : singleExp ':' singleExp
+  ;
+
+singleExp
+  : reference
+  | number
+  | dstring
+  | string
+  ;
+
+number
+  : integer
+  | float
+  ;
+
+integer
+  : INTEGER
+  | '-' INTEGER
+  ;
+
+float:
+  : FLOAT
+  | '-' FLOAT
+  ;
+
+dstring
+  : DSTRING
+  ;
 
 string
-  : DSTRING
-  | SSTRING
+  : STRING
   ;
-
-
 
 
 
