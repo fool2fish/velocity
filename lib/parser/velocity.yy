@@ -14,12 +14,12 @@
 
 root
   : statements             { return $1; }
-  | /* epsilon */          { return []; }
   ;
 
 statements
   : statement              { $$ = [$1]; }
   | statements statement   { $$ = $1.concat($2); }
+  | /* epsilon */          { $$ = []; }
   ;
 
 statement
