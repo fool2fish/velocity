@@ -4,12 +4,14 @@
  * rw - reference wrapper
  * r  - reference
  * b  - brackets
+ * bpm- before left parenthesis of macro
  * bp - before left parenthesis
+ * pm - parantheses of macro
  * p  - parentheses
  * m  - map
  */
  
-%x  rp rw r b bp p m
+%x  rp rw r b bpm bp pm p m
 
 A   [a-zA-Z]
 ID  [a-zA-Z][a-zA-Z0-9-_]*
@@ -41,7 +43,7 @@ LP  (?=[ \t]*\()
 <r>""                               { this.popState(); }
 
 
-<m,b,p>\s+                          { /*ignore whitespace*/ }
+<m,b,p,pm>\s+                       { /*ignore whitespace and \n*/ }
 <m>":"                              {                        return yytext; }
 <m,b,p>","                          {                        return yytext; }
 <b>".."                             {                        return yytext; }
@@ -72,14 +74,17 @@ LP  (?=[ \t]*\()
 "#"("{break}"|"break"(?!{A}))       {                        return 'BREAK'; }
 "#"("{evaluate}"|"evaluate"){LP}    { this.pushState('bp');  return 'EVALUATE'; }
 "#"("{define}"|"define"){LP}        { this.pushState('bp');  return 'DEFINE'; }
-"#"("{macro}"|"macro"){LP}          { this.pushState('bp');  return 'MACRO'; }
+"#"("{macro}"|"macro"){LP}          { this.pushState('bpm'); return 'MACRO'; }
 "#"(\{{A}+\}|{A}+){LP}              { this.pushState('bp');  return 'MACROCALL'; }
 "#@"(\{{A}+\}|{A}+){LP}             { this.pushState('bp');  return 'BMACROCALL'; }
 
-<bp>[ \t]+                          { /*ignore whitespace*/ }
+<bp,bpm>[ \t]+                      { /*ignore whitespace*/ }
 <bp>"("                             { this.popState();
                                       this.pushState('p');   return yytext; }
-
+<bpm>"("                            { this.popState();
+                                      this.pushState('pm');  return yytext;}
+<pm>{ID}                            { this.popState();
+                                      this.pushState('p');   return 'ID'; }
 
 [\$\#]                              {                        return 'TEXT'; }
 
