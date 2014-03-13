@@ -6,5 +6,6 @@ element     | reference  | int   | float     | exp      | string | eval string
 argument    |            |       |           | x                    
 index       |            |       | x         | x 
 range item  |            |       | x         | x              | x      | x
+list item   |            |       |           | x 
 map key     |            |       |           | x
 map value   |            |       |           | x
