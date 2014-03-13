@@ -68,12 +68,6 @@ call
   : '(' singleExps ')'     { $$ = $1; }
   ;
 
-singleExps
-  : singleExp
-  | args ',' singleExp
-  | /* epsilon */          { $$ = []; }
-  ;
-
 index
   : id idx
   | property idx
@@ -111,6 +105,12 @@ mapItems
 
 mapItem
   : singleExp ':' singleExp
+  ;
+
+singleExps
+  : singleExp
+  | args ',' singleExp
+  | /* epsilon */          { $$ = []; }
   ;
 
 singleExp
