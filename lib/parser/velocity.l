@@ -31,7 +31,7 @@ LP  (?=[ \t]*\()
                                       this.pushState('r');   return 'ID'; }
 <rw>{ID}                            { this.pushState('r');   return 'ID'; }
 
-<r>"."{ID}                          {                        return 'ATTR'; }
+<r>"."{ID}                          {                        return 'PROP'; }
 <r,m,b,p>"["                        { this.pushState('b');   return yytext; }
 <b>"]"                              { this.popState();       return yytext; }
 <r,m,b,p>"("                        { this.pushState('p');   return yytext; }

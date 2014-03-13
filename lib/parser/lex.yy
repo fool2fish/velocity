@@ -26,7 +26,7 @@ statement
   | COMMENT  {$$ = ['COMMENT', $1]}
   | BCOMMENT  {$$ = ['BCOMMENT', $1]}
   | ID  {$$ = ['ID', $1]}
-  | ATTR {$$ = ['ATTR', $1]}
+  | PROP {$$ = ['PROP', $1]}
   | '$'  {$$ = $1}
   | '('  {$$ = $1}
   | ')'  {$$ = $1}
