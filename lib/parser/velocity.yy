@@ -1,4 +1,3 @@
-
 %right '='
 %left  '||'
 %left  '&&'
@@ -107,6 +106,20 @@ mapItem
   : singleExp ':' singleExp
   ;
 
+exp
+  : singleExp
+  | '(' exp ')'
+  | '!' exp
+  | exp '&&' exp
+  | exp '||' exp
+  | exp ROP exp
+  | exp '+' exp
+  | exp '-' exp
+  | exp '*' exp
+  | exp '/' exp
+  | exp '%' exp
+  ;
+
 singleExps
   : singleExp
   | args ',' singleExp
@@ -143,12 +156,43 @@ string
   : STRING
   ;
 
+directive
+  : SET '(' reference '=' exp ')'
+  | ifDirective
+  | FOREACH '(' reference IN reference ')' statements END
+  | INCLUDE '(' singleExps ')'
+  | PARSE '(' singleExp ')'
+  | EVALUATE '(' singleExp ')'
+  | DEFINE '(' reference ')' statements END
+  | MACRO '(' ID macroParams ')' statements END
+  | MACROCALL '(' macroParams ')'
+  | BMACROCALL '(' macroParams ')' statement END
+  | STOP
+  | BREAK
+  ;
 
+ifDirective
+  : if END
+  | if elseifs END
+  | if elseifs else END
+  ;
 
+if
+  : IF '(' exp ')' statements
+  ;
 
+else
+  : ELSE statements
+  ;
 
+elseifs
+  : ELSEIF '(' exp ')' statements
+  | elseifs ELSEIF '(' exp ')' statements
+  | /* epsilon */
+  ;
 
-
-
-
-
+macroParams
+  : singleExp
+  | macroParams singleExp
+  | /* epsilon */
+  ;
