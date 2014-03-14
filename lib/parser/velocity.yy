@@ -136,6 +136,9 @@ singleExp
   | number
   | dstring
   | string
+  | TRUE
+  | FALSE 
+  | NULL
   ;
 
 number
