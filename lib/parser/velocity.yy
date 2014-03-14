@@ -60,11 +60,7 @@ property
   ;
 
 methodCall
-  : property call          { $$ = {type: 'MethodCall', callee: $1, args: $2}; }
-  ;
-
-call
-  : '(' singleExps ')'     { $$ = $1; }
+  : property '(' call ')'  { $$ = {type: 'MethodCall', callee: $1, args: $3}; }
   ;
 
 index
@@ -85,7 +81,13 @@ idxExp
   ;
 
 range
-  : '[' integer '..' integer ']'
+  : '[' rangeItem '..' rangeItem ']'
+  ;
+
+rangeItem
+  : reference
+  | integer
+  | '-' integer
   ;
 
 list
@@ -110,6 +112,7 @@ exp
   : singleExp
   | '(' exp ')'
   | '!' exp
+  | '-' exp
   | exp '*'  exp
   | exp '/'  exp
   | exp '%'  exp
@@ -125,6 +128,10 @@ exp
   | exp '||' exp
   ;
 
+equalExp
+  : reference '=' exp
+  ;
+
 singleExps
   : singleExp
   | args ',' singleExp
@@ -136,6 +143,9 @@ singleExp
   | number
   | dstring
   | string
+  | range
+  | list
+  | map
   | TRUE
   | FALSE 
   | NULL
@@ -148,12 +158,10 @@ number
 
 integer
   : INTEGER
-  | '-' INTEGER
   ;
 
 float:
   : FLOAT
-  | '-' FLOAT
   ;
 
 dstring
@@ -165,7 +173,7 @@ string
   ;
 
 directive
-  : SET '(' reference '=' exp ')'
+  : SET '(' equalExp ')'
   | ifDirective
   | FOREACH '(' reference IN reference ')' statements END
   | INCLUDE '(' singleExps ')'
@@ -194,9 +202,13 @@ else
   ;
 
 elseifs
-  : ELSEIF '(' exp ')' statements
-  | elseifs ELSEIF '(' exp ')' statements
+  : elseif
+  | elseifs elseif
   | /* epsilon */
+  ;
+
+elseif
+  : ELSEIF '(' exp ')' statements
   ;
 
 macroParams
