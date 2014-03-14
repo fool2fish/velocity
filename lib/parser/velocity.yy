@@ -110,14 +110,19 @@ exp
   : singleExp
   | '(' exp ')'
   | '!' exp
+  | exp '*'  exp
+  | exp '/'  exp
+  | exp '%'  exp
+  | exp '+'  exp
+  | exp '-'  exp
+  | exp '>=' exp
+  | exp '>'  exp
+  | exp '<=' exp
+  | exp '<'  exp
+  | exp '==' exp
+  | exp '!=' exp
   | exp '&&' exp
   | exp '||' exp
-  | exp ROP exp
-  | exp '+' exp
-  | exp '-' exp
-  | exp '*' exp
-  | exp '/' exp
-  | exp '%' exp
   ;
 
 singleExps
