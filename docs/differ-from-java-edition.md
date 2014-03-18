@@ -13,3 +13,4 @@ marcro name: <br/>a-_b<br/>a__b<br/>a1 | legal | legal
 \#macro(name $arg=default) | legal(v1.6.x)<br/>illegal<v1.7> | illegal | no default value
 \#include($a $b) | legal | illegal | \#include($a, $b)
 \#include($a, $b) | legal | legal |
+null | legal(v1.6.x)<br/>illegal(v1.7) | legal |
