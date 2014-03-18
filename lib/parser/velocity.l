@@ -25,7 +25,7 @@ LP  (?=[ \t]*\()
 "#*"[\s\S]*?"*#"                    {                        return 'BCOMMENT'; }
 
 
-<INITIAL,m,b,p>\$(?=\!?\{?{ID})     { this.pushState('rp');  return yytext; }
+<INITIAL,m,b,p,pm>\$(?=\!?\{?{ID})  { this.pushState('rp');  return yytext; }
 <rp>"!"                             {                        return yytext; }
 <rp>"{"                             { this.popState();
                                       this.pushState('rw');  return yytext; }
@@ -34,32 +34,32 @@ LP  (?=[ \t]*\()
 <rw>{ID}                            { this.pushState('r');   return 'ID'; }
 
 <r>"."{ID}                          {                        return 'PROP'; }
-<r,m,b,p>"["                        { this.pushState('b');   return yytext; }
+<r,m,b,p,pm>"["                     { this.pushState('b');   return yytext; }
 <b>"]"                              { this.popState();       return yytext; }
-<r,m,b,p>"("                        { this.pushState('p');   return yytext; }
+<r,m,b,p,pm>"("                     { this.pushState('p');   return yytext; }
 <p>")"                              { this.popState();       return yytext; }
-<m,b,p>"{"                          { this.pushState('m');   return yytext; }
+<m,b,p,pm>"{"                       { this.pushState('m');   return yytext; }
 <rw,m>"}"                           { this.popState();       return yytext; }
 <r>""                               { this.popState(); }
 
 
-<m,b,p,pm>\s+                       { /*ignore whitespace and \n*/ }
+<m,b,p>\s+                          { /*ignore whitespace and \n*/ }
 <m>":"                              {                        return yytext; }
 <m,b,p>","                          {                        return yytext; }
 <b>".."                             {                        return yytext; }
 <p>"in"                             {                        return 'IN'; }
 
-<m,b,p>"true"|"false"|"null"        {                        return yytext.toUpperCase(); }
+<m,b,p,pm>"true"|"false"|"null"     {                        return yytext.toUpperCase(); }
 <m,b,p>"=="|"!="|">="|"<="|">"|"<"  {                        return yytext; }
 <m,b,p>"&&"|"||"|"!"                {                        return yytext; }
 <m,b,p>[\+\-\*\/\%]                 {                        return yytext; }
 <m,b,p>"="                          {                        return yytext; }
 
-<m,b,p>\d+\.\d+                     {                        return 'FLOAT'; }
-<m,b,p>\d+                          {                        return 'INTEGER'; }
+<m,b,p,pm>\d+\.\d+                  {                        return 'FLOAT'; }
+<m,b,p,pm>\d+                       {                        return 'INTEGER'; }
 
-<m,b,p>\"(\\\"|[^\"])*\"            {                        return 'DSTRING'; }
-<m,b,p>\'(\\\'|[^\'])*\'            {                        return 'STRING'; }
+<m,b,p,pm>\"(\\\"|[^\"])*\"         {                        return 'DSTRING'; }
+<m,b,p,pm>\'(\\\'|[^\'])*\'         {                        return 'STRING'; }
 
 
 "#"("{set}"|"set"){LP}              { this.pushState('bp');  return 'SET'; }
@@ -75,19 +75,20 @@ LP  (?=[ \t]*\()
 "#"("{evaluate}"|"evaluate"){LP}    { this.pushState('bp');  return 'EVALUATE'; }
 "#"("{define}"|"define"){LP}        { this.pushState('bp');  return 'DEFINE'; }
 "#"("{macro}"|"macro"){LP}          { this.pushState('bpm'); return 'MACRO'; }
-"#"(\{{A}+\}|{A}+){LP}              { this.pushState('bp');  return 'MACROCALL'; }
-"#@"(\{{A}+\}|{A}+){LP}             { this.pushState('bp');  return 'BMACROCALL'; }
+"#"(\{{A}+\}|{A}+){LP}              { this.pushState('bpm'); return 'MACROCALL'; }
+"#@"(\{{A}+\}|{A}+){LP}             { this.pushState('bpm'); return 'BMACROCALL'; }
 
-<bp,bpm>[ \t]+                      { /*ignore whitespace*/ }
-<bp>"("                             { this.popState();
-                                      this.pushState('p');   return yytext; }
-<bpm>"("                            { this.popState();
-                                      this.pushState('pm');  return yytext;}
-<pm>{ID}                            { this.popState();
-                                      this.pushState('p');   return 'ID'; }
+<bp>[ \t]*"("                       { this.popState();
+                                      this.pushState('p');   return '('; }
+<bpm>[ \t]*"("\s*                   { this.popState();
+                                      this.pushState('pm');  return '(';}
+<pm>{ID}                            {                        return 'ID'; }
+<pm>\s*","\s*                       {                        return ','; }
+<pm>\s*")"                          { this.popState();       return ')'; }
+<pm>\s+                             {                        return 'WS'; }
 
 [\$\#]                              {                        return 'TEXT'; }
-
+<<EOF>>                             {                        return 'EOF'; }
 
 
 
