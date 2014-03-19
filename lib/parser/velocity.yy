@@ -13,7 +13,7 @@
 
 root
   : EOF                               { return []; }
-  | statements EOF                    { console.log(require('util').inspect($1, { depth: null })); return $1; }
+  | statements EOF                    { return $1; }
   ;
 
 statements
