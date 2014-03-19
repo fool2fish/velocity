@@ -40,6 +40,7 @@ LP  (?=[ \t]*\()
 <p>")"                              { this.popState();       return yytext; }
 <m,b,p,pm>"{"                       { this.pushState('m');   return yytext; }
 <rw,m>"}"                           { this.popState();       return yytext; }
+<r><<EOF>>                          { this.popState();       return 'EOF'; }
 <r>""                               { this.popState(); }
 
 
