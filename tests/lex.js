@@ -82,9 +82,9 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 
 var $0 = $$.length - 1;
 switch (yystate) {
-case 1: console.log('Empty input.'); 
+case 1: return []; 
 break;
-case 2: console.log($$[$0-1]); 
+case 2: return $$[$0-1]; 
 break;
 case 3: this.$ = [$$[$0]]; 
 break;
@@ -126,11 +126,11 @@ case 21: this.$ = ['..'];
 break;
 case 22: this.$ = ['IN']; 
 break;
-case 23: this.$ = ['TRUE', $$[$0]]; 
+case 23: this.$ = ['TRUE']; 
 break;
-case 24: this.$ = ['FALSE', $$[$0]]; 
+case 24: this.$ = ['FALSE']; 
 break;
-case 25: this.$ = ['NULL', $$[$0]]; 
+case 25: this.$ = ['NULL']; 
 break;
 case 26: this.$ = [$$[$0]]; 
 break;

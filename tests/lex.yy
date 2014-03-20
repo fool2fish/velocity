@@ -1,10 +1,19 @@
+%right '='
+%left  '||'
+%left  '&&'
+%left  '==' '!='
+%left  '>=' '<=' '>' '<'
+%left  '+' '-'
+%left  '*' '/' '%'
+%right '!'
+
 %start root
 
 %%
 
 root
-  : EOF                   { $$ = []; }
-  | statements EOF        { $$ = $1; }
+  : EOF                   { return []; }
+  | statements EOF        { return $1; }
   ;
 
 statements
@@ -31,9 +40,9 @@ statement
   | ';'           { $$ = [';']; }
   | '..'          { $$ = ['..']; }
   | IN            { $$ = ['IN']; }
-  | TRUE          { $$ = ['TRUE', $1]; }
-  | FALSE         { $$ = ['FALSE', $1]; }
-  | NULL          { $$ = ['NULL', $1]; }
+  | TRUE          { $$ = ['TRUE']; }
+  | FALSE         { $$ = ['FALSE']; }
+  | NULL          { $$ = ['NULL']; }
   | '=='          { $$ = [$1]; }
   | '!='          { $$ = [$1]; }
   | '>='          { $$ = [$1]; }
