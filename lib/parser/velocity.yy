@@ -78,6 +78,7 @@ idxExpr
   | string                            { $$ = $1; }
   ;
 
+/* Why cannot simplify the production of range: https://github.com/zaach/jison/issues/212 */
 range
   : '[' reference '..' reference ']'  { $$ = {type: 'Range', start: $2, end: $4}; }
   | '[' reference '..' integer ']'    { $$ = {type: 'Range', start: $2, end: $4}; }
