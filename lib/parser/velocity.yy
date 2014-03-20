@@ -107,7 +107,6 @@ mapItem
 expr
   : singleExpr                        { $$ = $1; }
   | '(' expr ')'                      { $$ = $2; }
-  | '-' '(' expr ')'                  { $$ = {type: 'UnaryExpr', operator: $1, argument: $3}; }
   | '!' expr                          { $$ = {type: 'UnaryExpr', operator: $1, argument: $2}; }
   | expr '*'  expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
   | expr '/'  expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
