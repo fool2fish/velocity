@@ -60,7 +60,7 @@ property
   ;
 
 method
-  : property '(' singleExprs ')'      { $$ = {type: 'Method', callee: $1, arguments: $3}; }
+  : property '(' exprItems ')'        { $$ = {type: 'Method', callee: $1, arguments: $3}; }
   | property '(' ')'                  { $$ = {type: 'Method', callee: $1, arguments: []}; }
   ;
 
@@ -86,7 +86,7 @@ range
   ;
 
 list
-  : '[' singleExprs ']'               { $$ = {type: 'List', elements: $2}; }
+  : '[' exprItems ']'                 { $$ = {type: 'List', elements: $2}; }
   | '[' ']'                           { $$ = {type: 'List', elements: []}; }
   ;
 
@@ -101,11 +101,11 @@ mapItems
   ;
 
 mapItem
-  : singleExpr ':' singleExpr         { $$ = {type: 'MapItem', key: $1, value: $3}; }
+  : exprItem ':' exprItem             { $$ = {type: 'MapItem', key: $1, value: $3}; }
   ;
 
 expr
-  : singleExpr                        { $$ = $1; }
+  : exprItem                          { $$ = $1; }
   | '(' expr ')'                      { $$ = $2; }
   | '!' expr                          { $$ = {type: 'UnaryExpr', operator: $1, argument: $2}; }
   | expr '*'  expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
@@ -128,12 +128,12 @@ equalExpr
   | reference '=' equalExpr           { $$ = {type: 'EqualExpr', left: $1, right: $3}; }
   ;
 
-singleExprs
-  : singleExpr                        { $$ = [$1]; }
-  | singleExpr ',' singleExprs        { $$ = [$1].concat($3); }
+exprItems
+  : exprItem                          { $$ = [$1]; }
+  | exprItem ',' exprItems            { $$ = [$1].concat($3); }
   ;
 
-singleExpr
+exprItem
   : reference                         { $$ = $1; }
   | integer                           { $$ = $1; }
   | float                             { $$ = $1; }
@@ -170,9 +170,9 @@ directive
   | if                                                     { $$ = $1; }
   | FOREACH '(' reference IN reference ')' statements END  { $$ = {type: 'Foreach', left: $3, right: $5, body: $7}; }
   | FOREACH '(' reference IN reference ')' END             { $$ = {type: 'Foreach', left: $3, right: $5}; }
-  | INCLUDE '(' singleExprs ')'                            { $$ = {type: 'Include', arguments: $3}; }
-  | PARSE '(' singleExpr ')'                               { $$ = {type: 'Parse', argument: $3}; }
-  | EVALUATE '(' singleExpr ')'                            { $$ = {type: 'Evaluate', argument: $3}; }
+  | INCLUDE '(' exprItems ')'                              { $$ = {type: 'Include', arguments: $3}; }
+  | PARSE '(' exprItem ')'                                 { $$ = {type: 'Parse', argument: $3}; }
+  | EVALUATE '(' exprItem ')'                              { $$ = {type: 'Evaluate', argument: $3}; }
   | DEFINE '(' reference ')' statements END                { $$ = {type: 'Define', name: $3, body: $5}; }
   | DEFINE '(' reference ')' END                           { $$ = {type: 'Define', name: $3}; }
   | MACRO '(' ID delim macroParams ')' statements END      { $$ = {type: 'Macro', name: $3, arguments: $5, body: $7}; }
@@ -213,8 +213,8 @@ if
   ;
 
 macroParams
-  : singleExpr                             { $$ = [$1]; }
-  | singleExpr delim macroParams           { $$ = [$1].concat($3); }
+  : exprItem                               { $$ = [$1]; }
+  | exprItem delim macroParams             { $$ = [$1].concat($3); }
   ;
 
 delim
