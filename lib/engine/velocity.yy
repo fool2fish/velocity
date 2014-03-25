@@ -12,7 +12,7 @@
 %%
 
 root
-  : EOF                               { return []; }
+  : EOF                               { return {type: 'Statements', body: []}; }
   | statements EOF                    { return $1; }
   ;
 
