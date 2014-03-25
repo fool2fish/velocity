@@ -38,8 +38,8 @@ statement
 reference
   : '$' ref                           { $$ = {type: 'Reference', object: $2}; }
   | '$' '!' ref                       { $$ = {type: 'Reference', object: $3, silent: true}; }
-  | '$' '{' ref '}'                   { $$ = {type: 'Reference', object: $3}; }
-  | '$' '!' '{' ref '}'               { $$ = {type: 'Reference', object: $4, silent: true}; }
+  | '$' '{' ref '}'                   { $$ = {type: 'Reference', object: $3, wrapped: true}; }
+  | '$' '!' '{' ref '}'               { $$ = {type: 'Reference', object: $4, silent: true, wrapped: true}; }
   ;
 
 ref
