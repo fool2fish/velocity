@@ -16,9 +16,14 @@ root
   | statements EOF                    { return $1; }
   ;
 
+
 statements
+  : states                            { $$ = {type: 'Statements', body: $1}; }
+  ;
+  
+states
   : statement                         { $$ = [$1]; }
-  | statement statements              { $$ = [$1].concat($2); }
+  | statement states                  { $$ = [$1].concat($2); }
   ;
 
 statement
