@@ -148,19 +148,19 @@ exprItem
   | range                             { $$ = $1; }
   | list                              { $$ = $1; }
   | map                               { $$ = $1; }
-  | TRUE                              { $$ = {type: 'Literal', value: true}; }
-  | FALSE                             { $$ = {type: 'Literal', value: false}; }
-  | NULL                              { $$ = {type: 'Literal', value: null}; }
+  | TRUE                              { $$ = {type: 'Boolean', value: true}; }
+  | FALSE                             { $$ = {type: 'Boolean', value: false}; }
+  | NULL                              { $$ = {type: 'Null', value: null}; }
   ;
 
 integer
-  : INTEGER                           { $$ = {type: 'Literal', value: parseInt($1)}; }
-  | '-' INTEGER                       { $$ = {type: 'Literal', value: - parseInt($2)}; }
+  : INTEGER                           { $$ = {type: 'Integer', value: parseInt($1)}; }
+  | '-' INTEGER                       { $$ = {type: 'Integer', value: - parseInt($2)}; }
   ;
 
 float
-  : FLOAT                             { $$ = {type: 'Literal', value: parseFloat($1)}; }
-  | '-' FLOAT                         { $$ = {type: 'Literal', value: - parseInt($2)}; }
+  : FLOAT                             { $$ = {type: 'Float', value: parseFloat($1)}; }
+  | '-' FLOAT                         { $$ = {type: 'Float', value: - parseInt($2)}; }
   ;
 
 dstring
@@ -168,7 +168,7 @@ dstring
   ;
 
 string
-  : STRING                            { $$ = {type: 'Literal', value: $1.replace(/^'|'$/g, '')}; }
+  : STRING                            { $$ = {type: 'String', value: $1.replace(/^'|'$/g, '')}; }
   ;
 
 directive
