@@ -45,7 +45,7 @@ reference
 ref
   : id                                { $$ = $1; }
   | property                          { $$ = $1; }
-  | methodCall                        { $$ = $1; }
+  | method                            { $$ = $1; }
   | index                             { $$ = $1; }
   ;
 
@@ -54,7 +54,7 @@ id
   ;
 
 prop
-  : PROP                              { $$ = {type: 'Identifier', name: $1.replace(/^\./, '')}; }
+  : PROP                              { $$ = {type: 'Prop', name: $1.replace(/^\./, '')}; }
   ;
 
 property
