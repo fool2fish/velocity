@@ -172,7 +172,7 @@ string
   ;
 
 directive
-  : SET '(' assignExpr ')'                                 { $$ = {type: 'Set', body: $3}; }
+  : SET '(' assignExpr ')'                                 { $$ = $3; }
   | if                                                     { $$ = $1; }
   | FOREACH '(' reference IN reference ')' statements END  { $$ = {type: 'Foreach', left: $3, right: $5, body: $7}; }
   | FOREACH '(' reference IN reference ')' END             { $$ = {type: 'Foreach', left: $3, right: $5}; }
