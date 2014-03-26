@@ -129,9 +129,9 @@ expr
   | expr '||' expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
   ;
 
-equalExpr
-  : reference '=' expr                { $$ = {type: 'EqualExpr', left: $1, right: $3}; }
-  | reference '=' equalExpr           { $$ = {type: 'EqualExpr', left: $1, right: $3}; }
+assignExpr
+  : reference '=' expr                { $$ = {type: 'AssignExpr', left: $1, right: $3}; }
+  | reference '=' assignExpr          { $$ = {type: 'AssignExpr', left: $1, right: $3}; }
   ;
 
 exprItems
@@ -172,7 +172,7 @@ string
   ;
 
 directive
-  : SET '(' equalExpr ')'                                  { $$ = {type: 'Set', body: $3}; }
+  : SET '(' assignExpr ')'                                  { $$ = {type: 'Set', body: $3}; }
   | if                                                     { $$ = $1; }
   | FOREACH '(' reference IN reference ')' statements END  { $$ = {type: 'Foreach', left: $3, right: $5, body: $7}; }
   | FOREACH '(' reference IN reference ')' END             { $$ = {type: 'Foreach', left: $3, right: $5}; }
