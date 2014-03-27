@@ -1,0 +1,3 @@
+#macro(date, $year, $month, $day)
+$year - $month - $day
+#end
