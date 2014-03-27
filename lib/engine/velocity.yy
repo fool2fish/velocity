@@ -218,7 +218,7 @@ macroParams
   
 macroCallParams
   : exprItem                               { $$ = [$1]; }
-  | exprItem delim macroParams             { $$ = [$1].concat($3); }
+  | exprItem delim macroCallParams             { $$ = [$1].concat($3); }
   ;
 
 delim
