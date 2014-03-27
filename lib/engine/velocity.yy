@@ -178,11 +178,11 @@ directive
   | MACRO '(' ID ')' statements END                        { $$ = {type: 'Macro', name: $3, arguments: [], body: $5}; }
   | MACRO '(' ID delim macroParams ')' END                 { $$ = {type: 'Macro', name: $3, arguments: $5}; }
   | MACRO '(' ID ')' END                                   { $$ = {type: 'Macro', name: $3, arguments: []}; }
-  | MACROCALL '(' macroCallParams ')'                          { $$ = {type: 'MacroCall', name: $1.replace(/^#{?|}$/g, ''), arguments: $3}; }
+  | MACROCALL '(' macroCallParams ')'                      { $$ = {type: 'MacroCall', name: $1.replace(/^#{?|}$/g, ''), arguments: $3}; }
   | MACROCALL '(' ')'                                      { $$ = {type: 'MacroCall', name: $1.replace(/^#{?|}$/g, ''), arguments: []}; }
-  | BMACROCALL '(' macroCallParams ')' statement END           { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3, body: $5}; }
+  | BMACROCALL '(' macroCallParams ')' statement END       { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3, body: $5}; }
   | BMACROCALL '(' ')' statement END                       { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: [], body: $4}; }
-  | BMACROCALL '(' macroCallParams ')' END                     { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3}; }
+  | BMACROCALL '(' macroCallParams ')' END                 { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3}; }
   | BMACROCALL '(' ')' END                                 { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: []}; }
   | STOP                                                   { $$ = {type: 'Stop'}; }
   | BREAK                                                  { $$ = {type: 'Break'}; }
