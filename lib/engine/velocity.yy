@@ -107,7 +107,14 @@ mapItems
   ;
 
 mapItem
-  : exprItem ':' exprItem             { $$ = {type: 'MapItem', key: $1, value: $3}; }
+  : mapKey ':' exprItem               { $$ = {type: 'MapItem', property: $1, value: $3}; }
+  ;
+
+mapKey
+  : reference                         { $$ = $1; }
+  | string                            { $$ = $1; }
+  | dstring                           { $$ = $1; }
+  | integer                           { $$ = $1; }
   ;
 
 expr
