@@ -131,7 +131,6 @@ expr
 
 assignExpr
   : reference '=' expr                { $$ = {type: 'AssignExpr', left: $1, right: $3}; }
-  | reference '=' assignExpr          { $$ = {type: 'AssignExpr', left: $1, right: $3}; }
   ;
 
 exprItems
