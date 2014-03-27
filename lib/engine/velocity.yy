@@ -175,9 +175,9 @@ directive
   | DEFINE '(' reference ')' statements END                { $$ = {type: 'Define', name: $3, body: $5}; }
   | DEFINE '(' reference ')' END                           { $$ = {type: 'Define', name: $3}; }
   | MACRO '(' ID delim macroParams ')' statements END      { $$ = {type: 'Macro', name: $3, arguments: $5, body: $7}; }
-  | MACRO '(' ID ')' statements END                        { $$ = {type: 'Macro', name: $3, body: $5}; }
+  | MACRO '(' ID ')' statements END                        { $$ = {type: 'Macro', name: $3, arguments: [], body: $5}; }
   | MACRO '(' ID delim macroParams ')' END                 { $$ = {type: 'Macro', name: $3, arguments: $5}; }
-  | MACRO '(' ID ')' END                                   { $$ = {type: 'Macro', name: $3}; }
+  | MACRO '(' ID ')' END                                   { $$ = {type: 'Macro', name: $3, arguments: []}; }
   | MACROCALL '(' macroCallParams ')'                          { $$ = {type: 'MacroCall', name: $1.replace(/^#{?|}$/g, ''), arguments: $3}; }
   | MACROCALL '(' ')'                                      { $$ = {type: 'MacroCall', name: $1.replace(/^#{?|}$/g, ''), arguments: []}; }
   | BMACROCALL '(' macroCallParams ')' statement END           { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3, body: $5}; }
