@@ -70,17 +70,10 @@ method
   ;
 
 index
-  : id '[' idxExpr ']'                { $$ = {type: 'Index', object: $1, property: $3}; }
-  | method '[' idxExpr ']'            { $$ = {type: 'Index', object: $1, property: $3}; }
-  | property '[' idxExpr ']'          { $$ = {type: 'Index', object: $1, property: $3}; }
-  | index '[' idxExpr ']'             { $$ = {type: 'Index', object: $1, property: $3}; }
-  ;
-
-idxExpr
-  : reference                         { $$ = $1; }
-  | integer                           { $$ = $1; }
-  | dstring                           { $$ = $1; }
-  | string                            { $$ = $1; }
+  : id '[' exprItem ']'               { $$ = {type: 'Index', object: $1, property: $3}; }
+  | method '[' exprItem ']'           { $$ = {type: 'Index', object: $1, property: $3}; }
+  | property '[' exprItem ']'         { $$ = {type: 'Index', object: $1, property: $3}; }
+  | index '[' exprItem ']'            { $$ = {type: 'Index', object: $1, property: $3}; }
   ;
 
 /* Why cannot simplify the production of range: https://github.com/zaach/jison/issues/212 */
@@ -107,15 +100,9 @@ mapItems
   ;
 
 mapItem
-  : mapKey ':' exprItem               { $$ = {type: 'MapItem', property: $1, value: $3}; }
+  : exprItem ':' exprItem             { $$ = {type: 'MapItem', property: $1, value: $3}; }
   ;
 
-mapKey
-  : reference                         { $$ = $1; }
-  | string                            { $$ = $1; }
-  | dstring                           { $$ = $1; }
-  | integer                           { $$ = $1; }
-  ;
 
 expr
   : exprItem                          { $$ = $1; }
