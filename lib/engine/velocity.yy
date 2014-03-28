@@ -180,10 +180,10 @@ directive
   | MACRO '(' ID ')' END                                   { $$ = {type: 'Macro', name: $3, arguments: []}; }
   | MACROCALL '(' macroCallParams ')'                      { $$ = {type: 'MacroCall', name: $1.replace(/^#{?|}$/g, ''), arguments: $3}; }
   | MACROCALL '(' ')'                                      { $$ = {type: 'MacroCall', name: $1.replace(/^#{?|}$/g, ''), arguments: []}; }
-  | BMACROCALL '(' macroCallParams ')' statement END       { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3, body: $5}; }
-  | BMACROCALL '(' ')' statement END                       { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: [], body: $4}; }
-  | BMACROCALL '(' macroCallParams ')' END                 { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3}; }
-  | BMACROCALL '(' ')' END                                 { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: []}; }
+  | BMACROCALL '(' macroCallParams ')' statements END      { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3, isBlock: true, body: $5}; }
+  | BMACROCALL '(' ')' statements END                      { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: [], isBlock: true, body: $4}; }
+  | BMACROCALL '(' macroCallParams ')' END                 { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3, isBlock: true}; }
+  | BMACROCALL '(' ')' END                                 { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: [], isBlock: true}; }
   | STOP                                                   { $$ = {type: 'Stop'}; }
   | BREAK                                                  { $$ = {type: 'Break'}; }
   ;
