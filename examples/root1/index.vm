@@ -8,6 +8,7 @@ ${user.twitter}
 
 $user.getAddr()
 
+#[[
 ## Directives
 
 #set($monkey = "$anotherMonkey")
@@ -33,3 +34,4 @@ $user.getAddr()
 
 
 #cmsparse("/fileInCms.vm")
+]]#
