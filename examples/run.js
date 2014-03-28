@@ -26,7 +26,8 @@ if (action === 'tokens') {
   var cfg = {
     roots: ['root1', 'root2', 'root3'],
     directives: ['cmsparse'],
-    template: './root1/index.vm'
+    template: './root1/index.vm',
+    macro: './global-macro/macro.vm'
   }
   var engine = new Engine(cfg)
   var output = engine.render(context)
