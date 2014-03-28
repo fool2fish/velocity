@@ -12,13 +12,13 @@
 %%
 
 root
-  : EOF                               { return {type: 'Statements', body: []}; }
+  : EOF                               { return {type: 'Statements', pos: @s, body: []}; }
   | statements EOF                    { return $1; }
   ;
 
 
 statements
-  : states                            { $$ = {type: 'Statements', body: $1}; }
+  : states                            { $$ = {type: 'Statements', pos: @$, body: $1}; }
   ;
   
 states
@@ -27,19 +27,19 @@ states
   ;
 
 statement
-  : TEXT                              { $$ = {type: 'Text', value: $1.replace(/\\(?=#|\$)/g, '')}; }
-  | BTEXT                             { $$ = {type: 'BText', value: $1.replace(/^#\[\[|\]\]#/g, '')}; }
-  | COMMENT                           { $$ = {type: 'Comment', value: $1.replace(/^##/, '')}; }
-  | BCOMMENT                          { $$ = {type: 'BComment', value: $1.replace(/^#\*|\*#$/g, '')}; }
+  : TEXT                              { $$ = {type: 'Text', pos: @$, value: $1.replace(/\\(?=#|\$)/g, '')}; }
+  | BTEXT                             { $$ = {type: 'BText', pos: @$, value: $1.replace(/^#\[\[|\]\]#/g, '')}; }
+  | COMMENT                           { $$ = {type: 'Comment', pos: @$, value: $1.replace(/^##/, '')}; }
+  | BCOMMENT                          { $$ = {type: 'BComment', pos: @$, value: $1.replace(/^#\*|\*#$/g, '')}; }
   | reference                         { $$ = $1; }
   | directive                         { $$ = $1; }
   ;
 
 reference
-  : '$' ref                           { $$ = {type: 'Reference', object: $2}; }
-  | '$' '!' ref                       { $$ = {type: 'Reference', object: $3, silent: true}; }
-  | '$' '{' ref '}'                   { $$ = {type: 'Reference', object: $3, wrapped: true}; }
-  | '$' '!' '{' ref '}'               { $$ = {type: 'Reference', object: $4, silent: true, wrapped: true}; }
+  : '$' ref                           { $$ = {type: 'Reference', pos: @$, object: $2}; }
+  | '$' '!' ref                       { $$ = {type: 'Reference', pos: @$, object: $3, silent: true}; }
+  | '$' '{' ref '}'                   { $$ = {type: 'Reference', pos: @$, object: $3, wrapped: true}; }
+  | '$' '!' '{' ref '}'               { $$ = {type: 'Reference', pos: @$, object: $4, silent: true, wrapped: true}; }
   ;
 
 ref
@@ -50,48 +50,48 @@ ref
   ;
 
 id
-  : ID                                { $$ = {type: 'Identifier', name: $1}; }
+  : ID                                { $$ = {type: 'Identifier', pos: @$, name: $1}; }
   ;
 
 prop
-  : PROP                              { $$ = {type: 'Prop', name: $1.replace(/^\./, '')}; }
+  : PROP                              { $$ = {type: 'Prop', pos: @$, name: $1.replace(/^\./, '')}; }
   ;
 
 property
-  : id prop                           { $$ = {type: 'Property', object: $1, property: $2}; }
-  | method prop                       { $$ = {type: 'Property', object: $1, property: $2}; }
-  | index prop                        { $$ = {type: 'Property', object: $1, property: $2}; }
-  | property prop                     { $$ = {type: 'Property', object: $1, property: $2}; }
+  : id prop                           { $$ = {type: 'Property', pos: @$, object: $1, property: $2}; }
+  | method prop                       { $$ = {type: 'Property', pos: @$, object: $1, property: $2}; }
+  | index prop                        { $$ = {type: 'Property', pos: @$, object: $1, property: $2}; }
+  | property prop                     { $$ = {type: 'Property', pos: @$, object: $1, property: $2}; }
   ;
 
 method
-  : property '(' exprItems ')'        { $$ = {type: 'Method', callee: $1, arguments: $3}; }
-  | property '(' ')'                  { $$ = {type: 'Method', callee: $1, arguments: []}; }
+  : property '(' exprItems ')'        { $$ = {type: 'Method', pos: @$, callee: $1, arguments: $3}; }
+  | property '(' ')'                  { $$ = {type: 'Method', pos: @$, callee: $1, arguments: []}; }
   ;
 
 index
-  : id '[' exprItem ']'               { $$ = {type: 'Index', object: $1, property: $3}; }
-  | method '[' exprItem ']'           { $$ = {type: 'Index', object: $1, property: $3}; }
-  | property '[' exprItem ']'         { $$ = {type: 'Index', object: $1, property: $3}; }
-  | index '[' exprItem ']'            { $$ = {type: 'Index', object: $1, property: $3}; }
+  : id '[' exprItem ']'               { $$ = {type: 'Index', pos: @$, object: $1, property: $3}; }
+  | method '[' exprItem ']'           { $$ = {type: 'Index', pos: @$, object: $1, property: $3}; }
+  | property '[' exprItem ']'         { $$ = {type: 'Index', pos: @$, object: $1, property: $3}; }
+  | index '[' exprItem ']'            { $$ = {type: 'Index', pos: @$, object: $1, property: $3}; }
   ;
 
 /* Why cannot simplify the production of range: https://github.com/zaach/jison/issues/212 */
 range
-  : '[' reference '..' reference ']'  { $$ = {type: 'Range', start: $2, end: $4}; }
-  | '[' reference '..' integer ']'    { $$ = {type: 'Range', start: $2, end: $4}; }
-  | '[' integer '..' reference ']'    { $$ = {type: 'Range', start: $2, end: $4}; }
-  | '[' integer '..' integer ']'      { $$ = {type: 'Range', start: $2, end: $4}; }
+  : '[' reference '..' reference ']'  { $$ = {type: 'Range', pos: @$, start: $2, end: $4}; }
+  | '[' reference '..' integer ']'    { $$ = {type: 'Range', pos: @$, start: $2, end: $4}; }
+  | '[' integer '..' reference ']'    { $$ = {type: 'Range', pos: @$, start: $2, end: $4}; }
+  | '[' integer '..' integer ']'      { $$ = {type: 'Range', pos: @$, start: $2, end: $4}; }
   ;
 
 list
-  : '[' exprItems ']'                 { $$ = {type: 'List', elements: $2}; }
-  | '[' ']'                           { $$ = {type: 'List', elements: []}; }
+  : '[' exprItems ']'                 { $$ = {type: 'List', pos: @$, elements: $2}; }
+  | '[' ']'                           { $$ = {type: 'List', pos: @$, elements: []}; }
   ;
 
 map
-  : '{' mapItems '}'                  { $$ = {type: 'Map', mapItems: $2}; }
-  | '{' '}'                           { $$ = {type: 'Map', mapItems: []}; }
+  : '{' mapItems '}'                  { $$ = {type: 'Map', pos: @$, mapItems: $2}; }
+  | '{' '}'                           { $$ = {type: 'Map', pos: @$, mapItems: []}; }
   ;
 
 mapItems
@@ -100,31 +100,31 @@ mapItems
   ;
 
 mapItem
-  : exprItem ':' exprItem             { $$ = {type: 'MapItem', property: $1, value: $3}; }
+  : exprItem ':' exprItem             { $$ = {type: 'MapItem', pos: @$, property: $1, value: $3}; }
   ;
 
 
 expr
   : exprItem                          { $$ = $1; }
   | '(' expr ')'                      { $$ = $2; }
-  | '!' expr                          { $$ = {type: 'UnaryExpr', operator: $1, argument: $2}; }
-  | expr '*'  expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '/'  expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '%'  expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '+'  expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '-'  expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '>=' expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '>'  expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '<=' expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '<'  expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '==' expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '!=' expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '&&' expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
-  | expr '||' expr                    { $$ = {type: 'BinaryExpr', operator: $2, left: $1, right: $3}; }
+  | '!' expr                          { $$ = {type: 'UnaryExpr', pos: @$, operator: $1, argument: $2}; }
+  | expr '*'  expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '/'  expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '%'  expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '+'  expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '-'  expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '>=' expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '>'  expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '<=' expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '<'  expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '==' expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '!=' expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '&&' expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
+  | expr '||' expr                    { $$ = {type: 'BinaryExpr', pos: @$, operator: $2, left: $1, right: $3}; }
   ;
 
 assignExpr
-  : reference '=' expr                { $$ = {type: 'AssignExpr', left: $1, right: $3}; }
+  : reference '=' expr                { $$ = {type: 'AssignExpr', pos: @$, left: $1, right: $3}; }
   ;
 
 exprItems
@@ -141,51 +141,51 @@ exprItem
   | range                             { $$ = $1; }
   | list                              { $$ = $1; }
   | map                               { $$ = $1; }
-  | TRUE                              { $$ = {type: 'Boolean', value: true}; }
-  | FALSE                             { $$ = {type: 'Boolean', value: false}; }
-  | NULL                              { $$ = {type: 'Null', value: null}; }
+  | TRUE                              { $$ = {type: 'Boolean', pos: @$, value: true}; }
+  | FALSE                             { $$ = {type: 'Boolean', pos: @$, value: false}; }
+  | NULL                              { $$ = {type: 'Null', pos: @$, value: null}; }
   ;
 
 integer
-  : INTEGER                           { $$ = {type: 'Integer', value: parseInt($1)}; }
-  | '-' INTEGER                       { $$ = {type: 'Integer', value: - parseInt($2)}; }
+  : INTEGER                           { $$ = {type: 'Integer', pos: @$, value: parseInt($1)}; }
+  | '-' INTEGER                       { $$ = {type: 'Integer', pos: @$, value: - parseInt($2)}; }
   ;
 
 float
-  : FLOAT                             { $$ = {type: 'Float', value: parseFloat($1)}; }
-  | '-' FLOAT                         { $$ = {type: 'Float', value: - parseInt($2)}; }
+  : FLOAT                             { $$ = {type: 'Float', pos: @$, value: parseFloat($1)}; }
+  | '-' FLOAT                         { $$ = {type: 'Float', pos: @$, value: - parseInt($2)}; }
   ;
 
 dstring
-  : DSTRING                           { $$ = {type: 'DString', value: $1.replace(/^"|"$/g, '').replace(/\\"/g, '"')}; }
+  : DSTRING                           { $$ = {type: 'DString', pos: @$, value: $1.replace(/^"|"$/g, '').replace(/\\"/g, '"')}; }
   ;
 
 string
-  : STRING                            { $$ = {type: 'String', value: $1.replace(/^'|'$/g, '')}; }
+  : STRING                            { $$ = {type: 'String', pos: @$, value: $1.replace(/^'|'$/g, '')}; }
   ;
 
 directive
   : SET '(' assignExpr ')'                                 { $$ = $3; }
   | if                                                     { $$ = $1; }
-  | FOREACH '(' reference IN reference ')' statements END  { $$ = {type: 'Foreach', left: $3, right: $5, body: $7}; }
-  | FOREACH '(' reference IN reference ')' END             { $$ = {type: 'Foreach', left: $3, right: $5}; }
-  | INCLUDE '(' exprItems ')'                              { $$ = {type: 'Include', arguments: $3}; }
-  | PARSE '(' exprItem ')'                                 { $$ = {type: 'Parse', argument: $3}; }
-  | EVALUATE '(' exprItem ')'                              { $$ = {type: 'Evaluate', argument: $3}; }
-  | DEFINE '(' reference ')' statements END                { $$ = {type: 'Define', name: $3, body: $5}; }
-  | DEFINE '(' reference ')' END                           { $$ = {type: 'Define', name: $3}; }
-  | MACRO '(' ID delim macroParams ')' statements END      { $$ = {type: 'Macro', name: $3, arguments: $5, body: $7}; }
-  | MACRO '(' ID ')' statements END                        { $$ = {type: 'Macro', name: $3, arguments: [], body: $5}; }
-  | MACRO '(' ID delim macroParams ')' END                 { $$ = {type: 'Macro', name: $3, arguments: $5}; }
-  | MACRO '(' ID ')' END                                   { $$ = {type: 'Macro', name: $3, arguments: []}; }
-  | MACROCALL '(' macroCallParams ')'                      { $$ = {type: 'MacroCall', name: $1.replace(/^#{?|}$/g, ''), arguments: $3}; }
-  | MACROCALL '(' ')'                                      { $$ = {type: 'MacroCall', name: $1.replace(/^#{?|}$/g, ''), arguments: []}; }
-  | BMACROCALL '(' macroCallParams ')' statements END      { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3, isBlock: true, body: $5}; }
-  | BMACROCALL '(' ')' statements END                      { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: [], isBlock: true, body: $4}; }
-  | BMACROCALL '(' macroCallParams ')' END                 { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: $3, isBlock: true}; }
-  | BMACROCALL '(' ')' END                                 { $$ = {type: 'MacroCall', name: $1.replace(/^#@{?|}$/g, ''), arguments: [], isBlock: true}; }
-  | STOP                                                   { $$ = {type: 'Stop'}; }
-  | BREAK                                                  { $$ = {type: 'Break'}; }
+  | FOREACH '(' reference IN reference ')' statements END  { $$ = {type: 'Foreach', pos: @$, left: $3, right: $5, body: $7}; }
+  | FOREACH '(' reference IN reference ')' END             { $$ = {type: 'Foreach', pos: @$, left: $3, right: $5}; }
+  | INCLUDE '(' exprItems ')'                              { $$ = {type: 'Include', pos: @$, arguments: $3}; }
+  | PARSE '(' exprItem ')'                                 { $$ = {type: 'Parse', pos: @$, argument: $3}; }
+  | EVALUATE '(' exprItem ')'                              { $$ = {type: 'Evaluate', pos: @$, argument: $3}; }
+  | DEFINE '(' reference ')' statements END                { $$ = {type: 'Define', pos: @$, name: $3, body: $5}; }
+  | DEFINE '(' reference ')' END                           { $$ = {type: 'Define', pos: @$, name: $3}; }
+  | MACRO '(' ID delim macroParams ')' statements END      { $$ = {type: 'Macro', pos: @$, name: $3, arguments: $5, body: $7}; }
+  | MACRO '(' ID ')' statements END                        { $$ = {type: 'Macro', pos: @$, name: $3, arguments: [], body: $5}; }
+  | MACRO '(' ID delim macroParams ')' END                 { $$ = {type: 'Macro', pos: @$, name: $3, arguments: $5}; }
+  | MACRO '(' ID ')' END                                   { $$ = {type: 'Macro', pos: @$, name: $3, arguments: []}; }
+  | MACROCALL '(' macroCallParams ')'                      { $$ = {type: 'MacroCall', pos: @$, name: $1.replace(/^#{?|}$/g, ''), arguments: $3}; }
+  | MACROCALL '(' ')'                                      { $$ = {type: 'MacroCall', pos: @$, name: $1.replace(/^#{?|}$/g, ''), arguments: []}; }
+  | BMACROCALL '(' macroCallParams ')' statements END      { $$ = {type: 'MacroCall', pos: @$, name: $1.replace(/^#@{?|}$/g, ''), arguments: $3, isBlock: true, body: $5}; }
+  | BMACROCALL '(' ')' statements END                      { $$ = {type: 'MacroCall', pos: @$, name: $1.replace(/^#@{?|}$/g, ''), arguments: [], isBlock: true, body: $4}; }
+  | BMACROCALL '(' macroCallParams ')' END                 { $$ = {type: 'MacroCall', pos: @$, name: $1.replace(/^#@{?|}$/g, ''), arguments: $3, isBlock: true}; }
+  | BMACROCALL '(' ')' END                                 { $$ = {type: 'MacroCall', pos: @$, name: $1.replace(/^#@{?|}$/g, ''), arguments: [], isBlock: true}; }
+  | STOP                                                   { $$ = {type: 'Stop', pos: @$}; }
+  | BREAK                                                  { $$ = {type: 'Break', pos: @$}; }
   ;
 
 else
@@ -194,21 +194,21 @@ else
   ;
 
 elseif
-  : ELSEIF '(' expr ')' statements         { $$ = {type: 'If', test: $3, consequent: $5}; }
-  | ELSEIF '(' expr ')'                    { $$ = {type: 'If', test: $3}; }
-  | ELSEIF '(' expr ')' statements else    { $$ = {type: 'If', test: $3, consequent: $5, alternate: $6}; }
-  | ELSEIF '(' expr ')' else               { $$ = {type: 'If', test: $3, alternate: $5}; }
-  | ELSEIF '(' expr ')' statements elseif  { $$ = {type: 'If', test: $3, consequent: $5, alternate: $6}; }
-  | ELSEIF '(' expr ')' elseif             { $$ = {type: 'If', test: $3, alternate: $6}; }
+  : ELSEIF '(' expr ')' statements         { $$ = {type: 'If', pos: @$, test: $3, consequent: $5}; }
+  | ELSEIF '(' expr ')'                    { $$ = {type: 'If', pos: @$, test: $3}; }
+  | ELSEIF '(' expr ')' statements else    { $$ = {type: 'If', pos: @$, test: $3, consequent: $5, alternate: $6}; }
+  | ELSEIF '(' expr ')' else               { $$ = {type: 'If', pos: @$, test: $3, alternate: $5}; }
+  | ELSEIF '(' expr ')' statements elseif  { $$ = {type: 'If', pos: @$, test: $3, consequent: $5, alternate: $6}; }
+  | ELSEIF '(' expr ')' elseif             { $$ = {type: 'If', pos: @$, test: $3, alternate: $6}; }
   ;
 
 if
-  : IF '(' expr ')' statements END         { $$ = {type: 'If', test: $3, consequent: $5}; }
-  | IF '(' expr ')' END                    { $$ = {type: 'If', test: $3}; }
-  | IF '(' expr ')' statements else END    { $$ = {type: 'If', test: $3, consequent: $5, alternate: $6}; }
-  | IF '(' expr ')' else END               { $$ = {type: 'If', test: $3,  alternate: $5}; }
-  | IF '(' expr ')' statements elseif END  { $$ = {type: 'If', test: $3, consequent: $5, alternate: $6}; }
-  | IF '(' expr ')' elseif END             { $$ = {type: 'If', test: $3, alternate: $5}; }
+  : IF '(' expr ')' statements END         { $$ = {type: 'If', pos: @$, test: $3, consequent: $5}; }
+  | IF '(' expr ')' END                    { $$ = {type: 'If', pos: @$, test: $3}; }
+  | IF '(' expr ')' statements else END    { $$ = {type: 'If', pos: @$, test: $3, consequent: $5, alternate: $6}; }
+  | IF '(' expr ')' else END               { $$ = {type: 'If', pos: @$, test: $3,  alternate: $5}; }
+  | IF '(' expr ')' statements elseif END  { $$ = {type: 'If', pos: @$, test: $3, consequent: $5, alternate: $6}; }
+  | IF '(' expr ')' elseif END             { $$ = {type: 'If', pos: @$, test: $3, alternate: $5}; }
   ;
 
 macroParams
@@ -218,7 +218,7 @@ macroParams
   
 macroCallParams
   : exprItem                               { $$ = [$1]; }
-  | exprItem delim macroCallParams             { $$ = [$1].concat($3); }
+  | exprItem delim macroCallParams         { $$ = [$1].concat($3); }
   ;
 
 delim
