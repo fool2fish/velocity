@@ -14,7 +14,8 @@
   "dependencies": {
     "commander": "1.2.0",
     "colorful": "2.1.0",
-    "tracer": "0.6.1"
+    "tracer": "0.6.1",
+    "express": "3.1.0"
   },
   "repository": {
     "type": "git",
