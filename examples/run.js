@@ -10,7 +10,7 @@ process.argv.forEach(function(item, idx, list) {
   if (item in {ast: true, tokens: true}) action = item
 })
 
-var file = './root1/index.vm'
+var file = './root1/ref.vm'
 var content = fs.readFileSync(file, {encoding: 'utf8'})
 
 if (action === 'tokens') {
@@ -26,8 +26,8 @@ if (action === 'tokens') {
   var cfg = {
     roots: ['root1', 'root2', 'root3'],
     directives: ['cmsparse'],
-    template: './root1/index.vm',
-    macro: './global-macro/macro.vm'
+    template: file,
+    macro: undefined//'./global-macro/macro.vm'
   }
   var engine = new Engine(cfg)
   var output = engine.render(context)
