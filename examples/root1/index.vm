@@ -1,37 +1,7 @@
-## References
+#parse('/ref.vm')
+##parse('/direc.vm')
+##parse('/expr.vm')
 
-$user  ${user}
-$userNotActive
-
-$user.github
-${user.twitter}
-
-$user.getAddr()
-
-#[[
-## Directives
-
-#set($monkey = "$anotherMonkey")
-#set($monkey.name = '$notVariable')
-#set($monkey.numbers = [1..3])
-
-#foreach($customer in $customerList)
-  $foreach.count : $customer.Name
-#end
-
-#include("not-exists.txt"  $includePathWithVariable)
-
-## #parse("pathInSingleLineComment.vm")
-#*
-  #parse("pathInMultipleLineComment.vm")
-*#
-
-#parse("/a.vm")
-#parse("/a.vm")
-#parse("/b.vm")
-#parse('$pathWithVariableInSingleQuotes')
-#parse("$pathWithVariableInDoubleQuotes")
-
-
-#cmsparse("/fileInCms.vm")
-]]#
+## comment
+#* block comment *#
+#[[ unparsed content ]]#

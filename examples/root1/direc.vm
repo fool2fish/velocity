@@ -1,0 +1,17 @@
+All favorites:
+#foreach($fav in $user.favorites)
+  $foreach.count: $fav
+  #if ($foreach.count >= 3) #break #end
+#end
+
+#set($user.company = 'alipay.com')
+Company: $user.company
+
+Date: $date.format($date.year, $date.month, $date.day)
+#if ($date.weather == 'sunny')
+  Today is sunny.
+#elseif ($date.weather)
+  Today is not sunny.
+#else
+  Cannot get the weather info.
+#end

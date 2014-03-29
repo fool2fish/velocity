@@ -1,0 +1,6 @@
+ID: $id
+Name: $user.name
+Nick: $!user.nick ${user.nick}
+Github: $user.github
+Most favorite: $user.favorites[0]
+$foo.noReturn()
