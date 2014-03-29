@@ -1,6 +1,6 @@
 #parse('/ref.vm')
-##parse('/direc.vm')
-##parse('/expr.vm')
+#parse('/direc.vm')
+#parse('/expr.vm')
 
 ## comment
 #* block comment *#
