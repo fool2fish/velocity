@@ -1,4 +1,5 @@
 module.exports = {
+  temp: 12.4,
   id: '00000001',
   user: {
     name: 'fool2fish',
@@ -14,7 +15,8 @@ module.exports = {
       return y + ' - ' + m  + ' - ' + d
     }
   },
-  foo: {
-    noReturn: function(){}
+  method: {
+    foo: function(){return '>>method calling<<'},
+    bar: function(){}
   }
 }

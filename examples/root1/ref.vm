@@ -3,4 +3,8 @@ Name: $user.name
 Nick: $!user.nick ${user.nick}
 Github: $user.github
 Most favorite: $user.favorites[0]
-$foo.noReturn()
+$method.foo()
+$method.bar()
+## bellow are references could cause error
+## $method.undef.undef
+## $method.undef.foo()
