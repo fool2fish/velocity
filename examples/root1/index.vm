@@ -1,4 +1,5 @@
 >>>index.vm
+#cmsparse("/cms.vm")
 #parse('/uisvr.vm')
 #parse('/ref.vm')
 #parse('/direc.vm')
