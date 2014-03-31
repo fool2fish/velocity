@@ -31,7 +31,7 @@ if (action === 'tokens') {
   }
   var engine = new Engine(cfg)
   var result = engine.render(context)
-  if (result.stats === STATS.SUCCESS) {
+  if (result.success) {
     console.log(result.value)
   } else {
     Engine.printFailInfo(result)
