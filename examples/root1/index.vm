@@ -1,7 +1,10 @@
+>>>index.vm
+#parse('/uisvr.vm')
 #parse('/ref.vm')
 #parse('/direc.vm')
-#parse('/expr.vm')
-
+#parse("/expr.vm")
+#include("plain-text.txt")
 ## comment
 #* block comment *#
 #[[ unparsed content ]]#
+index.vm<<

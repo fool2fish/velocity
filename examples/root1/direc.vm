@@ -1,8 +1,11 @@
-All favorites:
-#foreach($fav in $user.favorites)
-  $foreach.count: $fav
-  #if ($foreach.count >= 3) #break #end
+>>>direc.vm
+Top 3 favorites:
+#foreach($fav in $user.favorites) 
+  $foreach.count: $fav #if ($foreach.count >= 3) #break #end
 #end
+
+#evaluate('$dataForEval')
+#evaluate("$dataForEval")
 
 #set($user.company = 'alipay.com')
 Company: $user.company
@@ -15,3 +18,4 @@ Date: $date.format($date.year, $date.month, $date.day)
 #else
   Cannot get the weather info.
 #end
+direc.vm

@@ -1,3 +1,4 @@
+>>>ref.vm
 ID: $id
 Name: $user.name
 Nick: $!user.nick ${user.nick}
@@ -5,6 +6,9 @@ Github: $user.github
 Most favorite: $user.favorites[0]
 $method.foo()
 $method.bar()
-## bellow are references could cause error
-## $method.undef.undef
-## $method.undef.foo()
+#* 
+bellow are references could cause error
+$method.undef.undef
+$method.undef.foo()
+*#
+ref.vm<<<

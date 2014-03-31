@@ -1,5 +1,4 @@
 module.exports = {
-  temp: 12.4,
   id: '00000001',
   user: {
     name: 'fool2fish',
@@ -16,7 +15,9 @@ module.exports = {
     }
   },
   method: {
-    foo: function(){return '>>method calling<<'},
+    foo: function(){return 'method.foo() is called!'},
     bar: function(){}
-  }
+  },
+  dataForEval: '@@$user.name@@',
+  rangeStart: 1
 }
