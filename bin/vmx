@@ -40,7 +40,7 @@ if (isCfg) {
   var editor = process.platform === 'win32' ? 'notepad' : 'vi'
   var child = require('child_process').spawn(
     editor,
-    [path.join(util.getHome(), '.vmx')],
+    [path.join(common.home, '.vmx')],
     {stdio: 'inherit'}
   )
   child.on('exit', process.exit)
