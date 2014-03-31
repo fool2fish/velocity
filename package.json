@@ -15,7 +15,8 @@
     "commander": "1.2.0",
     "colorful": "2.1.0",
     "tracer": "0.6.1",
-    "express": "3.1.0"
+    "express": "3.1.0",
+    "iconv-lite": "0.2.11"
   },
   "repository": {
     "type": "git",
