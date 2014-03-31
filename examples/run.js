@@ -26,7 +26,6 @@ if (action === 'tokens') {
   var context = require('./context')
   var cfg = {
     roots: ['root1', 'root2', 'root3'],
-    directives: ['cmsparse'],
     template: file,
     macro: './global-macro/macro.vm'
   }
