@@ -1,81 +1,60 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var path = require('path');
-var commander = require('commander');
-var colorful = require('colorful');
+var fs = require('fs')
+var path = require('path')
+var commander = require('commander')
+var colorful = require('colorful')
+var common = require('totoro-common')
 
-var pkg = require('../package');
-var vmx = require('../index')
-var util = require('../lib/util');
-var logger = require('../lib/logger');
+var pkg = require('../package')
+var vmx = require('..')
+var util = require('../lib/util')
+var logger = require('../lib/logger')
 
-var cwd = process.cwd();
+var cwd = process.cwd()
 
 
 commander
   .description(pkg.description)
   .option('-v, --version', 'output version number')
-  .option('-V, --verbose', 'output more detail')
-  .option('-r, --recursive', 'do recursively')
-  .option('-R, --reverse', 'view all files include specified file')
-  .option('-d, --debug', 'show debug message')
-  .option('-D, --directives <s>', 'directives relate to file including', split)
+  .option('-m, --macro <s>', 'global macro')
   .option('-o, --roots <s>', 'template roots', split)
-  .option('-t, --to <s>', 'directory to save the translated files')
-  .option('-T, --template <s>', 'be used with "-t", specifies target template language')
+  .option('-t, --template <s>', 'template entry')
+  .option('-c, --context <s>', 'context file', function(p) { return require(path.resolve(p)) })
   .option('-e, --encoding <s>', 'encoding')
+  .option('-d, --debug', 'show debug message')
+  .option('-R, --reverse', 'view reversed dependencies')
   .on('version', function() {
-    console.log('\n  ' + colorful.cyan(pkg.version) + '\n');
-    process.exit(0);
-  }).helpInformation = helpInfo;
+    console.log('\n  ' + colorful.cyan(pkg.version) + '\n')
+    process.exit(0)
+  }).helpInformation = helpInfo
 
-commander.parse(process.argv);
-
-
-var isConf;
-var conf = {};
-
-commander.args.forEach(function(item) {
-  if (item === 'config') {
-    isConf = true;
-  } else if (util.isExistedFile(item) && path.extname(item) === '.vm') {
-    conf.file = item;
-  } else if (item === '_' || /^[a-zA-Z][0-9a-zA-Z-_]*$/.test(item)) {
-    conf.variable = item;
-  } else {
-    logger.error('Not recognized option <%s>.', item);
-  }
-});
+commander.parse(process.argv)
 
 
-if (isConf) {
-  var editor = process.platform === 'win32' ? 'notepad' : 'vi';
-  var globalConfPath = path.join(util.getHome(), '.vmx');
+var isCfg = commander.args.some(function(item) {
+  return item === 'config'
+})
+
+if (isCfg) {
+  var editor = process.platform === 'win32' ? 'notepad' : 'vi'
   var child = require('child_process').spawn(
     editor,
-    [globalConfPath],
+    [path.join(util.getHome(), '.vmx')],
     {stdio: 'inherit'}
-  );
-  child.on('exit', process.exit);
-  
+  )
+  child.on('exit', process.exit)
 } else {
-  [
-   'verbose',
-   'recursive',
-   'reverse',
-   'directives',
-   'roots',
-   'to',
-   'template',
-   'encoding'
-  ].forEach(function(item) {
-    if (commander[item]) {
-      conf[item] = commander[item];
-    }
-  });
+  var cfg = common.getCfg(commander)
   
-  vmx(conf);
+  if (cfg.context) {
+    var engine = new vmx.Engine(cfg)
+    var result = engine.render(cfg.context)
+    console.log(result)
+
+  } else {
+    vmx.dep(cfg)
+  }
 }
 
 
@@ -86,7 +65,7 @@ function helpInfo() {
     '',
     colorful.green('  Usage:'),
     '    vmx config',
-    '    ' + this._name + ' [file.vm] [variable] ' + this.usage(),
+    '    ' + this._name + this.usage(),
     '',
     colorful.green('  Options:'),
     '' + this.optionHelp().replace(/^/gm, '    '),
@@ -95,12 +74,10 @@ function helpInfo() {
     '    ' + colorful.underline(pkg.homepage),
     '',
     ''
-  ].join('\n');
+  ].join('\n')
 }
 
 
 function split(raw) {
-  return raw.split(',');
+  return raw.split(',')
 }
-
-
