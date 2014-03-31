@@ -35,7 +35,7 @@ if (action === 'tokens') {
   if (result.stats === STATS.SUCCESS) {
     console.log(result.value)
   } else {
-    console.log(result)
+    Engine.printFailInfo(result)
   }
 }
 
