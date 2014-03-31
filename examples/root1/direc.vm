@@ -7,6 +7,14 @@ Top 3 favorites:
 #evaluate('$dataForEval')
 #evaluate("$dataForEval")
 
+#commonMacro('Hello ' $user.name '!')
+
+#@blockMacro('Hello')
+--->bodyContent
+Name: $user.name
+bodyContent<---
+#end
+
 #set($user.company = 'alipay.com')
 Company: $user.company
 
