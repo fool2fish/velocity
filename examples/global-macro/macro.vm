@@ -6,8 +6,3 @@ Arguments of commonMacro: [$a, $b, $c]
 Argument of blockMacro: $a
 Body content: $bodyContent
 #end
-
-#macro(tempMacro, $a, $b)
-#set($list = [$a..$b])
-First element of list created by tempMacro: $list[0]
-#end

@@ -7,8 +7,6 @@ Top 3 favorites:
 #evaluate('$dataForEval')
 #evaluate("$dataForEval")
 
-#tempMacro($user.name, 4)
-
 #commonMacro('Hello ' $user.name '!')
 
 #@blockMacro('Hello')
