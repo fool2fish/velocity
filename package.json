@@ -1,14 +1,11 @@
 {
   "name": "vmx",
-  "version": "0.1.0",
-  "description": "A velocity template tool that can view dependencies, variables and translate it.",
+  "version": "0.2.0",
+  "description": "A node velocity engine and dependency analyser.",
   "homepage": "https://github.com/fool2fish/vmx",
   "keywords": [
-    "velocity template",
-    "velocity tool",
-    "view dependency",
-    "view variable",
-    "translate template"
+    "velocity engine",
+    "template dependencies"
   ],
   "author": "fool2fish <fool2fish@gmail.com>",
   "dependencies": {
