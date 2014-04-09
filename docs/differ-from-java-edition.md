@@ -26,13 +26,16 @@ null | legal(v1.6.x)<br/>illegal(v1.7) | legal |
 $string.length() -> string.length
 ```
 
-#### Array
+#### Array or map
 
 ```
 $array.size() -> array.length
 $array.isEmpty() -> !array.length
 $array.get(idx) -> array[idx]
 $array.set(idx, value)  -> array[idx] = value
+
+$map.get(key) -> map[property]
+$map.set(key, value) -> map[key] = value
 ```
 
 #### Get property
@@ -41,7 +44,7 @@ $array.set(idx, value)  -> array[idx] = value
 $obj.getName() -> obj.name
 $obj.getname() -> obj.name
 $obj.get('name') -> obj.name
-$obj.isName() -> obj.name
+$obj.isName() -> !!obj.name
 ```
 
 ###### NOTE: node edition engine won't see if there is possible method when meets property.
