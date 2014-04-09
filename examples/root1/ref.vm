@@ -1,6 +1,6 @@
 >>>ref.vm
 ID: $id
-Name: $user.name
+Name: $user.name (length: $user.name.length())
 Nick: $!user.nick ${user.nick}
 Github: $user.github
 Most favorite: $user.favorites[0]
