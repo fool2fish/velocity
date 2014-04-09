@@ -1,5 +1,7 @@
 # Differ From Java Edition(v1.6.x ~ v1.7)
 
+## Syntax
+
 Source Code | Expect | Actual | Suggestion
 ----------- | ------ | -------|
 \$a | <text, $a>(v1.6.x)<br/><ref, \$a>(v1.7) | <text, \$a> |
@@ -15,3 +17,31 @@ marcro name: <br/>a-_b<br/>a__b<br/>a1 | legal | legal
 \#include($a, $b) | legal | legal |
 null | legal(v1.6.x)<br/>illegal(v1.7) | legal |
 !null | illegal | true |
+
+## Method look up
+
+#### String length
+
+```
+$string.length() -> string.length
+```
+
+#### Array
+
+```
+$array.size() -> array.length
+$array.isEmpty() -> !array.length
+$array.get(idx) -> array[idx]
+$array.set(idx, value)  -> array[idx] = value
+```
+
+#### Get property
+
+```
+$obj.getName() -> obj.name
+$obj.getname() -> obj.name
+$obj.get('name') -> obj.name
+$obj.isName() -> obj.name
+```
+
+###### NOTE: node edition engine won't see if there is possible method when meets property.
