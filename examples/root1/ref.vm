@@ -8,6 +8,9 @@ Favorites length: $user.favorites.size()
 Most favorite: $user.favorites[0]
 $method.foo()
 $method.bar()
+$nonexist
+$nonexist.property
+$nonexist.property.method()
 #* 
 bellow are references could cause error
 $method.undef.undef
