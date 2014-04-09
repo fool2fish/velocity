@@ -15,8 +15,8 @@ Name: $user.name
 bodyContent<---
 #end
 
-#set($user.company = 'alipay.com')
-Company: $user.company
+#set($company = 'alipay.com')
+Company: $company
 
 Date: $date.format($date.year, $date.month, $date.day)
 #if ($date.weather == 'sunny')

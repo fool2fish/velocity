@@ -12,6 +12,7 @@ $a.b(c) | <ref, $a.b> <'('> <ref, c> <')'> | illegal | $a.b($c)
 $a.b(c.d) | illegal | illegal | $a.b($c.d)
 macro name:<br/>a--b| illegal | legal |
 marcro name: <br/>a-_b<br/>a__b<br/>a1 | legal | legal
+#set($a.b = 1) | do nothing | illegal |
 \#macro(name $arg=default) | legal(v1.6.x)<br/>illegal<v1.7> | illegal | no default value
 \#include($a $b) | legal | illegal | \#include($a, $b)
 \#include($a, $b) | legal | legal |
