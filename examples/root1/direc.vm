@@ -27,7 +27,7 @@ Date: $date.format($date.year, $date.month, $date.day)
   Cannot get the weather info.
 #end
 
-#include("plain-text.txt")
+#include("/plain-text.txt")
 #cmsparse("/cms.vm")
 #parse('/uisvr.vm')
 direc.vm<<<
