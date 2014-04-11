@@ -110,7 +110,7 @@ try {
   "success": false,
   "message": "Error message.",
   "stack": [
-    "template (line:column)",
+    [template, position],
     ...
   ],
   "lines": [
