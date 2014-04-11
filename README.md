@@ -1,114 +1,142 @@
 # vmx
 
-A velocity template tool that can view dependencies, variables and translate it.
+A node velocity template engine and dependency analyser.
 
-一个可以查看依赖、变量和翻译成其他模板的 velocity 模板工具。
-
-[建议与反馈](https://github.com/fool2fish/vmx/issues/new)
+Node 版 velocity 模板引擎和依赖分析。
 
 ---
 
-## 一、快速上手
+Latest stable version: v0.2.x
 
-使用前请运行 `$ vmx config` 进行必要的配置。
+[Bug and suggestion](https://github.com/fool2fish/vmx/issues/new)
+
+
+## 1. Installment
 
 ```
-{
-  "directives": ["include", "parse", "cmsparse"],
-  "roots": [
-    "{{cashierTemplateRoot}}",
-    "{{uisvrTemplateRoot}}",
-    "{{cmsTemplateRoot}}"
-  ]
+$ npm install vmx -g
+```
+
+## 2. Quick Start
+
+I had prepared a example for you:
+
+```
+$ git clone https://github.com/fool2fish/vmx.git
+$ cd examples
+```
+
+#### Render a template
+
+Input:
+
+```
+$ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root1/index.vm -context ./context.js
+```
+
+Output:
+
+```
+>>>index.vm
+>>>ref.vm
+ID: 00000001
+Name: fool2fish fool2fish fool2fish
+Name length: 9
+Nick:  ${user.nick}
+Github: https://github.com/fool2fish
+...
+```
+
+#### View dependencies
+
+Input:
+
+```
+$ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root1/index.vm
+```
+Output:
+
+```
+|-index.vm
+  |-/ref.vm
+  |-/direc.vm
+  | |-/plain-text.txt
+  | |-/cms.vm
+  | |-/uisvr.vm
+  |-/expr.vm
+```
+
+#### View reversed dependencies
+
+Input:
+
+```
+$ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root2/uisvr.vm --reverse
+```
+Output:
+
+```
+|-uisvr.vm
+  |-direc.vm
+    |-index.vm
+```
+
+## 3. Use In Modules
+
+#### Render a template
+
+```
+var Engine = require('vmx').Engine
+try {
+  var engine = new Engine( {{options}} )
+  var result = engine.render( {{context}} )
+  if (result.success) {
+    console.log(result.value)
+  } else {
+    console.log(result)
+  }
+} catch (e) {
+  console.log(e)
 }
+
 ```
 
-- `directives` 指定产生依赖关系的指令，默认为  `["include", "parse"]`。
-- `roots` 指定 **模板** 根目录（绝对路径），无默认值。
-
-保存配置文件后，赶紧运行一把 `$ vmx {{yourFile}} -r` 来查看 `{{yourFile}}` 的递归依赖, 你将看到类似下图的依赖树：
-
-![vmx](https://f.cloud.github.com/assets/340282/1929678/d0b1c9dc-7e9b-11e3-94fb-6bfb41903726.png)
-
-查看反向依赖只需要加上配置项 `-R`。反向依赖需要进行全量遍历，速度可能较慢。
-
-### 为多个项目配置 roots
+**If it failed, you may get a result like this:**
 
 ```
 {
-  "roots": {
-    "default": [
-      "{{cashierTemplateRoot}}",
-      "{{uisvrTemplateRoot}}",
-      "{{cmsTemplateRoot}}"
-    ],
-    "wkprod": [
-      "{{wkprodTemplateRoot}}",
-      "{{uisvrTemplateRoot}}",
-      "{{cmsTemplateRoot}}"
-    ]
+  "success": false,
+  "message": "Error message.",
+  "stack": [
+    "template (line:column)",
+    ...
+  ],
+  "lines": [
+    "Lines caused the error."
+  ],
+  "pos": {
+    "first_line": 7, "last_line": 7,
+    "first_column": 27, "last_column": 40
   }
 }
 ```
 
-配置后运行 `$ vmx {{yourFile}} -r`， `roots` 自动使用 `default` 的值，你还可以指定 `$ vmx {{yourFile}} -r -o wkprod` 使用 `wkprod` 的值。
-
-更多配置项请运行 `$ vmx -h` 查看。
-
-## 二、使用说明
-
-### 查看依赖和反向依赖
+#### Get the AST
 
 ```
-# 直接依赖
-$ vmx file.vm
-
-# 递归依赖，并显示更多内容
-$ vmx file.vm -rV
-
-# 直接反向依赖
-$ vmx file.vm -R
-
-# 递归反向依赖
-$ vmx file.vm -Rr
-
-# 所有有反向依赖的文件
-$ vmx
-
-# 所有无反向依赖的文件
-$ vmx -R
+var parser = require('vmx').parser
+var content = fs.readFileSync( {{path/to/template}} , {encoding: {{encoding}} })
+var ast = parser.parse(content)
+console.log(ast)
 ```
 
-##### 注意：导致依赖不准确的情况
-
-- 遗漏：在非内联 `#macro` 中引入依赖
-- 冗余：在不解析区块 `#[[…]]#` 中引入依赖
-
-
-### 查看变量使用 (实现中)
+## 4. Options
 
 ```
-# 递归查看指定文件所有变量
-$ vmx file.vm _ -r
-
-# 查看指定文件中的变量
-$ vmx file.vm variable
-
-# 递归查看指定文件的变量
-$ vmx file.vm variable -r
-
+vmx -h
 ```
 
+## 5. Note
 
-### 翻译模板 (实现中)
+[Differ from Java edition](https://github.com/fool2fish/vmx/blob/master/docs/differ-from-java-edition.md) (If you are normal, you may not need to know this.)
 
-```
-# 翻译指定文件到 targetdir
-$ vmx file.vm -t targetdir
-
-# 递归翻译指定文件
-$ vmx file.vm -t targetdir -r
-
-# 翻译成指定模板语言
-$ vmx file.vm -t targetdir -T handbars
-```
