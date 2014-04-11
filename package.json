@@ -1,10 +1,10 @@
 {
   "name": "vmx",
   "version": "0.2.0",
-  "description": "A node velocity engine and dependency analyser.",
+  "description": "A node velocity template engine and dependency analyser.",
   "homepage": "https://github.com/fool2fish/vmx",
   "keywords": [
-    "velocity engine",
+    "velocity template engine",
     "template dependencies"
   ],
   "author": "fool2fish <fool2fish@gmail.com>",

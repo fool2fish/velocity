@@ -22,8 +22,8 @@ commander
   .option('-t, --template <s>', 'template entry')
   .option('-c, --context <s>', 'context file')
   .option('-e, --encoding <s>', 'encoding')
-  .option('-d, --debug', 'show debug message')
   .option('-R, --reverse', 'view reversed dependencies')
+  .option('-d, --debug', 'show debug message')
   .on('version', function() {
     console.log('\n  ' + colorful.cyan(pkg.version) + '\n')
     process.exit(0)
@@ -50,7 +50,11 @@ if (isCfg) {
   if (cfg.context) {
     var engine = new vmx.Engine(cfg)
     var result = engine.render(cfg.context)
-    console.log(result)
+    if (result.success) {
+      console.log(result.value)
+    } else {
+      console.log(result)
+    }
 
   } else {
     vmx.dep(cfg)
