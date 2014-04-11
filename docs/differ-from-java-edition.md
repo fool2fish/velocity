@@ -1,7 +1,5 @@
 # Differ From Java Edition(v1.6.x ~ v1.7)
 
-If you are a normal person, you may not need to know this.
-
 ## Syntax
 
 Source Code | Java   | Node   | Suggestion
@@ -22,6 +20,8 @@ null | legal(v1.6.x)<br/>illegal(v1.7) | legal |
 !null | illegal | true |
 
 ## Method look up
+
+If the method is not found, vmx will look up possible value follow rules below.
 
 #### String length
 
