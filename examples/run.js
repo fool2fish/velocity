@@ -15,7 +15,7 @@ var file = './root1/index.vm'
 var content = fs.readFileSync(file, {encoding: 'utf8'})
 
 var cfg = {
-  roots: ['root1', 'root2', 'root3'],
+  root: ['root1', 'root2', 'root3'],
   template: file,
   macro: './global-macro/macro.vm'
 }

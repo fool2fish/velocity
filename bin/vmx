@@ -18,7 +18,7 @@ commander
   .description(pkg.description)
   .option('-v, --version', 'output version number')
   .option('-m, --macro <s>', 'global macro', split)
-  .option('-o, --roots <s>', 'template roots', split)
+  .option('-o, --root <s>', 'template root', split)
   .option('-t, --template <s>', 'template entry')
   .option('-c, --context <s>', 'context file')
   .option('-e, --encoding <s>', 'encoding')
