@@ -60,7 +60,7 @@ if (isCfg) {
         var result = engine.render(context)
         console.log(result)
       } catch (e) {
-        vmx.Engine.printError(e)
+        console.log(e.stack)
       }
     }
 

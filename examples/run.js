@@ -39,7 +39,7 @@ if (action === 'dep') {
     var result = engine.render(context)
     console.log(result)
   } catch (e) {
-    Engine.printError(e)
+    console.log(e.stack)
   }
 }
 
