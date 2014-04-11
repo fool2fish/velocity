@@ -8,6 +8,8 @@ Node 版 velocity 模板引擎和依赖分析。
 
 Latest stable version: v0.2.x
 
+[Differ from Java edition](https://github.com/fool2fish/vmx/blob/master/docs/differ-from-java-edition.md)
+
 [Bug and suggestion](https://github.com/fool2fish/vmx/issues/new)
 
 
@@ -135,8 +137,4 @@ console.log(ast)
 ```
 vmx -h
 ```
-
-## 5. Note
-
-[Differ from Java edition](https://github.com/fool2fish/vmx/blob/master/docs/differ-from-java-edition.md) (If you are normal, you may not need to know this.)
 
