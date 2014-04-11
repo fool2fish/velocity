@@ -56,11 +56,11 @@ if (isCfg) {
     } else {
       var engine = new vmx.Engine(cfg)
       var context = readContext(cfg.context)
-      var result = engine.render(context)
-      if (result.success) {
-        console.log(result.value)
-      } else {
+      try {
+        var result = engine.render(context)
         console.log(result)
+      } catch (e) {
+        vmx.Engine.printError(e)
       }
     }
 

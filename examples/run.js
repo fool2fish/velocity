@@ -35,11 +35,11 @@ if (action === 'dep') {
   var context = require('./context')
 
   var engine = new Engine(cfg)
-  var result = engine.render(context)
-  if (result.success) {
-    console.log(result.value)
-  } else {
+  try {
+    var result = engine.render(context)
     console.log(result)
+  } catch (e) {
+    Engine.printError(e)
   }
 }
 
