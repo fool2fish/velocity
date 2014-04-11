@@ -134,7 +134,14 @@ console.log(ast)
 
 ## 4. Options
 
+All options are very simple, you can view them in terminal:
+
 ```
-vmx -h
+$ vmx -h
 ```
 
+You can set a global config (in JSON format):
+
+```
+$ vmx config
+```
