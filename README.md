@@ -33,7 +33,7 @@ $ cd examples
 Command:
 
 ```
-$ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root1/index.vm -context ./context.js
+$ vmx --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root1/index.vm --context ./context.js
 ```
 
 Output:
@@ -54,7 +54,7 @@ Github: https://github.com/fool2fish
 Command:
 
 ```
-$ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root1/index.vm -context ./context.js --server
+$ vmx --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root1/index.vm --context ./context.js --server
 ```
 
 Then you can visit `localhost:6789` in browser to see the result.
@@ -64,7 +64,7 @@ Then you can visit `localhost:6789` in browser to see the result.
 Command:
 
 ```
-$ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root1/index.vm
+$ vmx --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root1/index.vm
 ```
 Output:
 
@@ -83,7 +83,7 @@ Output:
 Command:
 
 ```
-$ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root2/uisvr.vm --reverse
+$ vmx --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root2/uisvr.vm --reverse
 ```
 Output:
 
@@ -99,47 +99,30 @@ Output:
 
 ```
 var Engine = require('vmx').Engine
+var engine = new Engine( {{options}} )
+
 try {
-  var engine = new Engine( {{options}} )
   var result = engine.render( {{context}} )
-  if (result.success) {
-    console.log(result.value)
-  } else {
-    console.log(result)
-  }
+  console.log(result)
 } catch (e) {
-  console.log(e)
+  console.log(e.stack)
 }
 
 ```
 
-**If it failed, you may get a result like this:**
-
-```
-{
-  "success": false,
-  "message": "Error message.",
-  "stack": [
-    [template, position],
-    ...
-  ],
-  "lines": [
-    "Lines caused the error."
-  ],
-  "pos": {
-    "first_line": 7, "last_line": 7,
-    "first_column": 27, "last_column": 40
-  }
-}
-```
+**If it failed, you will catch an error.**
 
 #### Get the AST
 
 ```
 var parser = require('vmx').parser
 var content = fs.readFileSync( {{path/to/template}} , {encoding: {{encoding}} })
-var ast = parser.parse(content)
-console.log(ast)
+try {
+  var ast = parser.parse(content)
+  console.log(ast)
+} catch (e) {
+  console.log(e.stack)
+}
 ```
 
 ## 4. Options
