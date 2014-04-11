@@ -5,7 +5,7 @@
   "homepage": "https://github.com/fool2fish/vmx",
   "keywords": [
     "velocity template engine",
-    "template dependencies"
+    "velocity template dependencies"
   ],
   "author": "fool2fish <fool2fish@gmail.com>",
   "dependencies": {
