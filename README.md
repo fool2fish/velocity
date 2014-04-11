@@ -30,7 +30,7 @@ $ cd examples
 
 #### Render a template
 
-Input:
+Command:
 
 ```
 $ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root1/index.vm -context ./context.js
@@ -51,7 +51,7 @@ Github: https://github.com/fool2fish
 
 #### View dependencies
 
-Input:
+Command:
 
 ```
 $ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root1/index.vm
@@ -70,7 +70,7 @@ Output:
 
 #### View reversed dependencies
 
-Input:
+Command:
 
 ```
 $ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root2/uisvr.vm --reverse
