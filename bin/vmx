@@ -21,7 +21,7 @@ commander
   .option('-o, --root <s>', 'template root', split)
   .option('-t, --template <s>', 'template entry')
   .option('-c, --context <s>', 'context file')
-  .option('-s, --server', 'launch a simple http server')
+  .option('-s, --server', 'start a simple http server')
   .option('-e, --encoding <s>', 'encoding')
   .option('-R, --reverse', 'view reversed dependencies')
   .option('-d, --debug', 'show debug message')

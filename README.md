@@ -49,6 +49,16 @@ Github: https://github.com/fool2fish
 ...
 ```
 
+#### Start a simple HTTP server
+
+Command:
+
+```
+$ vmx -root ./root1,./root2,./root3 -macro ./global-macro/macro.vm -template ./root1/index.vm -context ./context.js --server
+```
+
+Then you can visit `localhost:6789` in browser to see the result.
+
 #### View dependencies
 
 Command:
