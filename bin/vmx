@@ -21,6 +21,7 @@ commander
   .option('-o, --root <s>', 'template root', split)
   .option('-t, --template <s>', 'template entry')
   .option('-c, --context <s>', 'context file')
+  .option('-s, --server', 'launch a simple http server')
   .option('-e, --encoding <s>', 'encoding')
   .option('-R, --reverse', 'view reversed dependencies')
   .option('-d, --debug', 'show debug message')
@@ -44,16 +45,23 @@ if (isCfg) {
     {stdio: 'inherit'}
   )
   child.on('exit', process.exit)
+
 } else {
   var cfg = common.getCfg(commander)
   
   if (cfg.context) {
-    var engine = new vmx.Engine(cfg)
-    var result = engine.render(cfg.context)
-    if (result.success) {
-      console.log(result.value)
+    if (cfg.server) {
+      vmx.server(cfg)
+    
     } else {
-      console.log(result)
+      var engine = new vmx.Engine(cfg)
+      var context = readContext(cfg.context)
+      var result = engine.render(context)
+      if (result.success) {
+        console.log(result.value)
+      } else {
+        console.log(result)
+      }
     }
 
   } else {
@@ -84,4 +92,11 @@ function helpInfo() {
 
 function split(raw) {
   return raw.split(',')
+}
+
+function readContext(raw) {
+  if (common.isExistedFile(raw)) {
+    return require(path.resolve(raw))
+  }
+  return raw
 }
