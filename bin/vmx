@@ -52,8 +52,8 @@ if (isCfg) {
   
   //if options is given by conf file
   if(cfg.conf){
-    var cfgContent = util.readFile(cfg.conf,'utf8');
-    cfg = JSON.parse(cfgContent);
+    var cfgContent = util.readFile(cfg.conf,'utf8')
+    cfg = JSON.parse(cfgContent)
   }
 
   if (cfg.context) {
