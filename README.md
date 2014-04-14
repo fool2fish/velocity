@@ -138,3 +138,9 @@ You can set a global config (in JSON format):
 ```
 $ vmx config
 ```
+
+then you can use config file as parameter
+
+```
+$ vmx -f ./my.conf
+```
