@@ -2,7 +2,7 @@
 
 A node velocity template engine and dependency analyser.
 
-Node 版 velocity 模板引擎和依赖分析。
+Node 版 velocity 模板引擎([velocity doc](http://velocity.apache.org/engine/devel/user-guide.html))和依赖分析。
 
 ---
 
