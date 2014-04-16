@@ -8,6 +8,8 @@ Node 版 velocity 模板引擎和依赖分析。
 
 Latest stable version: v0.2.x
 
+[velocity syntax document](http://velocity.apache.org/engine/devel/user-guide.html)
+
 [Differ from Java edition](https://github.com/fool2fish/vmx/blob/master/docs/differ-from-java-edition.md)
 
 [Bug and suggestion](https://github.com/fool2fish/vmx/issues/new)
@@ -137,4 +139,10 @@ You can set a global config (in JSON format):
 
 ```
 $ vmx config
+```
+
+then you can use config file as parameter
+
+```
+$ vmx -f ./my.conf
 ```

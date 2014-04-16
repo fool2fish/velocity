@@ -2,9 +2,26 @@ module.exports = {
   id: '00000001',
   user: {
     name: 'fool2fish',
+    prop: 'name',
     github: 'https://github.com/fool2fish',
-    favorites: ['food', 'travel', 'comic', '...']
+    favorites: ['food', 'travel', 'comic', 'toomany','...']
   },
+  
+  allProducts:[  
+    'book',
+    'pen',
+    'rubber'
+  ],
+  allProductsTwo:{  
+    book:100,
+    pen:50,
+    rubber:10
+  },
+  customerList:[
+    {name:'tom',age:50},
+    {name:'jack',age:30},
+    {name:'jane',age:22}
+  ], 
   date: {
     weather: 'rain',
     year: 2014,
@@ -19,5 +36,6 @@ module.exports = {
     bar: function(){}
   },
   dataForEval: '@@$user.name@@',
-  rangeStart: 1
+  rangeStart: 1,
+  isTrue: false
 }

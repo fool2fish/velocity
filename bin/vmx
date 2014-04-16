@@ -25,6 +25,7 @@ commander
   .option('-e, --encoding <s>', 'encoding')
   .option('-R, --reverse', 'view reversed dependencies')
   .option('-d, --debug', 'show debug message')
+  .option('-f, --conf <s>', 'use config file,all the options defined in JSON format')
   .on('version', function() {
     console.log('\n  ' + colorful.cyan(pkg.version) + '\n')
     process.exit(0)
@@ -49,6 +50,12 @@ if (isCfg) {
 } else {
   var cfg = common.getCfg(commander)
   
+  //if options is given by conf file
+  if(cfg.conf){
+    var cfgContent = util.readFile(cfg.conf,'utf8')
+    cfg = JSON.parse(cfgContent)
+  }
+
   if (cfg.context) {
     if (cfg.server) {
       vmx.server(cfg)
