@@ -1,8 +1,8 @@
->>>plain-text
+>>>more-include-text
 =======================
 these code is not parsed!
 eg.
 	id is : $id
 	name	: $user.name 
 =======================
-plain-text<<<
+more-include-text<<<

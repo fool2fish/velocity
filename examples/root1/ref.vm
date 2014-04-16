@@ -3,14 +3,27 @@ ID: $id
 Name: $user.name $user.getName() $user.get("name")
 Name length: $user.name.length()
 Nick: $!user.nick ${user.nick}
+
+getProp:$user.getProp()
+#set($prop=$user.prop) 
+getNameBySetVar:$prop
+getNameBySecVar: $user.get($prop) $user.get($user.prop)
+
 Github: $user.github
 Favorites length: $user.favorites.size()
 Most favorite: $user.favorites[0]
+
+
 $method.foo()
 $method.bar()
+name: $method.name
+getname: $method.getName()
+
 $nonexist
 $nonexist.property
 $nonexist.property.method()
+
+
 #* 
 bellow are references could cause error
 $method.undef.undef

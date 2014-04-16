@@ -1,5 +1,25 @@
 #macro(commonMacro, $a, $b, $c)
 Arguments of commonMacro: [$a, $b, $c]
+display something ... 
+#end
+
+#macro(d)
+<tr><td>$!bodyContent</td></tr>
+#end
+
+#macro(maTest,$ref,$integer,$string,$interRange,$objArr,$bool,$referMethod)
+input reference: $ref
+input integer: $integer
+input string: $string
+input interRange: $interRange
+input objArr: $objArr
+input bool: $bool
+input referMethod:$referMethod $referMethod
+#end
+
+#macro(maMethod,$method)
+$method
+$method
 #end
 
 #macro(blockMacro, $a)
