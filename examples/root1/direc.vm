@@ -1,5 +1,10 @@
 >>>direc.vm
-Top 3 favorites:
+#foreach($entry in $user.entrySet())
+  key: $entry.key, value: $entry.value
+#end
+#foreach($key in $user.keySet())
+  $velocityCount: $key
+#end
 #foreach($fav in $user.favorites) 
   $foreach.count: $fav #if ($foreach.count >= 3) #break #end
 #end
@@ -17,6 +22,9 @@ bodyContent<---
 
 #set($company = 'alipay.com')
 Company: $company
+
+#set($job = "$title in $company")
+$job
 
 Date: $date.format($date.year, $date.month, $date.day)
 #if ($date.weather == 'sunny')
