@@ -21,7 +21,7 @@ null | legal(v1.6.x)<br/>illegal(v1.7) | legal |
 
 ## Method look up
 
-If the method is not found, vmx will look up possible value follow rules below.
+If the method is not found, node `velocity` will look up possible value follow rules below.
 
 #### String length
 
@@ -39,6 +39,8 @@ $array.set(idx, value)  -> array[idx] = value
 
 $map.get(key) -> map[property]
 $map.set(key, value) -> map[key] = value
+$map.keySet() -> Object.keys(map)
+$map.entrySet() -> Object.keys(map).map(function(key){return {key: key, value: map[key]}})
 ```
 
 #### Get property
@@ -50,4 +52,4 @@ $obj.get('name') -> obj.name
 $obj.isName() -> !!obj.name
 ```
 
-###### NOTE: node edition engine won't see if there is possible method when meets property.
+###### NOTE: node `velocity` won't see if there is possible method when meets property.
