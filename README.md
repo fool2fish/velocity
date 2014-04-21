@@ -12,7 +12,7 @@ Node 版 velocity 模板引擎。
 
 ## 0. Features
 
-- Full implementation of velocity template engine.
+- Full implementation of velocity syntax.
 - View template dependencies.
 - View data structure of references in templates.
 
