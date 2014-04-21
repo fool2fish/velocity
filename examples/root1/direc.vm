@@ -12,6 +12,13 @@
 #evaluate('$dataForEval')
 #evaluate("$dataForEval")
 
+#define($userInfo)
+user info:
+name: $user.name
+github: $user.github
+#end
+$userInfo
+
 #commonMacro('Hello ' $user.name '!')
 #commonMacro('Hello ' 'everyone' '!')
 
