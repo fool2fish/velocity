@@ -54,9 +54,8 @@ if (isCfg) {
     
     } else {
       var engine = new velocity.Engine(cfg)
-      var context = readContext(cfg.context)
       try {
-        var result = engine.render(context)
+        var result = engine.render(cfg.context)
         console.log(result)
       } catch (e) {
         console.log(e.stack)
@@ -68,10 +67,3 @@ if (isCfg) {
   }
 }
 
-
-function readContext(raw) {
-  if (utilx.isExistedFile(raw)) {
-    return require(path.resolve(raw))
-  }
-  return raw
-}

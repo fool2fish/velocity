@@ -32,11 +32,9 @@ if (action === 'dep') {
   console.log(util.inspect(ast, {depth: null}))
 
 } else {
-  var context = require('./context')
-
   var engine = new Engine(cfg)
   try {
-    var result = engine.render(context)
+    var result = engine.render('./context.js')
     console.log(result)
   } catch (e) {
     console.log(e.stack)
