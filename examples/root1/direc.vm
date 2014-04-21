@@ -13,12 +13,19 @@
 #evaluate("$dataForEval")
 
 #commonMacro('Hello ' $user.name '!')
+#commonMacro('Hello ' 'everyone' '!')
 
 #@blockMacro('Hello')
 --->bodyContent
 Name: $user.name
 bodyContent<---
 #end
+
+#macro(localMacro, $a)
+$a
+#end
+#localMacro('local macro was called')
+#localMacro('local macro was called again')
 
 #set($company = 'alipay.com')
 Company: $company
