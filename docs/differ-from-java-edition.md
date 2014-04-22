@@ -39,21 +39,27 @@ $string.length() -> string.length
 $array.size() -> array.length
 $array.isEmpty() -> !array.length
 $array.get(idx) -> array[idx]
-$array.set(idx, value)  -> array[idx] = value
 
 $map.get(key) -> map[property]
-$map.set(key, value) -> map[key] = value
 $map.keySet() -> Object.keys(map)
 $map.entrySet() -> Object.keys(map).map(function(key){return {key: key, value: map[key]}})
+
+// below are not supported
+$array.set(idx, value)
+$array.setIdx(value)
+$map.set(key, value)
+$map.setKey(value)
+$map.put(key, value)
+$map.putKey(value)
 ```
 
 #### Get property
 
 ```
+$obj.isName() -> !!obj.name
 $obj.getName() -> obj.name
 $obj.getname() -> obj.name
 $obj.get('name') -> obj.name
-$obj.isName() -> !!obj.name
 ```
 
 ###### NOTE: node `velocity` won't see if there is possible method when meets property.
