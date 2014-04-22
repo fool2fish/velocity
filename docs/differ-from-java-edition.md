@@ -10,9 +10,13 @@ $a(...) | <ref, $a> <text, (...)> | illegal | ${a}(...)
 $a.b\[0\](...) | <ref, $a.b[0]> <text, (...)> | illegal | ${a.b[0]}(...)
 $a.b(c) | <ref, $a.b> <'('> <ref, c> <')'> | illegal | $a.b($c)
 $a.b(c.d) | illegal | illegal | $a.b($c.d)
+$map.put(k, v) | illegal(v1.6.x) <br/> legal(v1.7) | illegal |
+$map['key'] | illegal(v1.6.x) <br/> legal(v1.7) | legal |
+$list.get(0) | illegal(v1.6.x) <br/> legal(v1.7) | legal |
 macro name:<br/>a--b| illegal | legal |
 marcro name: <br/>a-_b<br/>a__b<br/>a1 | legal | legal
-\#set($a={'k':'v'})<br/>\#set($a.b.c = 1) | $a.b = 1<br/>$a.b.c = undefined | do nothing |
+\#set($a.b = 1) | legal | illegal | left hand of assignment expression must be an id
+\#set($a={})<br/>\#set($a.b.c=1) | $a.b=1<br/>$a.b.c=undefined | illegal |
 \#macro(name $arg=default) | legal(v1.6.x)<br/>illegal<v1.7> | illegal | no default value
 \#include($a $b) | legal | illegal | \#include($a, $b)
 \#include($a, $b) | legal | legal |
