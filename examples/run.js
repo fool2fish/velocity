@@ -1,14 +1,12 @@
 var fs = require('fs')
 var util = require('util')
 
-var Engine = require('../lib/engine')
-var parser = require('../lib/engine/velocity')
+var velocity = require('../')
 var lexicalParser = require('../lib/engine/lex')
-var dep = require('../lib/dep')
 
 var action = 'render'
 process.argv.forEach(function(item, idx, list) {
-  if (item in {ast: true, tokens: true, dep: true}) action = item
+  if (item in {ast: true, tokens: true, dep: true, data: true}) action = item
 })
 
 var file = './root1/index.vm'
@@ -21,18 +19,28 @@ var cfg = {
 }
 
 if (action === 'dep') {
-  dep(cfg)
+  velocity.dep(cfg)
+
+} else if (action === 'data') {
+
+  var data = new velocity.Data(cfg)
+  try {
+    var result = data.extract()
+    console.log(util.inspect(result, {depth: null}))
+  } catch (e) {
+    console.log(e.stack)
+  }
 
 } else if (action === 'tokens') {
   var tokens = lexicalParser.parse(content)
   console.log(util.inspect(tokens, {depth: null}))
 
 } else if (action === 'ast') {
-  var ast = parser.parse(content)
+  var ast = velocity.parser.parse(content)
   console.log(util.inspect(ast, {depth: null}))
 
 } else {
-  var engine = new Engine(cfg)
+  var engine = new velocity.Engine(cfg)
   try {
     var result = engine.render('./context.js')
     console.log(result)
