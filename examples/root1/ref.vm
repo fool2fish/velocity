@@ -11,9 +11,4 @@ $method.bar()
 $nonexist
 $nonexist.property
 $nonexist.property.method()
-#* 
-bellow are references could cause error
-$method.undef.undef
-$method.undef.foo()
-*#
 ref.vm<<<
