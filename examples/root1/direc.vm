@@ -32,7 +32,7 @@ bodyContent<---
 $employee.name $employee.email
 #end
 #localMacro($manager)
-#localMacro($ceo)
+#localMacro($boss)
 
 #set($company = 'alipay.com')
 Company: $company
