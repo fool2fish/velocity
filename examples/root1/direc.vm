@@ -1,4 +1,8 @@
 >>>direc.vm
+#foreach($employee in $employeeList)
+  $employee.name $employee.email
+#end
+
 #foreach($entry in $user.entrySet())
   key: $entry.key, value: $entry.value
 #end
@@ -28,8 +32,8 @@ Name: $user.name
 bodyContent<---
 #end
 
-#macro(localMacro, $employee)
-$employee.name $employee.email
+#macro(localMacro, $person)
+$person.name $person.email
 #end
 #localMacro($manager)
 #localMacro($boss)
