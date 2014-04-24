@@ -28,11 +28,11 @@ Name: $user.name
 bodyContent<---
 #end
 
-#macro(localMacro, $a)
-$a
+#macro(localMacro, $employee)
+$employee.name $employee.email
 #end
-#localMacro('local macro was called')
-#localMacro('local macro was called again')
+#localMacro($manager)
+#localMacro($ceo)
 
 #set($company = 'alipay.com')
 Company: $company
