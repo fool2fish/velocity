@@ -1,4 +1,8 @@
 >>>direc.vm
+#foreach($employee in $employeeList)
+  $employee.name $employee.email
+#end
+
 #foreach($entry in $user.entrySet())
   key: $entry.key, value: $entry.value
 #end
@@ -28,11 +32,11 @@ Name: $user.name
 bodyContent<---
 #end
 
-#macro(localMacro, $a)
-$a
+#macro(localMacro, $person)
+$person.name $person.email
 #end
-#localMacro('local macro was called')
-#localMacro('local macro was called again')
+#localMacro($manager)
+#localMacro($boss)
 
 #set($company = 'alipay.com')
 Company: $company
