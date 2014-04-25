@@ -23,6 +23,8 @@ commander
   .option('-s, --server', 'start a simple http server')
   .option('-e, --encoding <s>', 'encoding')
   .option('-R, --reverse', 'view reversed dependencies')
+  .option('--data', 'extract data structure from template')
+  .option('--output <s>', 'output extract data structure as a js file')
   .option('-d, --debug', 'show debug message')
   .on('version', function() {
     console.log('\n  ' + colorful.cyan(pkg.version) + '\n')
@@ -48,22 +50,25 @@ if (isCfg) {
 } else {
   var cfg = utilx.cGetCfg(commander)
   
-  if (cfg.context) {
-    if (cfg.server) {
-      velocity.server(cfg)
+  if (cfg.data) {
+    var data = new velocity.Data(cfg)
+    var result = data.extract(cfg.context)
+    console.log(require('util').inspect(result, {depth: null}))
     
-    } else {
-      var engine = new velocity.Engine(cfg)
-      try {
+  } else {
+    if (cfg.context) {
+      if (cfg.server) {
+        velocity.server(cfg)
+       
+      } else {
+        var engine = new velocity.Engine(cfg)
         var result = engine.render(cfg.context)
         console.log(result)
-      } catch (e) {
-        console.log(e.stack)
       }
+  
+    } else {
+      velocity.dep(cfg, true)
     }
-
-  } else {
-    velocity.dep(cfg, true)
   }
 }
 
