@@ -95,6 +95,8 @@ Output:
 
 ### Extract data structure from template
 
+[Detailed document](https://github.com/fool2fish/velocity/issues/8)
+
 Command:
 
 ```
@@ -131,7 +133,7 @@ Output:
 
 ```
 { id: '00000001',
-  user: 
+  user:
    { name: 'fool2fish',
      favorites: [ 'food', 'travel', 'comic', '...' ],
      undefinedIsPreserved: undefined,
