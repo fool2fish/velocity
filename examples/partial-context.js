@@ -6,6 +6,6 @@ module.exports = {
     undefinedIsPreserved: undefined
   },
   method: {
-    foo: function(){return 'method.foo() is called!'},
+    foo: function(){return '\' \t \\'},
   }
 }

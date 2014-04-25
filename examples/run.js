@@ -15,7 +15,8 @@ var content = fs.readFileSync(file, {encoding: 'utf8'})
 var cfg = {
   root: ['root1', 'root2', 'root3'],
   template: file,
-  macro: './global-macro/macro.vm'
+  macro: './global-macro/macro.vm',
+  output: 'velocity-data.js'
 }
 
 if (action === 'dep') {
