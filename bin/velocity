@@ -53,7 +53,8 @@ if (isCfg) {
   if (cfg.data) {
     var data = new velocity.Data(cfg)
     var result = data.extract(cfg.context)
-    console.log(require('util').inspect(result, {depth: null}))
+    if (!cfg.output)
+      console.log(require('util').inspect(result, {depth: null}))
     
   } else {
     if (cfg.context) {
