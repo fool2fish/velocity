@@ -22,14 +22,9 @@ if (action === 'dep') {
   velocity.dep(cfg, true)
 
 } else if (action === 'data') {
-
   var data = new velocity.Data(cfg)
-  try {
-    var result = data.extract()
-    console.log(util.inspect(result, {depth: null}))
-  } catch (e) {
-    console.log(e.stack)
-  }
+  var result = data.extract('./partial-context.js')
+  console.log(util.inspect(result, {depth: null}))
 
 } else if (action === 'tokens') {
   var tokens = lexicalParser.parse(content)
@@ -41,12 +36,8 @@ if (action === 'dep') {
 
 } else {
   var engine = new velocity.Engine(cfg)
-  try {
-    var result = engine.render('./context.js')
-    console.log(result)
-  } catch (e) {
-    console.log(e.stack)
-  }
+  var result = engine.render('./context.js')
+  console.log(result)
 }
 
 
