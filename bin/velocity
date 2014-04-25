@@ -63,7 +63,7 @@ if (isCfg) {
     }
 
   } else {
-    velocity.dep(cfg)
+    velocity.dep(cfg, true)
   }
 }
 

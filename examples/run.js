@@ -19,7 +19,7 @@ var cfg = {
 }
 
 if (action === 'dep') {
-  velocity.dep(cfg)
+  velocity.dep(cfg, true)
 
 } else if (action === 'data') {
 
