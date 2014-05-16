@@ -1,3 +1,4 @@
+<pre>
 >>>index.vm
 #parse('/ref.vm')
 #parse('/direc.vm')
@@ -6,3 +7,4 @@
 #* block comment *#
 #[[ unparsed content ]]#
 index.vm<<<
+</pre>
