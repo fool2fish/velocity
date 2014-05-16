@@ -18,7 +18,7 @@ Node 版 velocity 模板引擎。
 
 ## 1. Installment
 
-```
+```sh
 $ npm install velocity -g
 ```
 
@@ -26,7 +26,7 @@ $ npm install velocity -g
 
 An example is ready for you:
 
-```
+```sh
 $ git clone https://github.com/fool2fish/velocity.git
 $ cd examples
 ```
@@ -35,7 +35,7 @@ $ cd examples
 
 Command:
 
-```
+```sh
 $ velocity --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root1/index.vm --context ./context.js
 ```
 
@@ -53,7 +53,7 @@ Name: fool2fish fool2fish fool2fish
 
 Command:
 
-```
+```sh
 $ velocity --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root1/index.vm --context ./context.js --server
 ```
 
@@ -63,7 +63,7 @@ Then you can visit `localhost:6789` in browser to see the result.
 
 Command:
 
-```
+```sh
 $ velocity --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root1/index.vm
 ```
 Output:
@@ -82,7 +82,7 @@ Output:
 
 Command:
 
-```
+```sh
 $ velocity --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root2/uisvr.vm --reverse
 ```
 Output:
@@ -99,7 +99,7 @@ Output:
 
 Command:
 
-```
+```sh
 $ velocity --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root1/index.vm --data
 ```
 
@@ -117,7 +117,7 @@ Output:
 
 Command:
 
-```
+```sh
 $ velocity --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root1/index.vm --data --output data-structure.js
 ```
 
@@ -125,7 +125,7 @@ $ velocity --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --temp
 
 Command:
 
-```
+```sh
 $ velocity --root ./root1,./root2,./root3 --macro ./global-macro/macro.vm --template ./root1/index.vm --context ./partial-context.js --data
 ```
 
@@ -146,7 +146,7 @@ Output:
 
 ### Render a template
 
-```
+```js
 var Engine = require('velocity').Engine
 var engine = new Engine( {{options}} )
 var result = engine.render( {{context}} )
@@ -155,7 +155,7 @@ console.log(result)
 
 ### Get the AST
 
-```
+```js
 var parser = require('velocity').parser
 var content = fs.readFileSync( {{path/to/template}} , {encoding: var ast = parser.parse(content)
 console.log(ast)
@@ -163,7 +163,7 @@ console.log(ast)
 
 ### Extract data structure from template and save to file
 
-```
+```js
 var Data = require('velocity').Data
 var data = new Data({
   output: 'path/save/data/structure',
@@ -176,12 +176,12 @@ var reselt = data.extract({{optional existed context}})
 
 You can set a global config (in JSON format):
 
-```
+```sh
 $ velocity config
 ```
 
 All options are very simple, you can view them in terminal:
 
-```
+```sh
 $ velocity -h
 ```
