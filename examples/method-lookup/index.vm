@@ -1,0 +1,16 @@
+String: $string
+String length: $string.length()
+
+List: $list
+List size: $list.size()
+List.get(index): $list.get(0)
+Is list empty? $list.isEmpty()
+
+Map
+Map.entrySet():
+#foreach($kv in $map.entrySet())
+Key: $kv.key, Value: $kv.value
+#end
+Map.keySet(): $map.keySet()
+Map.get(key): $map.get('a')
+Map.isKey: $map.isEnough()
