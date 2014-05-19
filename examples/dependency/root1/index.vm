@@ -1,0 +1,5 @@
+File /index.vm
+#parse('/a.vm')
+#parse("/b.vm")
+#parse('/path/not/exist')
+#parse($pathWithVariable)

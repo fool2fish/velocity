@@ -22,12 +22,11 @@ commander
   .option('-M, --macro <s>',    'global macro file/input', utilx.split)
   .option('-t, --template <s>', 'template file/input')
   .option('-c, --context <s>',  'context file/input')
-  .option('-o, --output <s>',   'output file path')
   .option('-e, --encoding <s>', 'encoding')
   .option('-R, --reverse',      'view reversed dependencies')
   .option('-S, --server [s]',   'start a simple http server')
+  .option('-o, --output <s>',   'output file path')
   .option('--data',             'extract data structure from template')
-  .option('--intermediate',     'generate an intermediate template to get assigned data structure')
   .on('version', function() {
     console.log('\n  ' + colorful.cyan(pkg.version) + '\n')
     process.exit(0)
@@ -49,12 +48,6 @@ if (utilx.isExistedFile(cfgFile)) {
   cfg = utilx.mix(cfg, projCfg)
 }
 
-var templIsObj = utilx.isObject(cfg.template)
-
-// Check template format
-if (!cfg.server && templIsObj) {
-  logger.error('Object template format is only legal when start a HTTP server.')
-}
 
 // Extract data structure
 if (cfg.data) {
@@ -62,9 +55,6 @@ if (cfg.data) {
   var result = data.extract(cfg.context)
   if (!cfg.output)
     console.log(require('util').inspect(result, {depth: null}))
-
-// Generate intermediate template to get assigned data structure
-} else if (cfg.intermediate) {
 
 // Start a HTTP server
 } else if (cfg.server) {
@@ -76,14 +66,14 @@ if (cfg.data) {
   var result = engine.render(cfg.context)
   
   if (cfg.output) {
-    console.log('\nOutput is saved to' + cfg.output + '\n')
+    console.log('\nOutput is saved to ' + cfg.output + '\n')
   } else {
-    console.log('\n' + result + '\n')
+    console.log(result)
   }
   
 // View dependencies
 } else {
-  velocity.dep(cfg, true)
+  velocity.dep(cfg)
 }
 
 

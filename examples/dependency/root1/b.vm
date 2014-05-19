@@ -1,0 +1,2 @@
+File /b.vm
+#parse('/d.vm')
