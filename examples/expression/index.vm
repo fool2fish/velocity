@@ -1,0 +1,26 @@
+#set($range = [$start..5])
+Range: $range
+
+#set($list = [$name, true])
+List: $list
+
+#set($map = {'nick': $name})
+Map: { 'nick': '$map.nick' }
+
+#set($bool = !true)
+Unary operation: $bool
+
+#set($int = 0)
+Integer: $int
+
+#set($float = 10.1)
+Float: $float
+
+#set($add = $start + 5)
+Addition: $add
+
+#set($str = 'my name is $name')
+Dstring: $str
+
+#set($dstr = "my name is $name")
+Dstring: $dstr
