@@ -1,0 +1,13 @@
+ID: $!id
+Name: ${name}
+Github: $github
+Most favorite: $favorites[0]
+
+$date.day - $date.month - $date.year
+
+$method.foo()
+$method.bar()
+
+$nonexist
+$nonexist.property
+$nonexist.property.method()
