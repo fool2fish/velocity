@@ -1,0 +1,30 @@
+#foreach($fav in $favorites)
+$foreach.index: $fav
+#end
+
+#evaluate('$dataForEval')
+#evaluate("$dataForEval")
+
+#define($introduce)
+My name is $name
+#end
+$introduce
+$introduce
+
+#macro(sayhi, $name)
+Hello, $name!
+#end
+#sayhi('velocity')
+#sayhi($name)
+
+#set($homepage = 'http://fool2fish.cn')
+Homepage: $homepage
+
+
+#if ($date.weather == 'sunny')
+Today is sunny.
+#elseif ($date.weather)
+Today is not sunny.
+#else
+Cannot get the weather info.
+#end
