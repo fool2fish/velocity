@@ -54,7 +54,7 @@ Hello, velocity!
 - [Extract data structure from template](https://github.com/fool2fish/velocity/tree/master/examples/data-structure)
 - [Start a simple http server](https://github.com/fool2fish/velocity/tree/master/examples/server)
 
-All examples at: https://github.com/fool2fish/velocity/tree/master/examples
+See all [examples](https://github.com/fool2fish/velocity/tree/master/examples).
 
 
 ## 3. Use In Modules
