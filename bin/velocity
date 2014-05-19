@@ -40,27 +40,49 @@ commander.parse(process.argv)
 
 var cfg = utilx.cGetCfg(commander)
 
+// Merge config file
+var cfgFile = cfg.config || './velocity-config.js'
+if (utilx.isExistedFile(cfgFile)) {
+  ;delete cfg.config
 
+  var projCfg = require(path.resolve(cfgFile))
+  cfg = utilx.mix(cfg, projCfg)
+}
+
+var templIsObj = utilx.isObject(cfg.template)
+
+// Check template format
+if (!cfg.server && templIsObj) {
+  logger.error('Object template format is only legal when start a HTTP server.')
+}
+
+// Extract data structure
 if (cfg.data) {
   var data = new velocity.Data(cfg)
   var result = data.extract(cfg.context)
   if (!cfg.output)
     console.log(require('util').inspect(result, {depth: null}))
-  
-} else {
-  if (cfg.context) {
-    if (cfg.server) {
-      velocity.server(cfg)
-     
-    } else {
-      var engine = new velocity.Engine(cfg)
-      var result = engine.render(cfg.context)
-      console.log(result)
-    }
 
+// Generate intermediate template to get assigned data structure
+} else if (cfg.intermediate) {
+
+// Start a HTTP server
+} else if (cfg.server) {
+  velocity.server(cfg)
+
+// Render Content
+} else if (cfg.context){
+  var engine = new velocity.Engine(cfg)
+  var result = engine.render(cfg.context)
+  if (cfg.output) {
+    console.log('Output is saved to', cfg.output)
   } else {
-    velocity.dep(cfg, true)
+    console.log(result)
   }
+  
+// View dependencies
+} else {
+  velocity.dep(cfg, true)
 }
 
 
