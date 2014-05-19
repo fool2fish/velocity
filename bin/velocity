@@ -24,7 +24,7 @@ commander
   .option('-c, --context <s>',  'context file/input')
   .option('-e, --encoding <s>', 'encoding')
   .option('-R, --reverse',      'view reversed dependencies')
-  .option('-S, --server [s]',   'start a simple http server')
+  .option('-S, --server',       'start a simple http server')
   .option('-o, --output <s>',   'output file path')
   .option('--data',             'extract data structure from template')
   .on('version', function() {
