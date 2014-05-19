@@ -1,0 +1,4 @@
+<h1>A toy website</h1>
+<p>Hello, $name!</p>
+#parse('/note.vm')
+
