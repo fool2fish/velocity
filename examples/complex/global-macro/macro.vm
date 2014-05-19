@@ -1,8 +1,0 @@
-#macro(commonMacro, $a, $b, $c)
-Arguments of commonMacro: [$a, $b, $c]
-#end
-
-#macro(blockMacro, $a)
-Argument of blockMacro: $a
-Body content: $bodyContent
-#end
