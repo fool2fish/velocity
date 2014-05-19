@@ -74,10 +74,11 @@ if (cfg.data) {
 } else if (cfg.context){
   var engine = new velocity.Engine(cfg)
   var result = engine.render(cfg.context)
+  
   if (cfg.output) {
-    console.log('\nOutput is saved to', cfg.output, '\n')
+    console.log('\nOutput is saved to' + cfg.output + '\n')
   } else {
-    console.log('\n', result, '\n')
+    console.log('\n' + result + '\n')
   }
   
 // View dependencies
