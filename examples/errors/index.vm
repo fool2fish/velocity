@@ -1,0 +1,54 @@
+## Function calling error
+#parse('/child.vm')
+
+## Start of range is not an integer
+## #set($range1 = [$string .. 5])
+
+## End of range is not an integer
+## #set($range2 = [5 .. $string])
+
+## Key of map is not a non-empty string
+## #set($map = {$emptyString: 'value'})
+
+## Right operand of division is zero
+## #set($division = 3 / 0)
+
+## Right operand of modulo is zero
+## #set($modulo = 3 % 0)
+
+## Left operand of assignment expression is not an identifier
+## #set($a.b = 1)
+
+## Left operand of #foreach is not an identifier
+## #foreach($a.b in $list)#end
+  
+## Param of #include is not a non-empty string
+## #include($emptyString)
+
+## Param of #include not exists or is not subpath of root
+## #include('/file/not/exist')
+
+## Param of #parse is not a non-empty string
+## #parse($emptyString)
+
+## Param of #parse not exists or is not subpath of root
+## #parse('/file/not/exist')
+
+## Param of #evaluate is not a string
+## #evaluate(1)
+
+## Param of #define is not an identifier
+## #define($a.b)#end
+
+## Param of #macro is not an identifier
+## macro(bar $a.b)#end
+  
+## Call undefined macro
+## #undefinedMacro()
+
+## Mismatch length of macro parameters
+## macro(bar)#end
+## #bar(1)
+
+
+
