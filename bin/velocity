@@ -53,8 +53,12 @@ if (utilx.isExistedFile(cfgFile)) {
 if (cfg.data) {
   var data = new velocity.Data(cfg)
   var result = data.extract(cfg.context)
-  if (!cfg.output)
+  
+  if (cfg.output) {
+    console.log('\nOutput is saved to ' + cfg.output + '\n')
+  } else {
     console.log(require('util').inspect(result, {depth: null}))
+  }
 
 // Start a HTTP server
 } else if (cfg.server) {

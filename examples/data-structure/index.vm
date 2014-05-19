@@ -1,0 +1,40 @@
+$id
+
+$user
+$user.favorites[0]
+$user.favorites[$favIdx]
+
+$method.foo($arg).bar
+
+$user.name.length()
+$user.favorites.size()
+$order.keySet()
+$order.orderId
+
+#set($temp = 1)
+#set($addr = $order.addr)
+$addr.zipCode
+$addr.city
+$addr.country
+
+#foreach($employee in $employeeList)
+$foreach.index: $employee.name - $employee.email
+#end
+
+#parse('/child.vm')
+
+#define($userInfo)
+$user.name
+$user.email
+#end
+$userInfo
+
+#macro(hello $date)
+$date.year $date.month $date.day
+#end
+#hello($today)
+
+#set($f = {$g: $h})
+$f[$g].i ## any property of $f won't be handled
+#set($j = [$k])
+$j[0].l  ## any property of $j won't be handled
