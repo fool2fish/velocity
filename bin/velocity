@@ -15,61 +15,52 @@ var cwd = process.cwd()
 
 commander
   .description(pkg.description)
-  .option('-v, --version', 'output version number')
-  .option('-m, --macro <s>', 'global macro', utilx.split)
-  .option('-o, --root <s>', 'template root', utilx.split)
-  .option('-t, --template <s>', 'template entry')
-  .option('-c, --context <s>', 'context file')
-  .option('-s, --server', 'start a simple http server')
+  .option('-v, --version',      'output version number')
+  .option('-d, --debug',        'show debug message')
+  .option('-C, --config <s>',   'config file')
+  .option('-O, --root <s>',     'template root path', utilx.split)
+  .option('-M, --macro <s>',    'global macro file/input', utilx.split)
+  .option('-t, --template <s>', 'template file/input')
+  .option('-c, --context <s>',  'context file/input')
+  .option('-o, --output <s>',   'output file path')
   .option('-e, --encoding <s>', 'encoding')
-  .option('-R, --reverse', 'view reversed dependencies')
-  .option('--data', 'extract data structure from template')
-  .option('--output <s>', 'output extract data structure as a js file')
-  .option('-d, --debug', 'show debug message')
+  .option('-R, --reverse',      'view reversed dependencies')
+  .option('-S, --server [s]',   'start a simple http server')
+  .option('--data',             'extract data structure from template')
+  .option('--intermediate',     'generate an intermediate template to get assigned data structure')
   .on('version', function() {
     console.log('\n  ' + colorful.cyan(pkg.version) + '\n')
     process.exit(0)
-  }).helpInformation = utilx.cGetHelp(pkg)
+  })
+  .helpInformation = utilx.cGetHelp(pkg)
 
+  
 commander.parse(process.argv)
 
 
-var isCfg = commander.args.some(function(item) {
-  return item === 'config'
-})
+var cfg = utilx.cGetCfg(commander)
 
-if (isCfg) {
-  var editor = process.platform === 'win32' ? 'notepad' : 'vi'
-  var child = require('child_process').spawn(
-    editor,
-    [path.join(utilx.home, '.velocity')],
-    {stdio: 'inherit'}
-  )
-  child.on('exit', process.exit)
 
+if (cfg.data) {
+  var data = new velocity.Data(cfg)
+  var result = data.extract(cfg.context)
+  if (!cfg.output)
+    console.log(require('util').inspect(result, {depth: null}))
+  
 } else {
-  var cfg = utilx.cGetCfg(commander)
-  
-  if (cfg.data) {
-    var data = new velocity.Data(cfg)
-    var result = data.extract(cfg.context)
-    if (!cfg.output)
-      console.log(require('util').inspect(result, {depth: null}))
-    
-  } else {
-    if (cfg.context) {
-      if (cfg.server) {
-        velocity.server(cfg)
-       
-      } else {
-        var engine = new velocity.Engine(cfg)
-        var result = engine.render(cfg.context)
-        console.log(result)
-      }
-  
+  if (cfg.context) {
+    if (cfg.server) {
+      velocity.server(cfg)
+     
     } else {
-      velocity.dep(cfg, true)
+      var engine = new velocity.Engine(cfg)
+      var result = engine.render(cfg.context)
+      console.log(result)
     }
+
+  } else {
+    velocity.dep(cfg, true)
   }
 }
+
 
