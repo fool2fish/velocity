@@ -4,7 +4,7 @@
 
 Source Code | Java   | Node   | Suggestion
 ----------- | ------ | -------|------------
-\$a | text: $a(v1.6.x)<br/>ref: \$a(v1.7) | text: \$a |
+\$a | &lt;text, $a&gt;(v1.6.x)&lt;br/&gt;&lt;ref, \$a&gt;(v1.7) | &lt;text, \$a&gt; |
 $\!a | <text, $!a>(v1.6.x)<br/><ref, $\\!a>(v1.7) | <text, $\\!a> |
 $a(...) | <ref, $a> <text, (...)> | illegal | ${a}(...)
 $a.b\[0\](...) | <ref, $a.b[0]> <text, (...)> | illegal | ${a.b[0]}(...)
