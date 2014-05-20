@@ -36,6 +36,16 @@ describe('engine.test.js', function () {
       engine.render({}).should.equal('Hello, ${name}!\n')
     })
 
+    it('should render $!id => "" when id not exist', function () {
+      var engine = new Engine({
+        template: 'ok $!id.'
+      })
+      engine.render({}).should.equal('ok .')
+      engine.render({id: null}).should.equal('ok null.')
+      engine.render({id: 123}).should.equal('ok 123.')
+      engine.render({id: 'foo'}).should.equal('ok foo.')
+    })
+
     it('should render with macro', function () {
       var engine = new Engine({
         template: path.join(tpl, 'macro', 'index.vm'),
