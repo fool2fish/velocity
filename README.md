@@ -1,5 +1,9 @@
 # velocity
 
+[![Build Status](https://secure.travis-ci.org/fool2fish/velocity.png?branch=master)](http://travis-ci.org/fool2fish/velocity)
+
+[![NPM](https://nodei.co/npm/velocity.png?downloads=true&stars=true)](https://nodei.co/npm/velocity/)
+
 A node velocity template engine.
 
 Node 版 velocity 模板引擎。

@@ -1,0 +1,27 @@
+
+Arguments of commonMacro: [$a, fool2fish, https://github.com/fool2fish]
+
+
+Arguments of commonMacro: [a, b, c]
+
+
+
+Argument of blockMacro: one
+Body content: 
+Block macro is called
+
+
+
+Argument of blockMacro: two
+Body content: 
+Block macro is called again
+
+
+
+
+
+Argument of local macro: $arg
+
+
+Argument of local macro: food,travel,comic,...
+

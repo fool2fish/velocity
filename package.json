@@ -36,5 +36,6 @@
       "threshold": 80
     }
   },
-  "preferGlobal": true
+  "preferGlobal": true,
+  "license": "MIT"
 }
