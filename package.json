@@ -11,11 +11,18 @@
   ],
   "author": "fool2fish <fool2fish@gmail.com>",
   "dependencies": {
-    "commander": "1.2.0",
     "colorful": "2.1.0",
-    "tracer": "0.6.1",
+    "commander": "1.2.0",
     "express": "4.2.0",
+    "tracer": "0.6.1",
     "utilx": "0.0.5"
+  },
+  "devDependencies": {
+    "autod": "*",
+    "mocha": "*",
+    "should": "3.3.1",
+    "istanbul": "*",
+    "cov": "*"
   },
   "repository": {
     "type": "git",
@@ -23,6 +30,11 @@
   },
   "bin": {
     "velocity": "./bin/velocity"
+  },
+  "config": {
+    "alicov": {
+      "threshold": 80
+    }
   },
   "preferGlobal": true
 }
