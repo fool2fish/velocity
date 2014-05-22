@@ -4,6 +4,7 @@
 
 Source Code | Java   | Node   | Suggestion
 ----------- | ------ | -------|------------
+$_a | may be legal or illegal, up to the version | legal |
 \$a | &lt;text, $a&gt;(v1.6.x)<br/>&lt;ref, \$a&gt;(v1.7) | &lt;text, \$a&gt; |
 $\!a | &lt;text, $!a&gt;(v1.6.x)<br/>&lt;ref, $\\!a&gt;(v1.7) | &lt;text, $\\!a&gt; |
 $a(...) | &lt;ref, $a&gt; &lt;text, (...)&gt; | illegal | ${a}(...)
