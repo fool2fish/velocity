@@ -14,7 +14,7 @@
 %x  rp rw r b bpm bp pm p m
 
 A   [a-zA-Z]
-ID  [a-zA-Z][a-zA-Z0-9-_]*
+ID  [a-zA-Z_][a-zA-Z0-9-_]*
 LP  (?=[ \t]*\()
 
 %%
