@@ -1,0 +1,5 @@
+#if ($a)
+  $a
+#elseif ($b)
+$b
+#end

@@ -16,6 +16,7 @@
 
 var should = require('should')
 var parser = require('../').parser
+var utils = require('./utils')
 
 describe('parser.test.js', function () {
   describe('Text', function () {
@@ -84,6 +85,27 @@ describe('parser.test.js', function () {
            pos: { first_line: 1, last_line: 1, first_column: 1, last_column: 5 },
            name: '_ref' } }
       ])
+    })
+  })
+
+  describe('UnaryExpr', function () {
+    it('should parse `#set($a = !$b)`', function () {
+      var ast = parser.parse("#set($a = !$b)")
+      ast.body.should.length(1)
+
+      ast.body[0].type.should.equal('AssignExpr')
+      ast.body[0].should.have.property('left')
+      ast.body[0].should.have.property('right')
+      ast.body[0].left.type.should.equal('Reference')
+      ast.body[0].left.object.type.should.equal('Identifier')
+      ast.body[0].left.object.name.should.equal('a')
+      ast.body[0].right.type.should.equal('UnaryExpr')
+      ast.body[0].right.operator.should.equal('!')
+
+      var argument = ast.body[0].right.argument
+      argument.type.should.equal('Reference')
+      argument.object.type.should.equal('Identifier')
+      argument.object.name.should.equal('b')
     })
   })
 
@@ -313,6 +335,145 @@ describe('parser.test.js', function () {
       callee.property.name.should.equal('name')
 
       obj.arguments.should.length(0)
+    })
+  })
+
+  describe('if else', function () {
+    it('should parse inline #if-else', function () {
+      var ast = parser.parse('#if($a)foo#else b#end')
+      ast.body.should.length(1)
+      var obj = ast.body[0]
+      obj.type.should.equal('If')
+      obj.test.type.should.equal('Reference')
+      obj.test.object.name.should.equal('a')
+      obj.consequent.body.should.length(1)
+      obj.consequent.body[0].type.should.equal('Text')
+      obj.consequent.body[0].value.should.equal('foo')
+      obj.alternate.type.should.equal('Statements')
+      obj.alternate.body.should.length(1)
+      obj.alternate.body[0].type.should.equal('Text')
+      obj.alternate.body[0].value.should.equal(' b')
+    })
+
+    it('should parse #if(!$a)', function () {
+      var ast = parser.parse('#if(!$a)\nok\n#end')
+      ast.body.should.length(1)
+      var obj = ast.body[0]
+      obj.type.should.equal('If')
+      var test = obj.test;
+      test.type.should.equal('UnaryExpr')
+      test.operator.should.equal('!')
+      var argument = test.argument
+      argument.type.should.equal('Reference')
+      argument.object.name.should.equal('a')
+      obj.consequent.body.should.length(1)
+      obj.consequent.body[0].type.should.equal('Text')
+      obj.consequent.body[0].value.should.equal('\nok\n')
+    })
+
+    it('should parse #if #end', function () {
+      var ast = parser.parse(utils.string('if-end.vm').trim())
+      ast.body.should.length(1)
+      var obj = ast.body[0]
+      obj.type.should.equal('If')
+
+      obj.test.type.should.equal('Reference')
+      var test = obj.test.object
+      test.type.should.equal('Method')
+      test.callee.type.should.equal('Property')
+      test.callee.object.name.should.equal('user')
+      test.callee.property.name.should.equal('getAge')
+      test.arguments.should.length(1)
+      test.arguments[0].type.should.equal('Integer')
+      test.arguments[0].value.should.equal(18)
+
+      obj.consequent.type.should.equal('Statements')
+      obj.consequent.body.should.length(1)
+      obj.consequent.body[0].type.should.equal('Text')
+      obj.consequent.body[0].value.should.equal('\n  welcome board\n')
+    })
+
+    it('should parse #if #else #end', function () {
+      var ast = parser.parse(utils.string('if-else-end.vm').trim())
+      ast.body.should.length(1)
+      var obj = ast.body[0]
+      obj.type.should.equal('If')
+
+      obj.test.type.should.equal('Reference')
+      var test = obj.test.object
+      test.type.should.equal('Method')
+      test.callee.type.should.equal('Property')
+      test.callee.object.name.should.equal('user')
+      test.callee.property.name.should.equal('getAge')
+      test.arguments.should.length(1)
+      test.arguments[0].type.should.equal('Integer')
+      test.arguments[0].value.should.equal(18)
+
+      obj.consequent.type.should.equal('Statements')
+      obj.consequent.body.should.length(1)
+      obj.consequent.body[0].type.should.equal('Text')
+      obj.consequent.body[0].value.should.equal('\n  welcome board\n')
+
+      should.exist(obj.alternate)
+      obj.alternate.type.should.equal('Statements')
+      obj.alternate.body.should.length(1)
+      obj.alternate.body[0].type.should.equal('Text')
+      obj.alternate.body[0].value.should.equal('\n  this is else\n')
+    })
+
+    it('should parse #if #elseif #end', function () {
+      var ast = parser.parse(utils.string('if-elseif-end.vm').trim())
+      ast.body.should.length(1)
+      var obj = ast.body[0]
+      obj.type.should.equal('If')
+
+      var test = obj.test;
+      test.type.should.equal('Reference')
+      test.object.type.should.equal('Identifier')
+      test.object.name.should.equal('a')
+      obj.consequent.type.should.equal('Statements')
+      obj.consequent.body.should.length(3)
+
+      obj.alternate.type.should.equal('If')
+      var alternate = obj.alternate
+      alternate.test.type.should.equal('Reference')
+      alternate.test.object.type.should.equal('Identifier')
+      alternate.test.object.name.should.equal('b')
+      alternate.consequent.type.should.equal('Statements')
+      alternate.consequent.body.should.length(3)
+
+      should.not.exist(alternate.alternate)
+    })
+
+    it('should parse #if #elseif #elseif #end', function () {
+      var ast = parser.parse(utils.string('if-elseif-elseif-end.vm').trim())
+      ast.body.should.length(1)
+      var obj = ast.body[0]
+      obj.type.should.equal('If')
+
+      var test = obj.test;
+      test.type.should.equal('Reference')
+      test.object.type.should.equal('Identifier')
+      test.object.name.should.equal('a')
+      obj.consequent.type.should.equal('Statements')
+      obj.consequent.body.should.length(3)
+
+      obj.alternate.type.should.equal('If')
+      var alternate = obj.alternate
+      alternate.test.type.should.equal('Reference')
+      alternate.test.object.type.should.equal('Identifier')
+      alternate.test.object.name.should.equal('b')
+      alternate.consequent.type.should.equal('Statements')
+      alternate.consequent.body.should.length(3)
+
+      should.exist(alternate.alternate)
+
+      alternate = obj.alternate.alternate
+      alternate.test.type.should.equal('Reference')
+      alternate.test.object.type.should.equal('Identifier')
+      alternate.test.object.name.should.equal('c')
+      alternate.consequent.type.should.equal('Statements')
+      alternate.consequent.body.should.length(3)
     })
   })
 })
