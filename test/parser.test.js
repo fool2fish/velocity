@@ -62,7 +62,7 @@ describe('parser.test.js', function () {
            { type: 'Identifier',
              pos: { first_line: 1, last_line: 1, first_column: 1, last_column: 5 },
              name: 'name' } }
-      ]);
+      ])
 
       ast = parser.parse('${name}')
       ast.body.should.eql([
@@ -73,14 +73,24 @@ describe('parser.test.js', function () {
              pos: { first_line: 1, last_line: 1, first_column: 2, last_column: 6 },
              name: 'name' },
           wrapped: true }
-      ]);
+      ])
+
+      ast = parser.parse('$_ref')
+      ast.body.should.eql([ {
+        type: 'Reference',
+        pos: { first_line: 1, last_line: 1, first_column: 0, last_column: 5 },
+        object:
+         { type: 'Identifier',
+           pos: { first_line: 1, last_line: 1, first_column: 1, last_column: 5 },
+           name: '_ref' } }
+      ])
     })
   })
 
   describe('AssignExpr', function () {
     it('should parse `#set($a = $b)`', function () {
       var ast = parser.parse("#set($a = $b)\nMap: { 'nick': '$map.nick' }")
-      ast.body.should.length(4);
+      ast.body.should.length(4)
 
       ast.body[0].type.should.equal('AssignExpr')
       ast.body[0].should.have.property('left')
@@ -108,7 +118,7 @@ describe('parser.test.js', function () {
 
     it('should parse `#set($a = 1)`', function () {
       var ast = parser.parse("#set($a = 1)")
-      ast.body.should.length(1);
+      ast.body.should.length(1)
 
       ast.body[0].type.should.equal('AssignExpr')
       ast.body[0].should.have.property('left')
@@ -122,7 +132,7 @@ describe('parser.test.js', function () {
 
     it('should parse `#set($a = \'\')`', function () {
       var ast = parser.parse("#set($a = '')")
-      ast.body.should.length(1);
+      ast.body.should.length(1)
 
       ast.body[0].type.should.equal('AssignExpr')
       ast.body[0].should.have.property('left')
@@ -134,7 +144,7 @@ describe('parser.test.js', function () {
       ast.body[0].right.value.should.equal('')
 
       var ast = parser.parse("#set($a = 'foo')")
-      ast.body.should.length(1);
+      ast.body.should.length(1)
 
       ast.body[0].type.should.equal('AssignExpr')
       ast.body[0].should.have.property('left')
@@ -146,7 +156,7 @@ describe('parser.test.js', function () {
       ast.body[0].right.value.should.equal('foo')
 
       var ast = parser.parse("#set($a = \"foo\")")
-      ast.body.should.length(1);
+      ast.body.should.length(1)
 
       ast.body[0].type.should.equal('AssignExpr')
       ast.body[0].should.have.property('left')
@@ -160,7 +170,7 @@ describe('parser.test.js', function () {
 
     it('should parse `#set($a = $user.nick)`', function () {
       var ast = parser.parse("#set($a = $user.nick)")
-      ast.body.should.length(1);
+      ast.body.should.length(1)
 
       ast.body[0].type.should.equal('AssignExpr')
       ast.body[0].should.have.property('left')
@@ -179,7 +189,7 @@ describe('parser.test.js', function () {
 
     it('should parse `#set(${a} = ${user.nick})`', function () {
       var ast = parser.parse("#set(${a} = ${user.nick})")
-      ast.body.should.length(1);
+      ast.body.should.length(1)
 
       ast.body[0].type.should.equal('AssignExpr')
       ast.body[0].should.have.property('left')
@@ -187,7 +197,7 @@ describe('parser.test.js', function () {
       ast.body[0].left.type.should.equal('Reference') // $
       ast.body[0].left.object.type.should.equal('Identifier') // $xxx
       ast.body[0].left.object.name.should.equal('a')
-      ast.body[0].left.wrapped.should.equal(true);
+      ast.body[0].left.wrapped.should.equal(true)
 
       ast.body[0].right.type.should.equal('Reference')
       ast.body[0].right.object.type.should.equal('Property') // $
@@ -195,12 +205,12 @@ describe('parser.test.js', function () {
       ast.body[0].right.object.object.name.should.equal('user')
       ast.body[0].right.object.property.type.should.equal('Prop') // .nick
       ast.body[0].right.object.property.name.should.equal('nick')
-      ast.body[0].right.wrapped.should.equal(true);
+      ast.body[0].right.wrapped.should.equal(true)
     })
 
     it('should parse `#set($your.name = $user.nick)`', function () {
       var ast = parser.parse("#set($your.name = $user.nick)")
-      ast.body.should.length(1);
+      ast.body.should.length(1)
 
       ast.body[0].type.should.equal('AssignExpr')
       ast.body[0].should.have.property('left')
@@ -225,16 +235,16 @@ describe('parser.test.js', function () {
   describe('DString', function () {
     it('shold parse #set($a = "$foo bar")', function () {
       var ast = parser.parse('#set($a = "$foo bar")')
-      ast.body.should.length(1);
-      ast.body[0].right.type.should.equal('DString');
-      ast.body[0].right.value.should.equal('$foo bar');
+      ast.body.should.length(1)
+      ast.body[0].right.type.should.equal('DString')
+      ast.body[0].right.value.should.equal('$foo bar')
     })
   })
 
   describe('Reference => Property', function () {
     it('should parse `$map.nick`', function () {
       var ast = parser.parse("{ 'nick': '$map.nick' }")
-      ast.body.should.length(3);
+      ast.body.should.length(3)
 
       ast.body[0].type.should.equal('Text')
       ast.body[0].value.should.equal("{ 'nick': '")
@@ -252,7 +262,7 @@ describe('parser.test.js', function () {
 
     it('should parse `${map.nick}`', function () {
       var ast = parser.parse("{ 'nick': '${map.nick}Haha' }")
-      ast.body.should.length(3);
+      ast.body.should.length(3)
 
       ast.body[0].type.should.equal('Text')
       ast.body[0].value.should.equal("{ 'nick': '")

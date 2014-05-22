@@ -20,7 +20,7 @@ var Engine = require('../').Engine
 var utils = require('./utils')
 
 var tpl = path.join(path.dirname(__dirname), 'examples')
-var fixtures = path.join(__dirname, 'fixtures');
+var fixtures = path.join(__dirname, 'fixtures')
 
 describe('engine.test.js', function () {
   describe('render()', function () {
