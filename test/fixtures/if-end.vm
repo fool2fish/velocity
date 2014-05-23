@@ -1,0 +1,3 @@
+#if($user.getAge(18))
+  welcome board
+#end

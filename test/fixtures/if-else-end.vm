@@ -1,0 +1,5 @@
+#if($user.getAge(18))
+  welcome board
+#else
+  this is else
+#end
