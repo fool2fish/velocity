@@ -355,6 +355,99 @@ describe('parser.test.js', function () {
       obj.alternate.body[0].value.should.equal(' b')
     })
 
+    it('should parse #if($a || $b)', function () {
+      var ast = parser.parse('#if($a || $b)\nok\n#end')
+      ast.body.should.length(1)
+      var obj = ast.body[0]
+      obj.type.should.equal('If')
+      var test = obj.test;
+      test.type.should.equal('BinaryExpr')
+      test.operator.should.equal('||')
+      var left = test.left
+      left.type.should.equal('Reference')
+      left.object.name.should.equal('a')
+      var right = test.right
+      right.type.should.equal('Reference')
+      right.object.name.should.equal('b')
+      obj.consequent.body.should.length(1)
+      obj.consequent.body[0].type.should.equal('Text')
+      obj.consequent.body[0].value.should.equal('\nok\n')
+    })
+
+    it('should parse #if($a || $b || $c)', function () {
+      var ast = parser.parse('#if($a || $b || $c)\nok\n#end')
+      ast.body.should.length(1)
+      var obj = ast.body[0]
+      obj.type.should.equal('If')
+      var test = obj.test;
+      test.type.should.equal('BinaryExpr')
+      test.operator.should.equal('||')
+      var left = test.left
+      left.type.should.equal('BinaryExpr')
+      left.operator.should.equal('||')
+      left.left.type.should.equal('Reference')
+      left.left.object.name.should.equal('a')
+      left.right.type.should.equal('Reference')
+      left.right.object.name.should.equal('b')
+
+      var right = test.right
+      right.type.should.equal('Reference')
+      right.object.name.should.equal('c')
+      obj.consequent.body.should.length(1)
+      obj.consequent.body[0].type.should.equal('Text')
+      obj.consequent.body[0].value.should.equal('\nok\n')
+    })
+
+    it('should parse #if($a || $b && $c)', function () {
+      var ast = parser.parse('#if($a || $b && $c)\nok\n#end')
+      ast.body.should.length(1)
+      var obj = ast.body[0]
+      obj.type.should.equal('If')
+      var test = obj.test;
+      test.type.should.equal('BinaryExpr')
+      test.operator.should.equal('||')
+      var left = test.left
+      left.type.should.equal('Reference')
+      left.object.name.should.equal('a')
+
+      var right = test.right
+      right.type.should.equal('BinaryExpr')
+      right.operator.should.equal('&&')
+      right.left.type.should.equal('Reference')
+      right.left.object.name.should.equal('b')
+      right.right.type.should.equal('Reference')
+      right.right.object.name.should.equal('c')
+
+      obj.consequent.body.should.length(1)
+      obj.consequent.body[0].type.should.equal('Text')
+      obj.consequent.body[0].value.should.equal('\nok\n')
+    })
+
+    it('should parse #if(($a || $b) && $c)', function () {
+      var ast = parser.parse('#if(($a || $b) && $c)\nok\n#end')
+      ast.body.should.length(1)
+      var obj = ast.body[0]
+      obj.type.should.equal('If')
+      var test = obj.test;
+      test.type.should.equal('BinaryExpr')
+      test.operator.should.equal('&&')
+      var left = test.left
+      left.type.should.equal('BinaryExpr')
+      left.operator.should.equal('||')
+      left.left.type.should.equal('Reference')
+      left.left.object.name.should.equal('a')
+      left.right.type.should.equal('Reference')
+      left.right.object.name.should.equal('b')
+
+      var right = test.right
+      right.type.should.equal('Reference')
+      right.object.name.should.equal('c')
+
+      obj.consequent.body.should.length(1)
+      obj.consequent.body[0].type.should.equal('Text')
+      obj.consequent.body[0].value.should.equal('\nok\n')
+    })
+
     it('should parse #if(!$a)', function () {
       var ast = parser.parse('#if(!$a)\nok\n#end')
       ast.body.should.length(1)
