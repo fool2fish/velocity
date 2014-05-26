@@ -17,7 +17,6 @@ commander
   .description(pkg.description)
   .option('-v, --version',      'output version number')
   .option('-d, --debug',        'show debug message')
-  .option('-C, --config <s>',   'config file')
   .option('-O, --root <s>',     'template root path', utilx.split)
   .option('-M, --macro <s>',    'global macro file/input', utilx.split)
   .option('-t, --template <s>', 'template file/input')
@@ -40,10 +39,8 @@ commander.parse(process.argv)
 var cfg = utilx.cGetCfg(commander)
 
 // Merge config file
-var cfgFile = cfg.config || './velocity-config.js'
+var cfgFile = './velocity-config.js'
 if (utilx.isExistedFile(cfgFile)) {
-  ;delete cfg.config
-
   var projCfg = require(path.resolve(cfgFile))
   cfg = utilx.mix(cfg, projCfg)
 }
