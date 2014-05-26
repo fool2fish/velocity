@@ -1,0 +1,7 @@
+#if($a)
+  $a
+#elseif($b)
+  $b
+#elseif($c)
+  $c
+#end

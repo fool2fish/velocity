@@ -6,4 +6,4 @@ node_modules/
 logs/
 lib-cov/
 lib/parser/test.vm
-
+coverage/
