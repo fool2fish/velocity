@@ -6,7 +6,7 @@ Source Code | Java   | Node   | Suggestion
 ----------- | ------ | -------|------------
  | all right value is escaped| not excaped|
 $_a | may be legal or illegal, up to the version | legal |
-\$a | &lt;text, $a&gt;(v1.6.x)<br/>&lt;ref, \$a&gt;(v1.7) | &lt;text, \$a&gt; |
+\$a | &lt;text, $a&gt;(v1.6.x)<br/>&lt;ref, \$a&gt;(v1.7) | &lt;text, $a&gt; |
 $\!a | &lt;text, $!a&gt;(v1.6.x)<br/>&lt;ref, $\\!a&gt;(v1.7) | &lt;text, $\\!a&gt; |
 $a(...) | &lt;ref, $a&gt; &lt;text, (...)&gt; | illegal | ${a}(...)
 $a.b\[0\](...) | &lt;ref, $a.b[0]&gt; &lt;text, (...)&gt; | illegal | ${a.b[0]}(...)
