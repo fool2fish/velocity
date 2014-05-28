@@ -7,21 +7,21 @@ Arguments of commonMacro: [a, b, c]
 
 
 Argument of blockMacro: one
-Body content: 
+Body content:
 Block macro is called
 
 
 
 Argument of blockMacro: two
-Body content: 
+Body content:
 Block macro is called again
 
 
 
 
 
-Argument of local macro: $arg
+Argument of local macro: $arg1, secondParam
 
 
-Argument of local macro: food,travel,comic,...
+Argument of local macro: food,travel,comic,..., $arg2
 

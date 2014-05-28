@@ -4,5 +4,5 @@ Arguments of commonMacro: [$a, $b, $c]
 
 #macro(blockMacro, $a)
 Argument of blockMacro: $a
-Body content: $bodyContent
+Body content:$bodyContent
 #end
