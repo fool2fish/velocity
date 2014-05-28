@@ -8,8 +8,8 @@ Block macro is called
 Block macro is called again
 #end
 
-#macro(localMacro, $arg)
-Argument of local macro: $arg
+#macro(localMacro, $arg1, $arg2)
+Argument of local macro: $arg1, $arg2
 #end
-#localMacro($id)
+#localMacro($id, 'secondParam')
 #localMacro($favorites)

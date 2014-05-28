@@ -46,9 +46,6 @@
 ## Call undefined macro
 ## #undefinedMacro()
 
-## Mismatch length of macro parameters
-## macro(bar)#end
-## #bar(1)
 
 
 
