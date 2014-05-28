@@ -1,1 +1,41 @@
-module.exports = 123123
+module.exports = {
+  id: '000000001',
+  user: {
+    name: 'fool2fish',
+    email: 'fool2fish@gmail.com',
+    undefinedIsPreserved: undefined,
+    favorites: ['']
+  },
+  method: {
+    foo: function() {
+      return '\' \t \\'
+    }
+  },
+  g: 'g',
+  favIdx: '$favIdx',
+  arg: '$arg',
+  order: {
+    orderId: '$order.orderId',
+    addr: {
+      zipCode: '$order.addr.zipCode',
+      city: '$order.addr.city',
+      country: '$order.addr.country'
+    }
+  },
+  employeeList: [{
+    name: '',
+    email: ''
+  }],
+  ref: {
+    from: {
+      child: '$ref.from.child'
+    }
+  },
+  today: {
+    year: '$today.year',
+    month: '$today.month',
+    day: '$today.day'
+  },
+  h: '$h',
+  k: '$k'
+}
