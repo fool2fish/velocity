@@ -4,6 +4,5 @@ module.exports = {
     name: 'fool2fish',
     email: 'fool2fish@gmail.com',
     undefinedIsPreserved: undefined },
-  method: { foo: function () { return '\' \t \\' } },
-  g:'g'
+  method: { foo: function () { return '\' \t \\' } }
   }

@@ -1,41 +1,165 @@
 module.exports = {
-  id: '000000001',
+  id: {
+    __stats: 'CERTAIN',
+    __value: '000000001'
+  },
   user: {
-    name: 'fool2fish',
-    email: 'fool2fish@gmail.com',
-    undefinedIsPreserved: undefined,
-    favorites: ['']
+    __stats: 'CERTAIN',
+    __value: {
+      name: {
+        __stats: 'CERTAIN',
+        __value: 'fool2fish'
+      },
+      email: {
+        __stats: 'CERTAIN',
+        __value: 'fool2fish@gmail.com'
+      },
+      undefinedIsPreserved: {
+        __stats: 'CERTAIN',
+        __value: undefined
+      },
+      favorites: {
+        __stats: 'CERTAIN',
+        __value: ['#foreach($value in $user.favorites)#if($foreach.count!=0),#end$value#end']
+      }
+    }
   },
   method: {
-    foo: function() {
-      return '\' \t \\'
+    __stats: 'CERTAIN',
+    __value: {
+      foo: {
+        __stats: 'CERTAIN',
+        __value: function() {
+          return '\' \t \\'
+        }
+      }
     }
   },
-  g: 'g',
-  favIdx: '$favIdx',
-  arg: '$arg',
+  favIdx: {
+    __stats: 'UNCERTAIN',
+    __value: '$favIdx'
+  },
+  arg: {
+    __stats: 'UNCERTAIN',
+    __value: '$arg'
+  },
   order: {
-    orderId: '$order.orderId',
-    addr: {
-      zipCode: '$order.addr.zipCode',
-      city: '$order.addr.city',
-      country: '$order.addr.country'
+    __stats: 'CERTAIN',
+    __value: {
+      orderId: {
+        __stats: 'UNCERTAIN',
+        __value: '$order.orderId'
+      },
+      addr: {
+        __stats: 'CERTAIN',
+        __value: {
+          zipCode: {
+            __stats: 'UNCERTAIN',
+            __value: '$order.addr.zipCode'
+          },
+          city: {
+            __stats: 'UNCERTAIN',
+            __value: '$order.addr.city'
+          },
+          country: {
+            __stats: 'UNCERTAIN',
+            __value: '$order.addr.country'
+          }
+        }
+      }
     }
   },
-  employeeList: [{
-    name: '',
-    email: ''
-  }],
+  temp: {
+    __stats: 'LEFT',
+    __value: {
+      __stats: 'BREAK'
+    },
+    __origin: undefined
+  },
+  addr: {
+    __stats: 'LEFT',
+    __value: {
+      __stats: 'CERTAIN',
+      __value: {
+        zipCode: {
+          __stats: 'UNCERTAIN',
+          __value: '$order.addr.zipCode'
+        },
+        city: {
+          __stats: 'UNCERTAIN',
+          __value: '$order.addr.city'
+        },
+        country: {
+          __stats: 'UNCERTAIN',
+          __value: '$order.addr.country'
+        }
+      }
+    },
+    __origin: undefined
+  },
+  employeeList: {
+    __stats: 'CERTAIN',
+    __value: ['#foreach($value in $employeeList)#if($foreach.count!=0),#end$value#end']
+  },
   ref: {
-    from: {
-      child: '$ref.from.child'
+    __stats: 'CERTAIN',
+    __value: {
+      from: {
+        __stats: 'CERTAIN',
+        __value: {
+          child: {
+            __stats: 'UNCERTAIN',
+            __value: '$ref.from.child'
+          }
+        }
+      }
     }
+  },
+  userInfo: {
+    __stats: 'DEFINE',
+    __origin: undefined
   },
   today: {
-    year: '$today.year',
-    month: '$today.month',
-    day: '$today.day'
+    __stats: 'CERTAIN',
+    __value: {
+      year: {
+        __stats: 'UNCERTAIN',
+        __value: '$today.year'
+      },
+      month: {
+        __stats: 'UNCERTAIN',
+        __value: '$today.month'
+      },
+      day: {
+        __stats: 'UNCERTAIN',
+        __value: '$today.day'
+      }
+    }
   },
-  h: '$h',
-  k: '$k'
+  g: {
+    __stats: 'UNCERTAIN',
+    __value: '$g'
+  },
+  h: {
+    __stats: 'UNCERTAIN',
+    __value: '$h'
+  },
+  f: {
+    __stats: 'LEFT',
+    __value: {
+      __stats: 'BREAK'
+    },
+    __origin: undefined
+  },
+  k: {
+    __stats: 'UNCERTAIN',
+    __value: '$k'
+  },
+  j: {
+    __stats: 'LEFT',
+    __value: {
+      __stats: 'BREAK'
+    },
+    __origin: undefined
+  }
 }
