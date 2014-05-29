@@ -1,5 +1,7 @@
 $id
 
+$methodha.a()
+
 $user
 $user.favorites[0]
 $user.favorites[$favIdx]
@@ -21,7 +23,10 @@ $addr.country
 
 #foreach($employee in $employeeList)
 $foreach.index: $employee.name - $employee.email
+$employee.new()
+$employee.list.size()
 #end
+
 
 #parse('/child.vm')
 

@@ -4,21 +4,22 @@ module.exports = {
     name: 'fool2fish',
     email: 'fool2fish@gmail.com',
     undefinedIsPreserved: undefined,
-    favorites: ['#foreach($value in $user.favorites)#if($foreach.count!=1),#end"$value"#end'],
+    favorites: [#foreach($value in $user.favorites)#if($foreach.count!=0),#end#end],
     create: {
       new: {
         new: {
           new: {
-            new: ['#foreach($value in $user.create.new.new.new.new)#if($foreach.count!=1),#end"$value"#end']
+            new: [#foreach($value in $user.create.new.new.new.new)#if($foreach.count!=0),#end#end]
           }
         }
       }
     }
   },
   method: {
-    foo: function() {
-      return '\' \t \\'
-    }
+    foo: '$method.foo()'
+  },
+  methodha: {
+    a: '$methodha.a()'
   },
   favIdx: '$favIdx',
   arg: '$arg',
@@ -30,7 +31,7 @@ module.exports = {
       country: '$order.addr.country'
     }
   },
-  employeeList: ['#foreach($value in $employeeList)#if($foreach.count!=1),#end{name:$value.name,email:$value.email}#end'],
+  employeeList: [#foreach($value in $employeeList)#if($foreach.count!=0),#end#end],
   ref: {
     from: {
       child: '$ref.from.child'
