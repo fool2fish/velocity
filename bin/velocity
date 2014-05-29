@@ -48,7 +48,7 @@ if (utilx.isExistedFile(cfgFile)) {
 
 
 // Extract data structure
-if (cfg.data||cfg.dump) {
+if (cfg.dump||cfg.data) {
   var data = new velocity.Data(cfg)
   var result = data.extract(cfg.context)
   
