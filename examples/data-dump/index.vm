@@ -4,6 +4,8 @@ $user
 $user.favorites[0]
 $user.favorites[$favIdx]
 
+$user.create.new.new.new.new[0]
+
 $method.foo($arg).bar
 
 $user.name.length()

@@ -20,7 +20,31 @@ module.exports = {
       },
       favorites: {
         __stats: 'CERTAIN',
-        __value: ['#foreach($value in $user.favorites)#if($foreach.count!=0),#end$value#end']
+        __value: ['#foreach($value in $user.favorites)#if($foreach.count!=0),#end"$value"#end']
+      },
+      create: {
+        __stats: 'CERTAIN',
+        __value: {
+          new: {
+            __stats: 'CERTAIN',
+            __value: {
+              new: {
+                __stats: 'CERTAIN',
+                __value: {
+                  new: {
+                    __stats: 'CERTAIN',
+                    __value: {
+                      new: {
+                        __stats: 'CERTAIN',
+                        __value: ['#foreach($value in $user.create.new.new.new.new)#if($foreach.count!=0),#end"$value"#end']
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -99,7 +123,7 @@ module.exports = {
   },
   employeeList: {
     __stats: 'CERTAIN',
-    __value: ['#foreach($value in $employeeList)#if($foreach.count!=0),#end$value#end']
+    __value: ['#foreach($value in $employeeList)#if($foreach.count!=0),#end{name:$value.name,email:$value.email}#end']
   },
   ref: {
     __stats: 'CERTAIN',
