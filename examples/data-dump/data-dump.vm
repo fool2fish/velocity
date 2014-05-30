@@ -19,7 +19,7 @@ module.exports = {
       country: '$order.addr.country'
     }
   },
-  employeeList: [#foreach($value in $employeeList#if($foreach.count!=0),#end{name:"$value.name",email:"$value.email",method123:"$value.method123"}#end],
+  employeeList: [#foreach($value in $employeeList#if($foreach.count!=0),#end{name:"$value.name",email:"$value.email",method123:"$value.method123()"}#end],
   ref: {
     from: {
       child: '$ref.from.child'
