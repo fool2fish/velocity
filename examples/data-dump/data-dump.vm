@@ -1,13 +1,14 @@
 module.exports = {
   user: {
-    favorites: [#foreach($value in $user.favorites)#if($foreach.count!=0),#end"$value"#end],
-    name: '$user.name',
-    email: '$user.email'
+    name: 'fool2fish',
+    email: 'fool2fish@gmail.com',
+    undefinedIsPreserved: undefined,
+    favorites: [#foreach($value in $user.favorites)#if($foreach.count!=0),#end"$value"#end]
   },
-  favIdx: '$favIdx',
   method: {
     foo: '$method.foo()'
   },
+  favIdx: '$favIdx',
   arg: '$arg',
   order: {
     orderId: '$order.orderId',
@@ -17,7 +18,7 @@ module.exports = {
       country: '$order.addr.country'
     }
   },
-  employeeList: [#foreach($value in $employeeList)#if($foreach.count!=0),#end{name:"$value.name",email:"$value.email",code:"$value.code()",childlist:[#foreach($value in $value.childlist)#if($foreach.count!=0),#end{name:[#foreach($value in $value.name)#if($foreach.count!=0),#end{name:"$value.name"}#end]}#end]}#end],
+  employeeList: [#foreach($value in $employeeList)#if($foreach.count!=0),#end{name:"$value.name",email:"$value.email",coding:"$value.coding()",sonlist:[#foreach($value in $value.sonlist)#if($foreach.count!=0),#end{sonname:"$value.sonname",sonemail:"$value.sonemail",coding:"$value.coding()",grandsonlist:[#foreach($value in $value.grandsonlist)#if($foreach.count!=0),#end{grandsonname:"$value.grandsonname",grandsonemail:"$value.grandsonemail",coding:"$value.coding()"}#end]}#end]}#end],
   ref: {
     from: {
       child: '$ref.from.child'

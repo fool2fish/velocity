@@ -16,13 +16,15 @@ $addr.country
 
 #foreach($employee in $employeeList)
 $foreach.index: $employee.name - $employee.email
-$employee.code()
-    #foreach($son in $employee.childlist)
-        $son.name
-        $employee.email
-        #foreach($grandson in $son.name)
-            $grandson.name
-            $employee.email
+$employee.coding()
+    #foreach($son in $employee.sonlist)
+        $son.sonname
+        $son.sonemail
+        $son.coding()
+        #foreach($grandson in $son.grandsonlist)
+            $grandson.grandsonname
+            $grandson.grandsonemail
+            $grandson.coding()
         #end
     #end
 #end
