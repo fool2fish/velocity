@@ -23,7 +23,13 @@ module.exports = {
   },
   employeeList: [{
     name: '',
-    email: ''
+    email: '',
+    code: [Function],
+    childlist: [{
+      name: [{
+        name: ''
+      }]
+    }]
   }],
   ref: {
     from: {

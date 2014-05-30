@@ -1,7 +1,6 @@
 module.exports = {
-  id: '$id',
   user: {
-    favorites: [#foreach($value in $user.favorites#if($foreach.count!=0),#end"$value"#end],
+    favorites: [#foreach($value in $user.favorites)#if($foreach.count!=0),#end"$value"#end],
     name: '$user.name',
     email: '$user.email'
   },
@@ -18,7 +17,7 @@ module.exports = {
       country: '$order.addr.country'
     }
   },
-  employeeList: [#foreach($value in $employeeList#if($foreach.count!=0),#end{name:"$value.name",email:"$value.email",method123:"$value.method123()"}#end],
+  employeeList: [#foreach($value in $employeeList)#if($foreach.count!=0),#end{name:"$value.name",email:"$value.email",code:"$value.code()",childlist:[#foreach($value in $value.childlist)#if($foreach.count!=0),#end{name:[#foreach($value in $value.name)#if($foreach.count!=0),#end{name:"$value.name"}#end]}#end]}#end],
   ref: {
     from: {
       child: '$ref.from.child'
