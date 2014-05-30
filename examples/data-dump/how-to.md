@@ -1,8 +1,8 @@
 # data dump
 
-1. run `$ velocity` at current dir.
+1. run `$ velocity` at current dir, it generates a intermediate template `./data-dump.vm` for dump.
 
-2. replace content of velocity-config.js with
+2. replace content of `velocity-config.js` with
 
     ```
     module.exports = {
@@ -14,4 +14,4 @@
 
 3. run `$ velocity` again.
 
-Now you get the context file **./context-dump.js** from the runtime.
+Now you get the context file `./context-dump.js` from the runtime.
