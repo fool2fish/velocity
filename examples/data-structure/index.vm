@@ -1,6 +1,9 @@
+$id
+
 $user
 $user.favorites[0]
 $user.favorites[$favIdx]
+
 $method.foo($arg).bar
 
 $user.name.length()
@@ -16,13 +19,6 @@ $addr.country
 
 #foreach($employee in $employeeList)
 $foreach.index: $employee.name - $employee.email
-$employee.code()
-    #foreach($child in $employee.childlist)
-        $child.name
-        #foreach($ancient in $child.name)
-            $ancient.name
-        #end
-    #end
 #end
 
 #parse('/child.vm')
@@ -42,4 +38,3 @@ $date.year $date.month $date.day
 $f[$g].i ## any property of $f won't be handled
 #set($j = [$k])
 $j[0].l  ## any property of $j won't be handled
-
