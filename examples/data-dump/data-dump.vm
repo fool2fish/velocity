@@ -27,8 +27,5 @@ module.exports = {
     year: '$today.year',
     month: '$today.month',
     day: '$today.day'
-  },
-  g: '$g',
-  h: '$h',
-  k: '$k'
+  }
 }
