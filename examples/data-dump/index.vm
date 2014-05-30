@@ -1,24 +1,16 @@
-$user
-$user.favorites[0]
-$user.favorites[$favIdx]
-$method.foo($arg).bar
+SchoolName: $name
+Headmaster: $headmaster
 
-$addr.zipCode
-$addr.city
-$addr.country
-
-#foreach($employee in $employeeList)
-$employee.name
-$employee.github
-$employee.coding()
-  #foreach($son in $employee.sonList)
-    $son.name
-    $son.github
-    $son.coding()
-    #foreach($grandson in $son.grandsonList)
-      $grandson.name
-      $grandson.github
-      $grandson.coding()
+Grades:
+#foreach($grade in $grades)
+  GradeName: $grade.name
+  Classes:
+    #foreach($class in $grade.classes)
+      ClassName: $class.name
+      HeadTeacher: $class.headTeacher
+      Students: 
+        #foreach($student in $class.students)
+          $student #if($foreach.hasNext),#end
+        #end
     #end
-  #end
 #end
