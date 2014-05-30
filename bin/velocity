@@ -26,6 +26,7 @@ commander
   .option('-S, --server',       'start a simple http server')
   .option('-o, --output <s>',   'output file path')
   .option('--data',             'extract data structure from template')
+  .option('--dump',             'generate intermediate template to dump the context')
   .on('version', function() {
     console.log('\n  ' + colorful.cyan(pkg.version) + '\n')
     process.exit(0)
@@ -47,7 +48,7 @@ if (utilx.isExistedFile(cfgFile)) {
 
 
 // Extract data structure
-if (cfg.data) {
+if (cfg.data || cfg.dump) {
   var data = new velocity.Data(cfg)
   var result = data.extract(cfg.context)
   
