@@ -15,7 +15,8 @@
     "commander": "1.2.0",
     "express": "4.2.0",
     "tracer": "0.6.1",
-    "utilx": "0.0.5"
+    "utilx": "0.0.5",
+    "js-beautify": "1.5.1"
   },
   "devDependencies": {
     "autod": "*",

@@ -7,3 +7,7 @@ logs/
 lib-cov/
 lib/parser/test.vm
 coverage/
+npm-debug.log
+*.swo
+.sw*
+.idea/*

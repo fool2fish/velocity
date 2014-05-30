@@ -1,0 +1,32 @@
+module.exports = {
+  user: {
+    name: 'fool2fish',
+    email: 'fool2fish@gmail.com',
+    undefinedIsPreserved: undefined,
+    favorites: [#foreach($value in $user.favorites)#if($foreach.count!=0),#end"$value"#end]
+  },
+  method: {
+    foo: '$method.foo()'
+  },
+  favIdx: '$favIdx',
+  arg: '$arg',
+  order: {
+    orderId: '$order.orderId',
+    addr: {
+      zipCode: '$order.addr.zipCode',
+      city: '$order.addr.city',
+      country: '$order.addr.country'
+    }
+  },
+  employeeList: [#foreach($value in $employeeList)#if($foreach.count!=0),#end{name:"$value.name",email:"$value.email",coding:"$value.coding()",sonlist:[#foreach($value in $value.sonlist)#if($foreach.count!=0),#end{sonname:"$value.sonname",sonemail:"$value.sonemail",coding:"$value.coding()",grandsonlist:[#foreach($value in $value.grandsonlist)#if($foreach.count!=0),#end{grandsonname:"$value.grandsonname",grandsonemail:"$value.grandsonemail",coding:"$value.coding()"}#end]}#end]}#end],
+  ref: {
+    from: {
+      child: '$ref.from.child'
+    }
+  },
+  today: {
+    year: '$today.year',
+    month: '$today.month',
+    day: '$today.day'
+  }
+}

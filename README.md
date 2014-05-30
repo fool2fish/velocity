@@ -57,6 +57,7 @@ Hello, velocity!
 - [View dependencies](https://github.com/fool2fish/velocity/tree/master/examples/dependency)
 - [Extract data structure from template](https://github.com/fool2fish/velocity/tree/master/examples/data-structure)
 - [Start a simple http server](https://github.com/fool2fish/velocity/tree/master/examples/server)
+- [Create a dump file](https://github.com/fool2fish/velocity/tree/master/examples/data-dump)
 
 See all [examples](https://github.com/fool2fish/velocity/tree/master/examples).
 
@@ -125,3 +126,4 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
