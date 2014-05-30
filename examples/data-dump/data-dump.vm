@@ -1,15 +1,14 @@
 module.exports = {
-  id: '000000001',
+  id: '$id',
   user: {
-    name: 'fool2fish',
-    email: 'fool2fish@gmail.com',
-    undefinedIsPreserved: undefined,
-    favorites: [#foreach($value in $user.favorites#if($foreach.count!=0),#end"$value"#end]
+    favorites: [#foreach($value in $user.favorites#if($foreach.count!=0),#end"$value"#end],
+    name: '$user.name',
+    email: '$user.email'
   },
+  favIdx: '$favIdx',
   method: {
     foo: '$method.foo()'
   },
-  favIdx: '$favIdx',
   arg: '$arg',
   order: {
     orderId: '$order.orderId',
