@@ -1,0 +1,24 @@
+$user
+$user.favorites[0]
+$user.favorites[$favIdx]
+$method.foo($arg).bar
+
+$addr.zipCode
+$addr.city
+$addr.country
+
+#foreach($employee in $employeeList)
+$employee.name
+$employee.github
+$employee.coding()
+  #foreach($son in $employee.sonList)
+    $son.name
+    $son.github
+    $son.coding()
+    #foreach($grandson in $son.grandsonList)
+      $grandson.name
+      $grandson.github
+      $grandson.coding()
+    #end
+  #end
+#end
