@@ -12,6 +12,8 @@ Node 版 velocity 模板引擎。
 
 [Bug and suggestion](https://github.com/fool2fish/velocity/issues/new)
 
+[Change log](https://github.com/fool2fish/velocity/releases)
+
 ---
 
 ## 0. Features
