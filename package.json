@@ -1,6 +1,6 @@
 {
   "name": "velocity",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "A node velocity template engine.",
   "homepage": "https://github.com/fool2fish/velocity",
   "keywords": [
