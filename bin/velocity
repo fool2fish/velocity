@@ -55,7 +55,7 @@ if (cfg.data || cfg.dump) {
   if (cfg.output) {
     console.log('\nOutput is saved to ' + cfg.output + '\n')
   } else {
-    console.log(require('util').inspect(result, {depth: null}))
+    console.log(result.str)
   }
 
 // Start a HTTP server
