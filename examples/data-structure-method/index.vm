@@ -1,7 +1,7 @@
 $method.foo($arg).any
 $method.bar().a($arg).prop
 
-#set($purl = $url.parse($href))
+#set($purl = $url.parse($href, true))
 $purl.queryString
 
 $str.length()
