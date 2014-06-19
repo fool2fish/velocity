@@ -1,0 +1,9 @@
+$util.add(3, 4)
+
+#set($addr = $user.addr())
+$addr.zipcode
+$addr.city
+
+$method.foo().bar($arg).any
+$method.foo().prop
+
