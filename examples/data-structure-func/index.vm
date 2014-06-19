@@ -1,0 +1,12 @@
+$method.foo($arg).any
+$method.bar().a($arg).prop
+
+#set($purl = $url.parse($href))
+$purl.queryString
+
+$str.length()
+$arr.size()
+$obj.entrySet()
+$obj2.get('name')
+$obj2.getEmail()
+$obj2.isEmpty()
