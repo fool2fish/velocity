@@ -21,6 +21,7 @@ Node 版 velocity 模板引擎。
 - Full implementation of velocity syntax.
 - View template dependencies.
 - Extract data structure from templates.
+- Generate intermediate template to dump the context.
 
 ## 1. Installment
 
