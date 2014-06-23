@@ -16,6 +16,11 @@ $addr.country
 $foreach.index: $employee.name - $employee.email
 #end
 
+#set($list = [0 .. 10])
+#foreach($item in $list)
+$argInForeach
+#end
+
 #define($userInfo)
 $user.name
 $user.email

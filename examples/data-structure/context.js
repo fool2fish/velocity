@@ -4,5 +4,9 @@ module.exports = {
     name: 'fool2fish',
     email: 'fool2fish@gmail.com',
     undefinedIsPreserved: undefined
-  }
+  },
+  employeeList: [
+    { name: 'Bob' },
+    { name: 'Sue'}
+  ]
 }
