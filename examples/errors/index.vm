@@ -1,6 +1,9 @@
 ## Function calling error
 #parse('/child.vm')
 
+## Error threw by method
+## $method.foo()
+
 ## Start of range is not an integer
 ## #set($range1 = [$string .. 5])
 

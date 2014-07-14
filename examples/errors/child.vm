@@ -1,1 +1,2 @@
-$method.foo()
+## Parse error
+#set(4 = $a)
