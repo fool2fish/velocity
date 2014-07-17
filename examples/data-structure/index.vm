@@ -6,8 +6,6 @@ $user.favorites[$favIdx]
 
 $order.orderId
 
-#undfinedMacro()
-
 #set($temp = 1)
 #set($addr = $order.addr)
 $addr.zipCode
