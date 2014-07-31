@@ -1,3 +1,11 @@
+#foreach($num in [0 .. 2])
+  $num
+#end
+
+#foreach($item in ['a', 'b', 'c'])
+  $item
+#end
+
 #foreach($fav in $favorites)
 $foreach.index: $fav
 #end

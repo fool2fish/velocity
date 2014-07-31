@@ -169,6 +169,10 @@ directive
   | if                                                     { $$ = $1; }
   | FOREACH '(' reference IN reference ')' statements END  { $$ = {type: 'Foreach', pos: @$, left: $3, right: $5, body: $7}; }
   | FOREACH '(' reference IN reference ')' END             { $$ = {type: 'Foreach', pos: @$, left: $3, right: $5}; }
+  | FOREACH '(' reference IN range ')' statements END      { $$ = {type: 'Foreach', pos: @$, left: $3, right: $5, body: $7}; }
+  | FOREACH '(' reference IN range ')' END                 { $$ = {type: 'Foreach', pos: @$, left: $3, right: $5}; }
+  | FOREACH '(' reference IN list ')' statements END       { $$ = {type: 'Foreach', pos: @$, left: $3, right: $5, body: $7}; }
+  | FOREACH '(' reference IN list ')' END                  { $$ = {type: 'Foreach', pos: @$, left: $3, right: $5}; }
   | INCLUDE '(' exprItems ')'                              { $$ = {type: 'Include', pos: @$, arguments: $3}; }
   | PARSE '(' exprItem ')'                                 { $$ = {type: 'Parse', pos: @$, argument: $3}; }
   | EVALUATE '(' exprItem ')'                              { $$ = {type: 'Evaluate', pos: @$, argument: $3}; }
