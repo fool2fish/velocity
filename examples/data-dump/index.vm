@@ -1,6 +1,8 @@
 SchoolName: $name
 Headmaster: $headmaster
 
+$detailInfo.isFirstClass()
+
 Grades:
 #foreach($grade in $grades)
   GradeName: $grade.name
