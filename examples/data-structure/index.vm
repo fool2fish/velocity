@@ -13,6 +13,7 @@ $addr.city
 $addr.country
 
 #foreach($employee in $employeeList)
+$velocityCount
 $foreach.index: $employee.name - $employee.email
 #end
 
