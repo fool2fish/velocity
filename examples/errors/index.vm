@@ -1,5 +1,8 @@
 ## Function calling error
-#parse('/child.vm')
+## #parse('/child.vm')
+
+## An error thrown by toString method
+$method.bar()
 
 ## Error threw by method
 ## $method.foo()
