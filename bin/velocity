@@ -22,9 +22,8 @@ commander
   .option('-t, --template <s>', 'template file/input')
   .option('-c, --context <s>',  'context file/input')
   .option('-e, --encoding <s>', 'encoding')
-  .option('-R, --reverse',      'view reversed dependencies')
-  .option('-S, --server',       'start a simple http server')
   .option('-o, --output <s>',   'output file path')
+  .option('-R, --reverse',      'view reversed dependencies')
   .option('--data',             'extract data structure from template')
   .option('--dump',             'generate intermediate template to dump the context')
   .on('version', function() {
@@ -57,10 +56,6 @@ if (cfg.data || cfg.dump) {
   } else {
     console.log(result.str)
   }
-
-// Start a HTTP server
-} else if (cfg.server) {
-  velocity.server(cfg)
 
 // Render Content
 } else if (cfg.context){
