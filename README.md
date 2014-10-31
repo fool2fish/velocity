@@ -60,7 +60,6 @@ Hello, velocity!
 - [View dependencies](https://github.com/fool2fish/velocity/tree/master/examples/dependency)
 - [Extract data structure from template](https://github.com/fool2fish/velocity/tree/master/examples/data-structure)
 - [Generate intermediate template to dump the context](https://github.com/fool2fish/velocity/tree/master/examples/data-dump)
-- [Start a simple http server](https://github.com/fool2fish/velocity/tree/master/examples/server)
 
 See all [examples](https://github.com/fool2fish/velocity/tree/master/examples).
 
