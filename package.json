@@ -1,6 +1,6 @@
 {
   "name": "velocity",
-  "version": "0.6.11",
+  "version": "0.7.0",
   "description": "A node velocity template engine.",
   "homepage": "https://github.com/fool2fish/velocity",
   "keywords": [
@@ -11,9 +11,9 @@
   ],
   "author": "fool2fish <fool2fish@gmail.com>",
   "dependencies": {
-    "colorful": "2.1.0",
-    "commander": "1.2.0",
-    "tracer": "0.6.1",
+    "colorful": "~2.1.0",
+    "commander": "~2.3.0",
+    "tracer": "~0.7.3",
     "utilx": "0.0.5"
   },
   "devDependencies": {
