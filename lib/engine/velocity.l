@@ -13,7 +13,7 @@
  
 %x  rp rw r b bpm bp pm p m
 
-A   [a-zA-Z]
+A   [a-zA-Z0-9-_]
 ID  [a-zA-Z_][a-zA-Z0-9-_]*
 LP  (?=[ \t]*\()
 
@@ -76,8 +76,8 @@ LP  (?=[ \t]*\()
 "#"("{evaluate}"|"evaluate"){LP}    { this.pushState('bp');  return 'EVALUATE'; }
 "#"("{define}"|"define"){LP}        { this.pushState('bp');  return 'DEFINE'; }
 "#"("{macro}"|"macro"){LP}          { this.pushState('bpm'); return 'MACRO'; }
-"#"(\{{A}+\}|{A}+){LP}              { this.pushState('bpm'); return 'MACROCALL'; }
-"#@"(\{{A}+\}|{A}+){LP}             { this.pushState('bpm'); return 'BMACROCALL'; }
+"#"(\{{ID}\}|{ID}){LP}              { this.pushState('bpm'); return 'MACROCALL'; }
+"#@"(\{{ID}\}|{ID}){LP}             { this.pushState('bpm'); return 'BMACROCALL'; }
 
 <bp>[ \t]*"("                       { this.popState();
                                       this.pushState('p');   return '('; }

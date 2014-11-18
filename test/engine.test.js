@@ -58,5 +58,12 @@ describe('engine.test.js', function () {
         favorites: ['food', 'travel', 'comic', '...']
       }).should.equal(utils.string('macro-result.txt'))
     })
+
+    it('should throw an error when calling an undefined macro', function() {
+      var engine = new Engine({
+        template: '#a()'
+      })
+      engine.render.bind().should.throw()
+    })
   })
 })

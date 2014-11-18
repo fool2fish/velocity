@@ -569,4 +569,62 @@ describe('parser.test.js', function () {
       alternate.consequent.body.should.length(3)
     })
   })
+
+  describe('Macro', function() {
+    it('should define a macro', function() {
+      var ast = parser.parse('#macro(a)#end')
+      ast.body[0].type.should.equal('Macro')
+      ast.body[0].name.should.equal('a')
+
+      ast = parser.parse('#macro(_a)#end')
+      ast.body[0].type.should.equal('Macro')
+      ast.body[0].name.should.equal('_a')
+
+      ast = parser.parse('#macro(a-)#end')
+      ast.body[0].type.should.equal('Macro')
+      ast.body[0].name.should.equal('a-')
+
+      ast = parser.parse('#macro(a1)#end')
+      ast.body[0].type.should.equal('Macro')
+      ast.body[0].name.should.equal('a1')
+
+      parser.parse.bind('#macro(a*)#end').should.throw()
+
+      parser.parse.bind('#macro(1a)#end').should.throw()
+    })
+  })
+
+  describe('MacroCall', function() {
+    it('should call a macro', function() {
+      var ast = parser.parse('#a()')
+      ast.body[0].type.should.equal('MacroCall')
+      ast.body[0].name.should.equal('a')
+
+      ast = parser.parse('#1a()')
+      ast.body[0].type.should.equal('Text')
+
+      ast = parser.parse('#a*()')
+      ast.body[0].type.should.equal('Text')
+
+      ast = parser.parse('#_a()')
+      ast.body[0].type.should.equal('MacroCall')
+      ast.body[0].name.should.equal('_a')
+
+      ast = parser.parse('#a-()')
+      ast.body[0].type.should.equal('MacroCall')
+      ast.body[0].name.should.equal('a-')
+
+      ast = parser.parse('#a1()')
+      ast.body[0].type.should.equal('MacroCall')
+      ast.body[0].name.should.equal('a1')
+
+      ast = parser.parse('#_if()')
+      ast.body[0].type.should.equal('MacroCall')
+      ast.body[0].name.should.equal('_if')
+
+      ast = parser.parse('#define1()')
+      ast.body[0].type.should.equal('MacroCall')
+      ast.body[0].name.should.equal('define1')
+    })
+  })
 })
