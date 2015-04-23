@@ -31,7 +31,7 @@ describe('engine.test.js', function () {
 
       engine.render({name: 'fengmk2'}).should.equal('Hello, fengmk2!\n')
       engine.render({name: ''}).should.equal('Hello, !\n')
-      engine.render({name: null}).should.equal('Hello, null!\n')
+      engine.render({name: null}).should.equal('Hello, ${name}!\n')
       engine.render({name: undefined}).should.equal('Hello, ${name}!\n')
       engine.render({}).should.equal('Hello, ${name}!\n')
     })
@@ -41,7 +41,7 @@ describe('engine.test.js', function () {
         template: 'ok $!id.'
       })
       engine.render({}).should.equal('ok .')
-      engine.render({id: null}).should.equal('ok null.')
+      engine.render({id: null}).should.equal('ok .')
       engine.render({id: 123}).should.equal('ok 123.')
       engine.render({id: 'foo'}).should.equal('ok foo.')
     })
