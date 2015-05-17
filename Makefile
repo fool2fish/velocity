@@ -28,6 +28,9 @@ test-cov cov:
 
 test-all: jshint test test-cov
 
+benchmark: install
+	@NODE_ENV=test node --harmony ./benchmarks/index
+
 autod: install
 	@./node_modules/.bin/autod -w
 	@$(MAKE) install
