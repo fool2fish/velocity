@@ -26,4 +26,4 @@ module.exports = {
   "results_per_page":15,
   "since_id":0,
   "since_id_str":"0"
-};
+}

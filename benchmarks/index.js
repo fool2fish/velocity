@@ -17,10 +17,6 @@ var velocityTempl = velocityEngine.compile()
 
 var nunjucksTempl = nunjucks.compile(nunjucksTemplStr)
 
-//var r = velocityEngine.render(context)
-//var r = velocityTempl(context);
-
-//console.log(r)
 suite.add('velocity without precompiling', function() {
   velocityEngine.render(context)
 })
