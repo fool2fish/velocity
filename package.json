@@ -13,7 +13,6 @@
   "dependencies": {
     "colorful": "~2.1.0",
     "commander": "~2.3.0",
-    "lodash": "^3.8.0",
     "tracer": "~0.7.3",
     "utilx": "0.0.5"
   },
