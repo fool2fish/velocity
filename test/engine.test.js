@@ -65,5 +65,17 @@ describe('engine.test.js', function () {
       })
       engine.render.bind().should.throw()
     })
+
+    it('should compile correctly', function() {
+      var engine = new Engine({
+        template: 'ok $!id.'
+      })
+
+      var compiledTempl = engine.compile()
+      compiledTempl({}).should.equal('ok .')
+      compiledTempl({id: null}).should.equal('ok .')
+      compiledTempl({id: 123}).should.equal('ok 123.')
+      compiledTempl({id: 'foo'}).should.equal('ok foo.')
+    })
   })
 })

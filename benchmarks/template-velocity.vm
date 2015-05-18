@@ -1,0 +1,15 @@
+<h1>Search completed in ${completed_in}s</h1>
+<ul class="meta-info">
+  <li>Your search keyword is $query</li>
+  <li>Click <a href="$refresh_url">Here</a> to refresh</li>
+</ul>
+<ul class="tweetSearchResultList">
+  #foreach($item in $results)
+    <li>
+      <img src="$item.profile_image_url" alt="$item.from_user_name"/>
+      <p>$item.text</p>
+      <span>$item.id</span>
+      <span>$item.created_at</span>
+    </li>
+  #end
+</ul>
