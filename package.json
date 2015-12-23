@@ -10,6 +10,10 @@
     "engine"
   ],
   "author": "fool2fish <fool2fish@gmail.com>",
+  "scripts": {
+    "test": "mocha -R spec -t 15000 -r should test/*.test.js",
+    "test-cov": "istanbul cover node_modules/.bin/_mocha -- -t 15000 -r should test/*.test.js"
+  },
   "dependencies": {
     "colorful": "~2.1.0",
     "commander": "~2.3.0",
@@ -22,7 +26,10 @@
     "mocha": "*",
     "should": "3.3.1",
     "istanbul": "*",
-    "cov": "*"
+    "cov": "*",
+    "jshint": "*",
+    "mocha": "*",
+    "should": "~5.2.0"
   },
   "repository": {
     "type": "git",
