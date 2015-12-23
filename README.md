@@ -16,6 +16,8 @@ Node 版 velocity 模板引擎。
 
 ---
 
+ANYONE WRITE SOME TESTS?
+
 ## 0. Features
 
 - Full implement of velocity syntax.
