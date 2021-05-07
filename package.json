@@ -1,6 +1,6 @@
 {
   "name": "velocity",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "A node velocity template engine.",
   "homepage": "https://github.com/fool2fish/velocity",
   "keywords": [
@@ -24,12 +24,10 @@
     "autod": "*",
     "contributors": "*",
     "mocha": "*",
-    "should": "3.3.1",
+    "should": "~5.2.0",
     "istanbul": "*",
     "cov": "*",
-    "jshint": "*",
-    "mocha": "*",
-    "should": "~5.2.0"
+    "jshint": "*"
   },
   "repository": {
     "type": "git",
